@@ -1,19 +1,38 @@
 import { Link } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from './ThemeContext';
 import ThemeToggle from './ThemeToggle';
 import '../App.css';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { theme } = useContext(ThemeContext);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  
+  // Add scroll event listener to change navbar appearance on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
-    <nav className={`navbar ${theme}`}>
+    <nav className={`navbar ${theme} ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
           SkyVision Drones
