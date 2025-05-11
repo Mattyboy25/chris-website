@@ -1695,6 +1695,7 @@ body.light .services-hero {
   opacity: 0.95;
   transition: opacity 0.5s ease;
   margin-bottom: 0; /* Remove any margin between banners */
+  cursor: pointer; /* Add pointer cursor to indicate interactivity */
 }
 
 .service-banner.visible {
@@ -1747,7 +1748,8 @@ body.light .text-right .banner-overlay {
   z-index: 2;
   display: flex;
   width: 100%;
-  padding: 0; /* Removed padding to allow content to touch edges */
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .content-left {
@@ -1759,70 +1761,84 @@ body.light .text-right .banner-overlay {
 }
 
 .banner-text {
-  max-width: 50%; /* Increased max-width for more breathing room */
-  padding: 30px 40px;
-  border-radius: 0; /* Removed border radius for a flatter look */
+  max-width: 100%; /* Use full width of the overlay */
+  padding: 25px 30px;
+  border-radius: 0;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  overflow: hidden;
+  display: flex; /* Add flexbox layout */
+  align-items: center; /* Vertically center items */
+  justify-content: space-between; /* Space items evenly */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  height: 100%; /* Make content full height of the overlay */
 }
 
 .text-left .banner-text {
   background: rgba(0, 0, 0, 0.7);
-  border-left: none; /* Removed left border */
   border-right: 4px solid #4bb6ef;
-  margin-left: 0; /* Content touches the left edge */
+  margin-left: 0;
 }
 
 .text-right .banner-text {
   background: rgba(0, 0, 0, 0.7);
-  border-right: none; /* Removed right border */
   border-left: 4px solid #4bb6ef;
-  margin-right: 0; /* Content touches the right edge */
-  text-align: right;
+  margin-right: 0;
+  flex-direction: row-reverse; /* Reverse order for right-aligned banners */
 }
 
-.service-icon {
-  font-size: 36px;
+.banner-text-content {
+  flex: 0 0 40%;
+  position: relative;
+  z-index: 2;
+}
+
+.service-feature-list-container {
+  flex: 0 0 55%;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Remove the button container as we're replacing with hover effect */
+.service-button-container {
+  font-size: 28px;
   margin-bottom: 15px;
-  display: inline-block;
-  padding: 15px;
-  border-radius: 50%;
-  background-color: rgba(75, 182, 239, 0.2);
-  box-shadow: 0 0 20px rgba(75, 182, 239, 0.4);
-}
-
-.banner-text h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
   color: #4bb6ef;
   text-shadow: 0 0 10px rgba(75, 182, 239, 0.4);
 }
 
 .banner-text p {
-  margin-bottom: 25px;
-  font-size: 18px;
-  line-height: 1.6;
+  margin-bottom: 15px;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .service-feature-list {
   list-style-type: none;
   padding: 0;
-  margin-bottom: 30px;
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.text-left .service-feature-list li {
-  padding-left: 30px;
+.text-left .service-feature-list li,
+.text-right .service-feature-list li {
+  padding-left: 25px;
   position: relative;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+  margin-right: 10px;
+  font-size: 15px;
+  flex: 0 0 45%; /* Two columns for features */
 }
 
 .text-right .service-feature-list li {
-  padding-right: 30px;
-  position: relative;
-  margin-bottom: 12px;
+  padding-right: 0;
+  text-align: left; /* Keep text left-aligned in list items */
 }
 
-.text-left .service-feature-list li:before {
+.text-left .service-feature-list li:before,
+.text-right .service-feature-list li:before {
   content: '✓';
   position: absolute;
   left: 0;
@@ -1830,22 +1846,14 @@ body.light .text-right .banner-overlay {
   font-weight: bold;
 }
 
-.text-right .service-feature-list li:before {
-  content: '✓';
-  position: absolute;
-  right: 0;
-  color: #4bb6ef;
-  font-weight: bold;
-}
-
 .service-btn {
-  padding: 12px 25px;
+  padding: 10px 20px;
   background-color: #4bb6ef;
   color: white;
   border: none;
-  border-radius: 30px;
+  border-radius: 25px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
   box-shadow: 0 5px 15px rgba(75, 182, 239, 0.3);
   transition: all 0.3s ease;
