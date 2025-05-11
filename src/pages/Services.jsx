@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import '../App.css';
+import '../styles/Services.css';
 import PageTransition from '../components/PageTransition';
 
 function Services() {
@@ -13,6 +13,7 @@ function Services() {
       fullDesc: "Our professional aerial photography services deliver breathtaking high-resolution images from unique perspectives that ground-based photography simply cannot achieve. Perfect for real estate listings, construction documentation, event coverage, or artistic landscape shots.",
       icon: "📸",
       image: "/images/services-aerial-photo.jpg",
+      videoSrc: "/videos/clouds.mp4", // Added video source
       features: [
         "Ultra high-resolution 48MP images",
         "Multiple angles and elevations",
@@ -28,6 +29,7 @@ function Services() {
       fullDesc: "Capture your projects in motion with our cinematic drone videography services. From smooth fly-overs to dynamic tracking shots, we create breathtaking footage that engages your audience with professional video quality suitable for commercials, promotional content, and social media.",
       icon: "🎥",
       image: "/images/services-drone-video.jpg",
+      videoSrc: "/videos/clouds.mp4", // Added video source
       features: [
         "4K/60fps video capability",
         "Smooth cinematic movements",
@@ -43,6 +45,7 @@ function Services() {
       fullDesc: "Elevate your property listings with our comprehensive real estate aerial tours. We combine exterior drone footage with interior walkthroughs to create complete property showcases that highlight every feature and help properties sell faster by giving potential buyers a true sense of the space.",
       icon: "🏠",
       image: "/images/services-real-estate.jpg",
+      videoSrc: "/videos/clouds.mp4", // Added video source
       features: [
         "Exterior aerial footage and photography",
         "Property boundary visualization",
@@ -58,6 +61,7 @@ function Services() {
       fullDesc: "Keep your construction projects on track with our comprehensive aerial monitoring services. We provide regular site documentation through aerial imagery and 3D mapping to track progress, identify potential issues, and maintain records for stakeholders.",
       icon: "🏢",
       image: "/images/services-construction.jpg",
+      videoSrc: "/videos/clouds.mp4", // Added video source
       features: [
         "Weekly or monthly progress documentation",
         "3D site mapping and modeling",
@@ -73,6 +77,7 @@ function Services() {
       fullDesc: "Our drone inspection services provide a safe and cost-effective alternative to traditional inspection methods. We can access difficult or dangerous areas without scaffolding or lifts, delivering detailed imagery of roofs, towers, power lines, bridges, and other structures.",
       icon: "🔍",
       image: "/images/services-inspection.jpg",
+      videoSrc: "/videos/clouds.mp4", // Added video source
       features: [
         "Thermal imaging capability",
         "Detailed visual reports",
@@ -88,6 +93,7 @@ function Services() {
       fullDesc: "Make your special events unforgettable with our drone event coverage services. Whether it's a wedding, concert, festival, or sporting event, our skilled pilots can capture the scale and excitement from above while documenting those once-in-a-lifetime moments from perspectives your guests will never forget.",
       icon: "🎪",
       image: "/images/services-events.jpg",
+      videoSrc: "/videos/clouds.mp4", // Added video source
       features: [
         "Live-streaming capability",
         "Crowd shots and venue overview",
@@ -182,6 +188,20 @@ function Services() {
                 className={`service-banner ${isEven ? 'text-left' : 'text-right'} ${visibleServices[service.id] ? 'visible' : ''}`}
                 style={{ backgroundImage: `url(${service.image})` }}
               >
+                {/* Video background container */}
+                <div className="banner-video-container">
+                  <video
+                    className="banner-background-video"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={service.videoSrc} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                
                 <div className="banner-overlay"></div>
                 <div className={`banner-content ${isEven ? 'content-left' : 'content-right'}`}>
                   <motion.div

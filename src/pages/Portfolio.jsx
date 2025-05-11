@@ -1,6 +1,7 @@
-import React from 'react';
-import '../App.css';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
+import '../styles/Portfolio.css'; // Updated import to use Portfolio.css
 
 function Portfolio() {
   // This would ideally be populated from a database or CMS

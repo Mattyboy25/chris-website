@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import '../App.css';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 import PageTransition from '../components/PageTransition';
+import '../styles/Contact.css';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -48,23 +49,23 @@ function Contact() {
             
             <div className="contact-details">
               <div className="contact-item">
-                <i className="fas fa-phone"></i>
+                <FaPhone />
                 <p>(555) 123-4567</p>
               </div>
               <div className="contact-item">
-                <i className="fas fa-envelope"></i>
+                <FaEnvelope />
                 <p>info@skyvisiondrones.com</p>
               </div>
               <div className="contact-item">
-                <i className="fas fa-map-marker-alt"></i>
+                <FaMapMarkerAlt />
                 <p>123 Drone Ave, Skyview, CA 90210</p>
               </div>
             </div>
             
             <div className="social-links">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
             </div>
           </div>
           
