@@ -6,6 +6,14 @@ const AnimatedLayout = ({ children }) => {
   const contentRef = useRef(null);
   const location = useLocation();
   
+  // Auto-scroll to top on page change
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, [location.pathname]);
+  
   // Track when location changes to measure new height
   useEffect(() => {
     const updateHeight = () => {
@@ -13,14 +21,13 @@ const AnimatedLayout = ({ children }) => {
         // Get the actual scrollHeight of the content
         const contentScrollHeight = contentRef.current.scrollHeight;
         
-        // Add extra padding for safety, especially for About page
-        const extraPadding = location.pathname === '/about' ? 200 : 100;
+      
         
         // Set a minimum height to avoid collapsing during transitions
         const minHeight = window.innerHeight - 80; // 80px for navbar
         
         // Use the maximum of these values with added safety padding
-        const newHeight = Math.max(contentScrollHeight + extraPadding, minHeight);
+        const newHeight = Math.max(contentScrollHeight, minHeight);
         
         setContentHeight(`${newHeight}px`);
         console.log(`Setting height for ${location.pathname}: ${newHeight}px`);
@@ -50,7 +57,7 @@ const AnimatedLayout = ({ children }) => {
         subtree: true,
         attributes: true
       });
-    }
+    };
     
     // Extra safety: measure after images and other resources load
     window.addEventListener('load', updateHeight);
