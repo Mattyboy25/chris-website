@@ -183,43 +183,41 @@ function Services() {
                 style={{ backgroundImage: `url(${service.image})` }}
               >
                 <div className="banner-overlay"></div>
-                <div className="container">
-                  <div className={`banner-content ${isEven ? 'content-left' : 'content-right'}`}>
-                    <motion.div
-                      initial={{ opacity: 0, x: isEven ? -80 : 80 }}
-                      animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isEven ? -80 : 80 }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                      className="banner-text"
+                <div className={`banner-content ${isEven ? 'content-left' : 'content-right'}`}>
+                  <motion.div
+                    initial={{ opacity: 0, x: isEven ? -80 : 80 }}
+                    animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isEven ? -80 : 80 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="banner-text"
+                  >
+                    <span className="service-icon">{service.icon}</span>
+                    <h2>{service.title}</h2>
+                    <p>{service.fullDesc}</p>
+                    
+                    <ul className="service-feature-list">
+                      {service.features.map((feature, idx) => (
+                        <motion.li 
+                          key={idx}
+                          initial={{ opacity: 0, x: isEven ? -20 : 20 }}
+                          animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isEven ? -20 : 20 }}
+                          transition={{ duration: 0.5, delay: 0.2 + idx * 0.1 }}
+                        >
+                          {feature}
+                        </motion.li>
+                      ))}
+                    </ul>
+                    
+                    <motion.button 
+                      className="service-btn"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                      transition={{ duration: 0.5, delay: 0.6 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <span className="service-icon">{service.icon}</span>
-                      <h2>{service.title}</h2>
-                      <p>{service.fullDesc}</p>
-                      
-                      <ul className="service-feature-list">
-                        {service.features.map((feature, idx) => (
-                          <motion.li 
-                            key={idx}
-                            initial={{ opacity: 0, x: isEven ? -20 : 20 }}
-                            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isEven ? -20 : 20 }}
-                            transition={{ duration: 0.5, delay: 0.2 + idx * 0.1 }}
-                          >
-                            {feature}
-                          </motion.li>
-                        ))}
-                      </ul>
-                      
-                      <motion.button 
-                        className="service-btn"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                        transition={{ duration: 0.5, delay: 0.6 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        Request a Quote
-                      </motion.button>
-                    </motion.div>
-                  </div>
+                      Request a Quote
+                    </motion.button>
+                  </motion.div>
                 </div>
               </section>
             );
