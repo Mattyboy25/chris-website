@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import PageTransition from '../components/PageTransition';
 
 function Portfolio() {
   // This would ideally be populated from a database or CMS
@@ -49,29 +50,31 @@ function Portfolio() {
   ];
 
   return (
-    <div className="portfolio-container">
-      <h1>OUR WORK</h1>
-      <div className="portfolio-filter">
-        <button className="filter-btn active">All</button>
-        <button className="filter-btn">Real Estate</button>
-        <button className="filter-btn">Events</button>
-        <button className="filter-btn">Commercial</button>
-      </div>
-      <div className="portfolio-grid">
-        {portfolioItems.map(item => (
-          <div key={item.id} className="portfolio-item">
-            <div className="portfolio-img-container">
-              <img src={item.imageUrl} alt={item.title} className="portfolio-img" />
+    <PageTransition>
+      <div className="portfolio-container">
+        <h1>OUR WORK</h1>
+        <div className="portfolio-filter">
+          <button className="filter-btn active">All</button>
+          <button className="filter-btn">Real Estate</button>
+          <button className="filter-btn">Events</button>
+          <button className="filter-btn">Commercial</button>
+        </div>
+        <div className="portfolio-grid">
+          {portfolioItems.map(item => (
+            <div key={item.id} className="portfolio-item">
+              <div className="portfolio-img-container">
+                <img src={item.imageUrl} alt={item.title} className="portfolio-img" />
+              </div>
+              <div className="portfolio-content">
+                <h3>{item.title}</h3>
+                <p className="portfolio-category">{item.category}</p>
+                <p>{item.description}</p>
+              </div>
             </div>
-            <div className="portfolio-content">
-              <h3>{item.title}</h3>
-              <p className="portfolio-category">{item.category}</p>
-              <p>{item.description}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </PageTransition>
   );
 }
 
