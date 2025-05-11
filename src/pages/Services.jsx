@@ -160,20 +160,15 @@ function Services() {
             opacity: heroOpacity
           }}
         >
-          <h1>Professional Drone Services</h1>
-          <p>Elevate your perspective with our comprehensive range of aerial solutions</p>
-        </motion.div>
-
-        <div className="services-intro">
-          <div className="container">
-            <h2>How We Can Help You</h2>
+             <h1>How We Can Help You</h1>
             <p>
               At Upward Drone Services, we provide professional aerial photography, videography, and specialized 
               drone services for clients across various industries. Our FAA-certified pilots use cutting-edge 
               equipment to deliver stunning results that help you stand out.
             </p>
-          </div>
-        </div>
+        </motion.div>
+
+      
 
         <div className="services-banners">
           {services.map((service, index) => {
