@@ -35,7 +35,7 @@ function Navbar() {
     <nav className={`navbar ${theme} ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          SkyVision Drones
+          Upward Drone Services
         </Link>
         
         <div className="menu-icon" onClick={toggleMenu}>

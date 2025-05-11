@@ -43,10 +43,10 @@ function Footer() {
           <div className="social-media-wrap">
             <div className="footer-logo">
               <Link to="/" className="social-logo">
-                SkyVision Drones
+                Upward Drone Services
               </Link>
             </div>
-            <small className="website-rights">SkyVision © {new Date().getFullYear()}</small>
+            <small className="website-rights">Upward Drone Services © {new Date().getFullYear()}</small>
             <div className="social-icons">
               <Link
                 className="social-icon-link facebook"

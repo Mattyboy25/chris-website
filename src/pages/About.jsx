@@ -12,7 +12,7 @@ function About() {
       <div className="about-content">
         <div className="about-section">
           <h2>Our Story</h2>
-          <p>SkyVision Drones was founded with a passion for aerial photography and a vision to provide professional drone services to businesses and individuals. What started as a hobby quickly turned into a full-service drone company with a team of FAA-certified pilots and photography professionals.</p>
+          <p>Upward Drone Services was founded with a passion for aerial photography and a vision to provide professional drone services to businesses and individuals. What started as a hobby quickly turned into a full-service drone company with a team of FAA-certified pilots and photography professionals.</p>
           <p>We've worked with clients across various industries, from real estate and construction to weddings and special events, providing stunning aerial perspectives that capture the beauty and scale of any project or occasion.</p>
         </div>
         

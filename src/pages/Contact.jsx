@@ -51,7 +51,7 @@ function Contact() {
             </div>
             <div className="contact-item">
               <i className="fas fa-envelope"></i>
-              <p>info@skyvisiondrones.com</p>
+              <p>info@upwarddroneservices.com</p>
             </div>
             <div className="contact-item">
               <i className="fas fa-map-marker-alt"></i>
