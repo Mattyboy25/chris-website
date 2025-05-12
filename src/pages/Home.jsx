@@ -267,6 +267,23 @@ function Home() {
             </motion.div>
           </section>
           
+          {/* Equipment List Section */}
+          <section className="equipment-section glass-section">
+            <motion.div 
+              className="section-content"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeInUpVariants}
+            >
+              <h2 className="section-title">Our Equipment</h2>
+              <ul className="equipment-list">
+                <motion.li>DJI Mavic Air 2S</motion.li>
+                <motion.li>Sony a7iii</motion.li>
+              </ul>
+            </motion.div>
+          </section>
+          
           {/* Call to Action Section */}
           <section className="cta-section glass-section">
             <motion.div 
