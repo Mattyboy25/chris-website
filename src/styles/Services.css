@@ -300,7 +300,49 @@ body.light .text-right .banner-overlay {
   z-index: 2;
 }
 
+.banner-text h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #fff;
+  position: relative;
+  letter-spacing: 1px;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(75, 182, 239, 0.4);
+  transform: translateY(0);
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
 
+.banner-text h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 60px;
+  background: #4bb6ef;
+  box-shadow: 0 0 10px rgba(75, 182, 239, 0.6);
+  transition: width 0.3s ease;
+}
+
+.text-right .banner-text h2::after {
+  left: auto;
+  right: 0;
+}
+
+.service-banner:hover .banner-text h2 {
+  transform: translateY(-3px);
+  text-shadow: 0 0 15px rgba(75, 182, 239, 0.6);
+}
+
+.service-banner:hover .banner-text h2::after {
+  width: 100px;
+}
+
+body.light .banner-text h2 {
+  color: #333;
+}
 
 .text-right .banner-text {
 
@@ -457,6 +499,31 @@ body.dark .custom-services {
   background-color: #4bb6ef;
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(75, 182, 239, 0.4);
+}
+
+/* Service icon styling */
+.service-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  background: rgba(75, 182, 239, 0.2);
+  color: #4bb6ef;
+  font-size: 28px;
+  box-shadow: 0 0 15px rgba(75, 182, 239, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(75, 182, 239, 0.3);
+  transition: all 0.3s ease;
+}
+
+.service-banner:hover .service-icon {
+  transform: scale(1.1) rotate(5deg);
+  background: rgba(75, 182, 239, 0.4);
+  box-shadow: 0 0 20px rgba(75, 182, 239, 0.5);
 }
 
 /* Media queries for the banner services */
