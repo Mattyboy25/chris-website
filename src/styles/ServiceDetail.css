@@ -58,7 +58,7 @@ body.light .service-detail-hero-overlay {
 .service-detail-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px 80px;
+  padding: 95px 20px 80px;
 }
 
 .back-section {
@@ -73,7 +73,8 @@ body.light .service-detail-hero-overlay {
   transition: all 0.3s ease;
   padding: 8px 16px;
   border-radius: 30px;
-  background: rgba(75, 182, 239, 0.1);
+  outline: none;
+  border: 1px solid rgba(75, 182, 239, 0.3);
 }
 
 .back-btn svg {
