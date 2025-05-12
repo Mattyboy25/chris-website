@@ -6,6 +6,9 @@ const AnimatedLayout = ({ children }) => {
   const contentRef = useRef(null);
   const location = useLocation();
   
+  // Check if current page is Services
+  const isServicesPage = location.pathname === '/services';
+  
   // Auto-scroll to top on page change
   useEffect(() => {
     window.scrollTo({
@@ -16,12 +19,15 @@ const AnimatedLayout = ({ children }) => {
   
   // Track when location changes to measure new height
   useEffect(() => {
+    // Skip height management for Services page
+    if (isServicesPage) {
+      return;
+    }
+    
     const updateHeight = () => {
       if (contentRef.current) {
         // Get the actual scrollHeight of the content
         const contentScrollHeight = contentRef.current.scrollHeight;
-        
-      
         
         // Set a minimum height to avoid collapsing during transitions
         const minHeight = window.innerHeight - 80; // 80px for navbar
@@ -68,19 +74,22 @@ const AnimatedLayout = ({ children }) => {
       window.removeEventListener('load', updateHeight);
       observer.disconnect();
     };
-  }, [location.pathname]);
+  }, [location.pathname, isServicesPage]);
 
-  const wrapperStyle = {
-    minHeight: '100vh',
-    transition: 'height 0.5s ease',
-    height: contentHeight,
-    overflow: 'hidden',
-    paddingBottom: '20px' // Add some bottom padding
-  };
+  // Apply wrapper style conditionally
+  const wrapperStyle = isServicesPage 
+    ? { minHeight: '100vh' } // Simple style for Services page
+    : {
+        minHeight: '100vh',
+        transition: 'height 0.5s ease',
+        height: contentHeight,
+        overflow: 'hidden',
+        paddingBottom: '0px'
+      };
 
   return (
     <div style={wrapperStyle}>
-      <div ref={contentRef} style={{ paddingBottom: '20px' }}>
+      <div ref={contentRef} style={{ paddingBottom: '0px' }}>
         {children}
       </div>
     </div>

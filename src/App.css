@@ -74,6 +74,7 @@ main {
   width: 100%;
   max-width: 1200px;
   padding: 0 20px;
+  z-index: 100;
 }
 
 .navbar-logo {
@@ -371,16 +372,34 @@ main {
     height: 90vh;
     position: absolute;
     top: 80px;
-    left: -100%;
-    opacity: 1;
-    transition: all 0.5s ease;
-    background: #000;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    pointer-events: none;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 20px 0;
+  }
+
+  .nav-menu.light {
+    background: rgba(255, 255, 255, 0.95); /* More opaque background */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  }
+
+  .nav-menu.dark {
+    background: rgba(18, 18, 18, 0.95); /* More opaque background */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(75, 75, 90, 0.7);
   }
 
   .nav-menu.active {
-    left: 0;
     opacity: 1;
-    transition: all 0.5s ease;
+    visibility: visible;
+    pointer-events: all;
+    transition: all 0.4s ease;
     z-index: 1;
   }
 
@@ -388,7 +407,27 @@ main {
     margin: 0;
     width: 100%;
     text-align: center;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .nav-menu.active .nav-item {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(0.05s * var(--item-index));
+  }
+
+  .nav-links {
+    font-size: 1.2rem;
+    width: 100%;
+    display: block;
+    padding: 0.8rem 1rem;
+  }
+
+  .nav-links::after {
+    bottom: -5px;
   }
 
   .navbar-logo {
@@ -406,6 +445,23 @@ main {
     transform: translate(-100%, 60%);
     font-size: 1.8rem;
     cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+  }
+  
+  .menu-icon i {
+    transition: transform 0.4s ease;
+  }
+  
+  .menu-icon:hover i {
+    transform: scale(1.1);
+  }
+  
+  .navbar.light .menu-icon {
+    color: #333;
+  }
+  
+  .navbar.dark .menu-icon {
     color: #fff;
   }
 }
