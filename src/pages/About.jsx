@@ -1,6 +1,7 @@
 import React from 'react';
-import '../App.css';
+import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
+import '../styles/About.css'; // Updated import to use About.css
 
 function About() {
   return (

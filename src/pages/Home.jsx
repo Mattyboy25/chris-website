@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ThemeContext } from '../components/ThemeContext';
+import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
-import '../App.css';
+import { ThemeContext } from '../components/ThemeContext';
+import '../styles/Home.css'; // Updated import to use Home.css
 
 function Home() {
   const [videoError, setVideoError] = useState(false);
