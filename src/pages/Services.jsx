@@ -4,7 +4,7 @@ import '../styles/Services.css';
 import PageTransition from '../components/PageTransition';
 
 function Services() {
-  // Service data with more detailed information
+  // Service data with more detailed information and video sources
   const services = [
     {
       id: 1,
@@ -12,8 +12,7 @@ function Services() {
       shortDesc: "Stunning high-resolution aerial imagery for any project.",
       fullDesc: "Our professional aerial photography services deliver breathtaking high-resolution images from unique perspectives that ground-based photography simply cannot achieve. Perfect for real estate listings, construction documentation, event coverage, or artistic landscape shots.",
       icon: "📸",
-      image: "/images/services-aerial-photo.jpg",
-      videoSrc: "/videos/clouds.mp4", // Added video source
+      videoSrc: "/videos/Houses.mp4",
       features: [
         "Ultra high-resolution 48MP images",
         "Multiple angles and elevations",
@@ -28,8 +27,7 @@ function Services() {
       shortDesc: "Cinematic 4K aerial footage for stunning visual content.",
       fullDesc: "Capture your projects in motion with our cinematic drone videography services. From smooth fly-overs to dynamic tracking shots, we create breathtaking footage that engages your audience with professional video quality suitable for commercials, promotional content, and social media.",
       icon: "🎥",
-      image: "/images/services-drone-video.jpg",
-      videoSrc: "/videos/clouds.mp4", // Added video source
+      videoSrc: "/videos/City.mp4",
       features: [
         "4K/60fps video capability",
         "Smooth cinematic movements",
@@ -44,8 +42,7 @@ function Services() {
       shortDesc: "Comprehensive property showcases from every angle.",
       fullDesc: "Elevate your property listings with our comprehensive real estate aerial tours. We combine exterior drone footage with interior walkthroughs to create complete property showcases that highlight every feature and help properties sell faster by giving potential buyers a true sense of the space.",
       icon: "🏠",
-      image: "/images/services-real-estate.jpg",
-      videoSrc: "/videos/Rooftops.mp4", // Added video source
+      videoSrc: "/videos/Residential.mp4",
       features: [
         "Exterior aerial footage and photography",
         "Property boundary visualization",
@@ -60,8 +57,7 @@ function Services() {
       shortDesc: "Regular site documentation for project management.",
       fullDesc: "Keep your construction projects on track with our comprehensive aerial monitoring services. We provide regular site documentation through aerial imagery and 3D mapping to track progress, identify potential issues, and maintain records for stakeholders.",
       icon: "🏢",
-      image: "/images/services-construction.jpg",
-      videoSrc: "/videos/clouds.mp4", // Added video source
+      videoSrc: "/videos/Construction.mp4",
       features: [
         "Weekly or monthly progress documentation",
         "3D site mapping and modeling",
@@ -76,8 +72,7 @@ function Services() {
       shortDesc: "Safe, efficient inspections of hard-to-reach areas.",
       fullDesc: "Our drone inspection services provide a safe and cost-effective alternative to traditional inspection methods. We can access difficult or dangerous areas without scaffolding or lifts, delivering detailed imagery of roofs, towers, power lines, bridges, and other structures.",
       icon: "🔍",
-      image: "/images/services-inspection.jpg",
-      videoSrc: "/videos/clouds.mp4", // Added video source
+      videoSrc: "/videos/Scaffolding.mp4",
       features: [
         "Thermal imaging capability",
         "Detailed visual reports",
@@ -88,12 +83,11 @@ function Services() {
     },
     {
       id: 6,
-      title: "Event Coverage",
+      title: "Weddings",
       shortDesc: "Capture special moments from spectacular perspectives.",
       fullDesc: "Make your special events unforgettable with our drone event coverage services. Whether it's a wedding, concert, festival, or sporting event, our skilled pilots can capture the scale and excitement from above while documenting those once-in-a-lifetime moments from perspectives your guests will never forget.",
       icon: "🎪",
-      image: "/images/services-events.jpg",
-      videoSrc: "/videos/clouds.mp4", // Added video source
+      videoSrc: "/videos/clouds.mp4",
       features: [
         "Live-streaming capability",
         "Crowd shots and venue overview",
@@ -104,12 +98,61 @@ function Services() {
     }
   ];
 
-  // Create refs for each service section
+  // Create refs for each service section and video
   const serviceSectionRefs = services.map(() => useRef(null));
+  const videoRefs = services.map(() => useRef(null));
   const containerRef = useRef(null);
   
   // Track which services are in view
   const [visibleServices, setVisibleServices] = useState({});
+
+  // Create thumbnail images from video and handle hover
+  useEffect(() => {
+    services.forEach((service, index) => {
+      const videoElement = videoRefs[index]?.current;
+      const sectionElement = serviceSectionRefs[index]?.current;
+      
+      if (videoElement && sectionElement) {
+        // Generate thumbnail from first frame
+        videoElement.currentTime = 0.1;
+        
+        videoElement.addEventListener('loadeddata', function handleLoad() {
+          const canvas = document.createElement('canvas');
+          canvas.width = videoElement.videoWidth;
+          canvas.height = videoElement.videoHeight;
+          
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+          
+          const poster = canvas.toDataURL('image/jpeg');
+          sectionElement.style.backgroundImage = `url(${poster})`;
+          
+          videoElement.removeEventListener('loadeddata', handleLoad);
+        });
+        
+        // Handle hover to play/pause video
+        sectionElement.addEventListener('mouseenter', () => {
+          videoElement.play().catch(err => console.error("Video play error:", err));
+        });
+        
+        sectionElement.addEventListener('mouseleave', () => {
+          videoElement.pause();
+          videoElement.currentTime = 0.1;
+        });
+      }
+    });
+    
+    // Cleanup event listeners
+    return () => {
+      services.forEach((service, index) => {
+        const sectionElement = serviceSectionRefs[index]?.current;
+        if (sectionElement) {
+          sectionElement.removeEventListener('mouseenter', () => {});
+          sectionElement.removeEventListener('mouseleave', () => {});
+        }
+      });
+    };
+  }, []);
 
   // Check if sections are in view with improved threshold
   useEffect(() => {
@@ -160,15 +203,20 @@ function Services() {
             opacity: heroOpacity
           }}
         >
-             <h1>How We Can Help You</h1>
+          <h1>Professional Drone Services</h1>
+          <p>Elevate your perspective with our comprehensive range of aerial solutions</p>
+        </motion.div>
+
+        <div className="services-intro">
+          <div className="container">
+            <h2>How We Can Help You</h2>
             <p>
               At Upward Drone Services, we provide professional aerial photography, videography, and specialized 
               drone services for clients across various industries. Our FAA-certified pilots use cutting-edge 
               equipment to deliver stunning results that help you stand out.
             </p>
-        </motion.div>
-
-      
+          </div>
+        </div>
 
         <div className="services-banners">
           {services.map((service, index) => {
@@ -181,16 +229,16 @@ function Services() {
                 ref={serviceSectionRefs[index]}
                 data-service-id={service.id}
                 className={`service-banner ${isEven ? 'text-left' : 'text-right'} ${visibleServices[service.id] ? 'visible' : ''}`}
-                style={{ backgroundImage: `url(${service.image})` }}
               >
                 {/* Video background container */}
                 <div className="banner-video-container">
                   <video
+                    ref={videoRefs[index]}
                     className="banner-background-video"
-                    autoPlay
                     muted
                     loop
                     playsInline
+                    preload="auto"
                   >
                     <source src={service.videoSrc} type="video/mp4" />
                     Your browser does not support the video tag.

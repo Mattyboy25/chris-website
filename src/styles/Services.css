@@ -102,15 +102,16 @@ body.light .services-hero {
 .service-banner {
   position: relative;
   width: 100%;
+  margin-bottom:10px;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: fixed; /* Keep this for parallax scrolling effect */
   display: flex;
   align-items: center;
   overflow: hidden;
   opacity: 0.95;
   transition: opacity 0.5s ease;
-  margin-bottom: 0;
+  
   cursor: pointer;
   padding: 60px 0;
 }
@@ -142,7 +143,7 @@ body.light .service-banner::before {
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
   z-index: 1;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(5px);
   transition: opacity 0.5s ease;
 }
@@ -169,6 +170,7 @@ body.light .text-right .banner-overlay {
   top: 0;
   left: 0;
   width: 100%;
+  
   height: 100%;
   z-index: 0;
   opacity: 0;
@@ -190,6 +192,7 @@ body.light .text-right .banner-overlay {
   height: auto;
   transform: translateX(-50%) translateY(-50%) scale(1.05);
   object-fit: cover;
+  background-attachment: fixed; /* Match the background-attachment of service-banner */
 }
 
 .service-banner:hover::before {
