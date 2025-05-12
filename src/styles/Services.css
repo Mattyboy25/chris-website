@@ -102,10 +102,10 @@ body.light .services-hero {
 .service-banner {
   position: relative;
   width: 100%;
-  margin-bottom:10px;
+  margin-bottom:15px;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Keep this for parallax scrolling effect */
+  background-attachment: fixed;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -114,6 +114,77 @@ body.light .services-hero {
   
   cursor: pointer;
   padding: 60px 0;
+  /* Add position for border effects */
+  position: relative;
+}
+
+.service-banner::after,
+.service-banner::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #4bb6ef, #4bb6ef, transparent);
+  transition: width 0.8s ease;
+  z-index: 3;
+  opacity: 0;
+}
+
+.service-banner::before {
+  top: 0;
+}
+
+.service-banner::after {
+  bottom: 0;
+  right: 0;
+  left: auto;
+}
+
+.service-banner:hover::before,
+.service-banner:hover::after {
+  width: 100%;
+  opacity: 1;
+  box-shadow: 0 0 15px #4bb6ef;
+}
+
+/* Border animation */
+@keyframes glowBorderLeft {
+  0% {
+    width: 0;
+    opacity: 0;
+    left: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    width: 100%;
+    opacity: 0.7;
+    left: 0;
+  }
+}
+
+@keyframes glowBorderRight {
+  0% {
+    width: 0;
+    opacity: 0;
+    right: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 0.7;
+    right: 0;
+  }
+}
+
+
+
+.service-banner:hover::after {
+  animation: glowBorderRight .6s ease-in-out;
 }
 
 .service-banner.visible {
