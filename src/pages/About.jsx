@@ -9,14 +9,15 @@ function About() {
       <div className="about-container" style={{ backgroundImage: 'url(/images/mountain-drone-view.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="about-hero">
           <h1>ABOUT US</h1>
-          <p>Professional Drone Services Since 2020</p>
+          <p>Professional Drone Services Since 2025</p>
         </div>
         
         <div className="about-content">
           <div className="about-section">
             <h2>Our Story</h2>
-            <p>SkyVision Drones was founded with a passion for aerial photography and a vision to provide professional drone services to businesses and individuals. What started as a hobby quickly turned into a full-service drone company with a team of FAA-certified pilots and photography professionals.</p>
-            <p>We've worked with clients across various industries, from real estate and construction to weddings and special events, providing stunning aerial perspectives that capture the beauty and scale of any project or occasion.</p>
+            <p>Upward Drone Services was born from a deep passion for aerial photography and a desire to bring fresh perspectives to everyday moments and major projects alike. What began as a personal interest in drones and visual storytelling has grown into a professional pursuit, built on a strong foundation of FAA certification, training, and creative vision.</p>
+            <p>While we're new to the industry, we bring a high level of dedication, technical skill, and a commitment to excellence in every flight. Our mission is to serve local businesses, real estate agents, contractors, and event planners with high-quality aerial imagery that adds value, clarity, and impact.</p>
+            <p>We’re actively building our portfolio and would love the opportunity to help showcase your property, project, or special event from above.</p>
           </div>
           
           <div className="about-section">
@@ -24,18 +25,13 @@ function About() {
             <div className="team-grid">
               <div className="team-member">
                 <div className="team-img-placeholder"></div>
-                <h3>Chris Johnson</h3>
+                <h3>Christian Jacobs</h3>
                 <p>Founder & Lead Pilot</p>
               </div>
               <div className="team-member">
                 <div className="team-img-placeholder"></div>
-                <h3>Sarah Williams</h3>
-                <p>Photography Director</p>
-              </div>
-              <div className="team-member">
-                <div className="team-img-placeholder"></div>
-                <h3>Michael Chen</h3>
-                <p>Video Editor</p>
+                <h3>Matthew Odumosu</h3>
+                <p>Drone Technician & Field Assistant</p>
               </div>
             </div>
           </div>
@@ -44,7 +40,7 @@ function About() {
             <h2>Our Equipment</h2>
             <p>We use only the latest drone technology and camera equipment to ensure the highest quality results for our clients. Our fleet includes:</p>
             <ul className="equipment-list">
-              <li>DJI Mavic 3 Pro with Hasselblad camera</li>
+              <li>DJI Mavic Air 2S</li>
               <li>DJI Inspire 2 with Zenmuse X7 camera</li>
               <li>DJI FPV for dynamic action shots</li>
               <li>Professional editing software and workstations</li>
