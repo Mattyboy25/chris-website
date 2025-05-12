@@ -11,19 +11,18 @@ import '../styles/ServiceDetail.css';
 // Remove the hardcoded services array as we're now importing it from servicesData.js
 
 function ServiceDetail() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [service, setService] = useState(null);
   
-  // Get the service based on the ID in the URL
+  // Get the service based on the slug in the URL
   useEffect(() => {
-    const serviceId = parseInt(id, 10);
-    const foundService = services.find(s => s.id === serviceId);
+    const foundService = services.find(s => s.slug === slug);
     setService(foundService);
     
     // Scroll to top when the component mounts
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [slug]);
   
   // Function to get service by ID for related services
   const getServiceById = (serviceId) => {
@@ -55,12 +54,11 @@ function ServiceDetail() {
     <PageTransition>
       <div className="service-detail-page">
  
-        
         {/* Main Content */}
         <div className="service-detail-container">
           <div className="back-section">
             <motion.button 
-              className="back-btn"
+              className=" back-btn"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate('/services')}
@@ -186,7 +184,7 @@ function ServiceDetail() {
                     const relatedService = getServiceById(relatedId);
                     return (
                       <li key={relatedId}>
-                        <Link to={`/services/${relatedId}`}>
+                        <Link to={`/services/${relatedService.slug}`}>
                           {relatedService ? relatedService.title : 'Unknown Service'}
                         </Link>
                       </li>

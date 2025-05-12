@@ -19,9 +19,9 @@ function Services() {
   // Track which services are in view
   const [visibleServices, setVisibleServices] = useState({});
 
-  // Handle navigation to service detail page
-  const handleServiceClick = (serviceId) => {
-    navigate(`/services/${serviceId}`);
+  // Handle navigation to service detail page using slug instead of ID
+  const handleServiceClick = (slug) => {
+    navigate(`/services/${slug}`);
   };
 
   // Create thumbnail images from video and handle hover
@@ -147,7 +147,7 @@ function Services() {
                 ref={serviceSectionRefs[index]}
                 data-service-id={service.id}
                 className={`service-banner ${isEven ? 'text-left' : 'text-right'} ${visibleServices[service.id] ? 'visible' : ''}`}
-                onClick={() => handleServiceClick(service.id)}
+                onClick={() => handleServiceClick(service.slug)}
               >
                 {/* Video background container */}
                 <div className="banner-video-container">
@@ -197,7 +197,7 @@ function Services() {
                       whileTap={{ scale: 0.95 }}
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent the parent onClick from triggering
-                        handleServiceClick(service.id);
+                        handleServiceClick(service.slug);
                       }}
                     >
                       Learn More

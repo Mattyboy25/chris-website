@@ -75,6 +75,7 @@ body.light .service-detail-hero-overlay {
   border-radius: 30px;
   outline: none;
   border: 1px solid rgba(75, 182, 239, 0.3);
+  background-color: ;
 }
 
 .back-btn svg {

@@ -5,6 +5,7 @@ import { FaCamera, FaVideo, FaHome, FaBuilding, FaSearchPlus, FaRing } from 'rea
 export const services = [
   {
     id: 1,
+    slug: "aerial-photography",
     title: "Aerial Photography",
     shortDesc: "Stunning high-resolution aerial imagery for any project.",
     fullDesc: "Our professional aerial photography services deliver breathtaking high-resolution images from unique perspectives that ground-based photography simply cannot achieve. Perfect for real estate listings, construction documentation, event coverage, or artistic landscape shots.",
@@ -34,6 +35,7 @@ export const services = [
   },
   {
     id: 2,
+    slug: "drone-videography",
     title: "Drone Videography",
     shortDesc: "Cinematic 4K aerial footage for stunning visual content.",
     fullDesc: "Capture your projects in motion with our cinematic drone videography services. From smooth fly-overs to dynamic tracking shots, we create breathtaking footage that engages your audience with professional video quality suitable for commercials, promotional content, and social media.",
@@ -63,6 +65,7 @@ export const services = [
   },
   {
     id: 3,
+    slug: "real-estate-tours",
     title: "Real Estate Tours",
     shortDesc: "Comprehensive property showcases from every angle.",
     fullDesc: "Elevate your property listings with our comprehensive real estate aerial tours. We combine exterior drone footage with interior walkthroughs to create complete property showcases that highlight every feature and help properties sell faster by giving potential buyers a true sense of the space.",
@@ -92,6 +95,7 @@ export const services = [
   },
   {
     id: 4,
+    slug: "construction-monitoring",
     title: "Construction Monitoring",
     shortDesc: "Regular site documentation for project management.",
     fullDesc: "Keep your construction projects on track with our comprehensive aerial monitoring services. We provide regular site documentation through aerial imagery and 3D mapping to track progress, identify potential issues, and maintain records for stakeholders.",
@@ -121,6 +125,7 @@ export const services = [
   },
   {
     id: 5,
+    slug: "inspection-services",
     title: "Inspection Services",
     shortDesc: "Safe, efficient inspections of hard-to-reach areas.",
     fullDesc: "Our drone inspection services provide a safe and cost-effective alternative to traditional inspection methods. We can access difficult or dangerous areas without scaffolding or lifts, delivering detailed imagery of roofs, towers, power lines, bridges, and other structures.",
@@ -150,6 +155,7 @@ export const services = [
   },
   {
     id: 6,
+    slug: "wedding-event-coverage",
     title: "Wedding & Event Coverage",
     shortDesc: "Capture special moments from spectacular perspectives.",
     fullDesc: "Make your special events unforgettable with our drone event coverage services. Whether it's a wedding, concert, festival, or sporting event, our skilled pilots can capture the scale and excitement from above while documenting those once-in-a-lifetime moments from perspectives your guests will never forget.",
@@ -187,4 +193,14 @@ export const iconMap = {
   FaBuilding,
   FaSearchPlus,
   FaRing
+};
+
+// Helper function to get service by slug
+export const getServiceBySlug = (slug) => {
+  return services.find(service => service.slug === slug);
+};
+
+// Helper function to get service by id
+export const getServiceById = (id) => {
+  return services.find(service => service.id === parseInt(id, 10));
 };
