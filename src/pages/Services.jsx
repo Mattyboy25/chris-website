@@ -87,7 +87,7 @@ function Services() {
       shortDesc: "Capture special moments from spectacular perspectives.",
       fullDesc: "Make your special events unforgettable with our drone event coverage services. Whether it's a wedding, concert, festival, or sporting event, our skilled pilots can capture the scale and excitement from above while documenting those once-in-a-lifetime moments from perspectives your guests will never forget.",
       icon: "🎪",
-      videoSrc: "/videos/clouds.mp4",
+      videoSrc: "/videos/Wedding.mp4",
       features: [
         "Live-streaming capability",
         "Crowd shots and venue overview",
