@@ -41,9 +41,9 @@ function About() {
             <p>We use only the latest drone technology and camera equipment to ensure the highest quality results for our clients. Our fleet includes:</p>
             <ul className="equipment-list">
               <li>DJI Mavic Air 2S</li>
-              <li>DJI Inspire 2 with Zenmuse X7 camera</li>
-              <li>DJI FPV for dynamic action shots</li>
-              <li>Professional editing software and workstations</li>
+              <li>Sony a7iii</li>
+              
+              
             </ul>
           </div>
         </div>
