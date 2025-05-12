@@ -204,7 +204,9 @@ body.dark .service-detail-section h2 {
   background: rgba(75, 182, 239, 0.05);
   padding: 15px;
   border-radius: 8px;
-  transition: all 0.3s ease;
+
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .detail-feature-list li:hover {
@@ -286,25 +288,7 @@ body.dark .process-step h3 {
   flex-direction: column;
   gap: 30px;
 }
-
-.service-cta-card,
-.service-info-card,
-.related-services {
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-body.light .service-cta-card,
-body.light .service-info-card,
-body.light .related-services {
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
+ 
 body.dark .service-cta-card,
 body.dark .service-info-card,
 body.dark .related-services {
@@ -314,11 +298,6 @@ body.dark .related-services {
   border: 1px solid rgba(75, 75, 75, 0.3);
 }
 
-.service-cta-card:hover,
-.service-info-card:hover,
-.related-services:hover {
-  transform: translateY(-5px);
-}
 
 body.light .service-cta-card:hover,
 body.light .service-info-card:hover,
@@ -431,6 +410,8 @@ body.dark .info-item {
   background: linear-gradient(135deg, rgba(75, 182, 239, 0.1), rgba(75, 182, 239, 0.2));
   border-radius: 10px;
   margin-top: 50px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .service-detail-cta h2 {

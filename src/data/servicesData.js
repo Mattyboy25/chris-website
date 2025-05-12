@@ -10,7 +10,7 @@ export const services = [
     shortDesc: "Stunning high-resolution aerial imagery for any project.",
     fullDesc: "Our professional aerial photography services deliver breathtaking high-resolution images from unique perspectives that ground-based photography simply cannot achieve. Perfect for real estate listings, construction documentation, event coverage, or artistic landscape shots.",
     iconName: "FaCamera",
-    videoSrc: "/videos/Houses.mp4",
+    videoSrc: "/videos/Town.mp4",
     features: [
       "Ultra high-resolution 48MP images",
       "Multiple angles and elevations",
@@ -160,7 +160,7 @@ export const services = [
     shortDesc: "Capture special moments from spectacular perspectives.",
     fullDesc: "Make your special events unforgettable with our drone event coverage services. Whether it's a wedding, concert, festival, or sporting event, our skilled pilots can capture the scale and excitement from above while documenting those once-in-a-lifetime moments from perspectives your guests will never forget.",
     iconName: "FaRing",
-    videoSrc: "/videos/Wedding.mp4",
+    videoSrc: "/videos/Weddingrings.mp4",
     features: [
       "Live-streaming capability",
       "Crowd shots and venue overview",
