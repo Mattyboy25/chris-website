@@ -24,10 +24,7 @@ function ServiceDetail() {
     window.scrollTo(0, 0);
   }, [slug]);
   
-  // Function to get service by ID for related services
-  const getServiceById = (serviceId) => {
-    return services.find(s => s.id === serviceId);
-  };
+  // Removing the getServiceById function as it's no longer needed
 
   if (!service) {
     return (
@@ -172,26 +169,7 @@ function ServiceDetail() {
                 </div>
               </motion.div>
               
-              <motion.div 
-                className="related-services"
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                <h3>Related Services</h3>
-                <ul>
-                  {service.relatedServices.map((relatedId) => {
-                    const relatedService = getServiceById(relatedId);
-                    return (
-                      <li key={relatedId}>
-                        <Link to={`/services/${relatedService.slug}`}>
-                          {relatedService ? relatedService.title : 'Unknown Service'}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </motion.div>
+              {/* Related services section removed */}
             </div>
           </div>
           

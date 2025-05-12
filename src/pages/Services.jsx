@@ -114,25 +114,12 @@ function Services() {
   return (
     <PageTransition>
       <div className="services-page" ref={containerRef}>
-        <motion.div 
-          className="services-hero"
-          style={{ 
-            y: heroY,
-            opacity: heroOpacity
-          }}
-        >
-          <h1>Professional Drone Services</h1>
-          <p>Elevate your perspective with our comprehensive range of aerial solutions</p>
-        </motion.div>
+      
 
         <div className="services-intro">
           <div className="container">
-            <h2>How We Can Help You</h2>
-            <p>
-              At Upward Drone Services, we provide professional aerial photography, videography, and specialized 
-              drone services for clients across various industries. Our FAA-certified pilots use cutting-edge 
-              equipment to deliver stunning results that help you stand out.
-            </p>
+
+
           </div>
         </div>
 

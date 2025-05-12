@@ -74,8 +74,19 @@ body.light .service-detail-hero-overlay {
   padding: 8px 16px;
   border-radius: 30px;
   outline: none;
+  cursor: pointer;
   border: 1px solid rgba(75, 182, 239, 0.3);
-  background-color: ;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode styling for back button */
+body.light .back-btn {
+  background-color: rgba(240, 240, 240, 0.8);
+}
+
+/* Dark mode styling for back button */
+body.dark .back-btn {
+  background-color: rgba(30, 30, 30, 0.8);
 }
 
 .back-btn svg {
