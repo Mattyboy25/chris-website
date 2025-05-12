@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { FaCamera, FaVideo, FaHome, FaBuilding, FaSearchPlus, FaRing } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Services.css';
 import PageTransition from '../components/PageTransition';
+import { FaCamera, FaVideo, FaHome, FaBuilding, FaSearchPlus, FaRing } from 'react-icons/fa';
 
 function Services() {
+  const navigate = useNavigate();
+  
   // Service data with more detailed information and video sources
   const services = [
     {
@@ -106,6 +109,11 @@ function Services() {
   
   // Track which services are in view
   const [visibleServices, setVisibleServices] = useState({});
+
+  // Handle navigation to service detail page
+  const handleServiceClick = (serviceId) => {
+    navigate(`/services/${serviceId}`);
+  };
 
   // Create thumbnail images from video and handle hover
   useEffect(() => {
@@ -230,6 +238,7 @@ function Services() {
                 ref={serviceSectionRefs[index]}
                 data-service-id={service.id}
                 className={`service-banner ${isEven ? 'text-left' : 'text-right'} ${visibleServices[service.id] ? 'visible' : ''}`}
+                onClick={() => handleServiceClick(service.id)}
               >
                 {/* Video background container */}
                 <div className="banner-video-container">
@@ -259,7 +268,7 @@ function Services() {
                     <p>{service.fullDesc}</p>
                     
                     <ul className="service-feature-list">
-                      {service.features.map((feature, idx) => (
+                      {service.features.slice(0, 3).map((feature, idx) => (
                         <motion.li 
                           key={idx}
                           initial={{ opacity: 0, x: isEven ? -20 : 20 }}
@@ -275,8 +284,12 @@ function Services() {
                       className="service-btn"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent the parent onClick from triggering
+                        handleServiceClick(service.id);
+                      }}
                     >
-                      Request a Quote
+                      View Service Details
                     </motion.button>
                   </motion.div>
                 </div>
@@ -303,6 +316,7 @@ function Services() {
                 className="contact-btn"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => navigate('/contact')}
               >
                 Contact Us
               </motion.button>
