@@ -298,6 +298,15 @@ body.dark .related-services {
   border: 1px solid rgba(75, 75, 75, 0.3);
 }
 
+body.light .service-cta-card,
+body.light .service-info-card,
+body.light .related-services {
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(200, 200, 200, 0.5);
+}
+
 
 body.light .service-cta-card:hover,
 body.light .service-info-card:hover,

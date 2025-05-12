@@ -389,7 +389,7 @@ body.dark .member-bio {
 }
 
 .certification-badge {
-  cursor: none;
+  cursor: default;
   display: inline-flex;
   align-items: center;
   gap: 6px;

@@ -5,8 +5,7 @@ import PageTransition from '../components/PageTransition';
 import '../styles/About.css';
 
 function About() {
-  const teamMembers = [
-    {
+  const teamMembers = [    {
       name: "Christian Jacobs",
       role: "Founder & Lead Pilot",
       quote: "Capturing the world from above is more than just flying a drone—it's about telling stories from a new perspective.",
@@ -17,9 +16,8 @@ function About() {
         instagram: "@chris.drones"
       },
       icon: <FaPlane />,
-      image: "/images/team/chris.jpg" // You'll need to add these images
-    },
-    {
+      image: "/images/chris.jpg" // You'll need to add these images
+    },{
       name: "Matthew Odumosu",
       role: "Drone Technician & Field Assistant",
       quote: "Every property has a unique story. Our job is to tell that story through stunning aerial imagery.",
@@ -30,7 +28,7 @@ function About() {
         instagram: "@sarah.aerial"
       },
       icon: <FaCamera />,
-      image: "/images/team/sarah.jpg"
+      image: "/images/matthew.png"
     }
  
   ];
