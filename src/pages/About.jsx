@@ -5,7 +5,7 @@ import PageTransition from '../components/PageTransition';
 function About() {
   return (
     <PageTransition>
-      <div className="about-container">
+      <div className="about-container" style={{ backgroundImage: 'url(/images/mountain-drone-view.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="about-hero">
           <h1>ABOUT US</h1>
           <p>Professional Drone Services Since 2020</p>
