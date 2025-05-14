@@ -93,7 +93,7 @@ function Services() {
         
         if (bannerElement) {
           // Calculate the position of the banner
-          const headerOffset = 120; // Height of navbar
+          const headerOffset = 260; // Height of navbar
           const bannerPosition = bannerElement.getBoundingClientRect().top;
           const offsetPosition = bannerPosition + window.pageYOffset;
           
