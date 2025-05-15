@@ -143,6 +143,12 @@ body.light .hero-content p {
   margin-top: 32px;
 }
 
+.button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
 /* Glassy modern button style */
 .glass-btn {
   padding: 14px 28px;
@@ -200,6 +206,23 @@ body.light .hero-content p {
 
 .hero-container.light .glass-btn:hover {
   background: rgba(75, 182, 239, 0.9);
+}
+
+/* Adjust glass-btn-alt for hero section */
+.hero-btns .glass-btn-alt {
+  padding: 14px 28px;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.hero-btns .glass-btn-alt:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
 }
 
 /* Keep existing styles for btn-primary as fallback */
@@ -563,7 +586,7 @@ body.dark .cta-section .section-description {
   background: rgba(255, 255, 255, 0.15);
   color: #4bb6ef;
   border: 1px solid rgba(75, 182, 239, 0.4);
-  border-radius: 30px;
+  border-radius: 4px;
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
@@ -748,6 +771,11 @@ body.dark .glass-btn-alt:hover {
   
   .content-wrapper {
     margin-top: -5vh;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 15px;
   }
 }
 

@@ -227,17 +227,23 @@ function Home() {
                 Elevating Your Perspective
               </motion.p>
             </div>
-            
-            <motion.div 
+              <motion.div 
               className="hero-btns"
               initial="hidden"
               animate="visible"
               variants={buttonVariants}
             >
-              <motion.div whileHover="hover">
-                <Link to="/services" className="btn-primary glass-btn">
-                  EXPLORE SERVICES
-                </Link>
+              <motion.div className="button-group">
+                <motion.div whileHover="hover">
+                  <Link to="/services" className="btn-primary glass-btn">
+                    EXPLORE SERVICES
+                  </Link>
+                </motion.div>
+                <motion.div whileHover="hover">
+                  <Link to="/about" className="glass-btn-alt">
+                    ABOUT US
+                  </Link>
+                </motion.div>
               </motion.div>
             </motion.div>
           </div>
