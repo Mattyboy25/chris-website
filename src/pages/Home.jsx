@@ -1,74 +1,18 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
-import { ThemeContext } from '../components/ThemeContext';
-import '../styles/Home.css'; // Updated import to use Home.css
+import '../styles/Home.css';
 
 function Home() {
   const [videoError, setVideoError] = useState(false);
-  const { theme } = useContext(ThemeContext);
-  const [currentVideo, setCurrentVideo] = useState(theme);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  
-  const lightVideoRef = useRef(null);
-  const darkVideoRef = useRef(null);
+  const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
 
   // Handle video error and fallback to background image
   const handleVideoError = () => {
     setVideoError(true);
   };
-
-  // Get the video source based on theme
-  const getLightVideoSource = () => '/videos/lightmode-bg (2).mp4';
-  const getDarkVideoSource = () => '/videos/darkmode-bg.mp4';
-
-  // Handle theme change with crossfade animation
-  useEffect(() => {
-    if (videoError) return;
-    
-    // Only trigger the transition if it's not the initial load
-    if (currentVideo !== theme) {
-      setIsTransitioning(true);
-      
-      // After transition is complete, update the current video to match theme
-      const timer = setTimeout(() => {
-        setCurrentVideo(theme);
-        setIsTransitioning(false);
-      }, 500); // 500ms matches the CSS transition duration (changed from 1000ms)
-      
-      return () => clearTimeout(timer);
-    }
-  }, [theme, currentVideo, videoError]);
-
-  // Keep both videos playing and in sync
-  useEffect(() => {
-    if (videoError) return;
-    
-    const lightVideo = lightVideoRef.current;
-    const darkVideo = darkVideoRef.current;
-    
-    if (lightVideo && darkVideo) {
-      // Ensure both videos play
-      const playVideos = async () => {
-        try {
-          if (lightVideo.paused) await lightVideo.play();
-          if (darkVideo.paused) await darkVideo.play();
-          
-          // Sync playback positions
-          if (Math.abs(lightVideo.currentTime - darkVideo.currentTime) > 0.5) {
-            darkVideo.currentTime = lightVideo.currentTime;
-          }
-        } catch (error) {
-          console.error("Video playback error:", error);
-          setVideoError(true);
-        }
-      };
-      
-      playVideos();
-    }
-  }, [videoError]);
 
   // Animation variants for text and button
   const titleVariants = {
@@ -90,7 +34,7 @@ function Home() {
       y: 0, 
       transition: { 
         duration: 0.8, 
-        delay: 0.3, 
+        delay: 0.3,  
         ease: "easeOut" 
       }
     }
@@ -132,35 +76,22 @@ function Home() {
   return (
     <PageTransition>
       <div className="home-wrapper">
-        <div className={`hero-container ${theme}`}>
+        <div className="hero-container">
           {!videoError ? (
             <div className="video-container" ref={videoContainerRef}>
-              {/* Light mode video */}
               <video 
-                ref={lightVideoRef}
-                src={getLightVideoSource()} 
+                ref={videoRef}
+                src="/videos/main-video.mp4"
                 autoPlay 
                 loop 
                 muted 
                 playsInline
-                className={`hero-video ${theme === 'light' && !isTransitioning ? 'visible' : 'hidden'} ${isTransitioning && theme === 'dark' ? 'fade-out' : ''}`}
-                onError={handleVideoError}
-              />
-              
-              {/* Dark mode video */}
-              <video 
-                ref={darkVideoRef}
-                src={getDarkVideoSource()} 
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                className={`hero-video ${theme === 'dark' && !isTransitioning ? 'visible' : 'hidden'} ${isTransitioning && theme === 'light' ? 'fade-out' : ''}`}
+                className="hero-video visible"
                 onError={handleVideoError}
               />
             </div>
           ) : (
-            <div className={`hero-fallback-bg ${theme}`}></div>
+            <div className="hero-fallback-bg"></div>
           )}
           <div className="hero-content">
             <motion.h1 

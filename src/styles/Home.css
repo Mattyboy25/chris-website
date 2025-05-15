@@ -19,12 +19,12 @@
 }
 
 .video-container {
-  position: fixed; /* This makes the video fixed/sticky as the user scrolls */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  z-index: -1;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Add an overlay to make video darker for better text visibility */
@@ -40,13 +40,19 @@
 }
 
 .hero-video {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
   position: absolute;
-  transform: scale(1.05);
-  transition: opacity 0.5s ease-in-out;
-  filter: none;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.hero-video.visible {
+  opacity: 1;
 }
 
 .hero-fallback-bg {
@@ -311,12 +317,12 @@ body.dark .service-card h2 {
 
 /* Video Container and Transitions */
 .video-container {
-  position: fixed; /* This makes the video fixed/sticky as the user scrolls */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  z-index: -1;
+  height: 100%;
+  overflow: hidden;
 }
 
 .video-container::after {
@@ -331,13 +337,15 @@ body.dark .service-card h2 {
 }
 
 .hero-video {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
   position: absolute;
-  transform: scale(1.05);
-  transition: opacity 0.5s ease-in-out;
-  filter: none;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
 }
 
 .hero-video.visible {
