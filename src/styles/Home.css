@@ -762,6 +762,27 @@ body.dark .glass-btn-alt:hover {
   display: inline-block;
   color: #4bb6ef;
   text-shadow: 0 0 10px rgba(75, 182, 239, 0.3);
+  transition: all 0.05s ease-out; /* Faster, smoother transition */
+}
+
+.changing-word.glow {
+  animation: glow-pulse 1.5s ease-in-out;
+}
+
+@keyframes glow-pulse {
+  0% {
+    text-shadow: 0 0 10px rgba(75, 182, 239, 0.3);
+  }
+  50% {
+    color: #5ec2f9;
+    text-shadow: 
+      0 0 20px rgba(75, 182, 239, 0.8),
+      0 0 30px rgba(75, 182, 239, 0.6),
+      0 0 40px rgba(75, 182, 239, 0.4);
+  }
+  100% {
+    text-shadow: 0 0 10px rgba(75, 182, 239, 0.3);
+  }
 }
 
 .changing-word::after {
@@ -779,15 +800,8 @@ body.dark .glass-btn-alt:hover {
 .static-text {
   opacity: 0.95;
   transform: translateZ(0);
-}
-
-@keyframes blink {
-  from, to { 
-    opacity: 0; 
-  }
-  50% { 
-    opacity: 1; 
-  }
+  color: #ffffff; /* White text for both themes */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Add shadow for better visibility */
 }
 
 .hero-titles {

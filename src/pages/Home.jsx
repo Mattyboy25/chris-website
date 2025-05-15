@@ -14,6 +14,7 @@ function Home() {
   const [wordIndex, setWordIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isWaiting, setIsWaiting] = useState(false);
+  const [isGlowing, setIsGlowing] = useState(false);
 
   const words = ['Awesome', 'Superior', 'Upward'];
   const staticText = 'Drone Services';
@@ -24,7 +25,7 @@ function Home() {
     if (isWaiting) return;
 
     if (!isDeleting) {
-      // Typing
+      // Typing - faster now
       if (charIndex < currentWord.length) {
         setChangingWord(currentWord.substring(0, charIndex + 1));
         setCharIndex(prev => prev + 1);
@@ -32,36 +33,39 @@ function Home() {
         // Finished typing word
         setIsWaiting(true);
         // Keep "Upward" displayed longer (5 seconds) than other words (2 seconds)
-        const waitTime = currentWord === 'Upward' ? 5000 : 2000;
+        const waitTime = currentWord === 'Upward' ? 3500 : 2000;
+        
+        if (currentWord === 'Upward') {
+          setIsGlowing(true);
+          setTimeout(() => setIsGlowing(false), 2500);
+        }
+        
         setTimeout(() => {
           setIsWaiting(false);
           if (currentWord !== 'Upward') {
-            // For other words, continue with delete animation
             setIsDeleting(true);
           } else {
-            // For "Upward", stay longer then reset to first word
             setTimeout(() => {
-              setCharIndex(0);
-              setWordIndex(0);
-            }, 3000); // Additional delay before resetting
+              setIsDeleting(true);
+            }, 3000);
           }
         }, waitTime);
       }
     } else {
-      // Deleting
+      // Deleting - immediate with no extra delay
       if (charIndex > 0) {
         setChangingWord(currentWord.substring(0, charIndex - 1));
         setCharIndex(prev => prev - 1);
       } else {
-        // Finished deleting
         setIsDeleting(false);
-        setWordIndex((prev) => prev + 1);
+        setWordIndex((prev) => (prev + 1) % words.length);
       }
     }
   }, [wordIndex, charIndex, isDeleting, words, isWaiting]);
 
   useEffect(() => {
-    const typingSpeed = isDeleting ? 75 : 100;
+    // Faster typing/deletion speeds
+    const typingSpeed = isDeleting ? 55 : 80; // Much faster now
     intervalRef.current = setInterval(handleTyping, typingSpeed);
 
     return () => {
@@ -160,7 +164,9 @@ function Home() {
                 animate="visible"
               >
                 <motion.h1 className="hero-title">
-                  <span className="typing-text changing-word">{changingWord}</span>
+                  <span className={`typing-text changing-word ${isGlowing ? 'glow' : ''}`}>
+                    {changingWord}
+                  </span>
                   <span className="static-text">{staticText}</span>
                 </motion.h1>
               </motion.div>
