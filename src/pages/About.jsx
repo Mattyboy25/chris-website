@@ -9,7 +9,7 @@ function About() {
       name: "Christian Jacobs",
       role: "Founder & Lead Pilot",
       quote: "Capturing the world from above is more than just flying a drone—it's about telling stories from a new perspective.",
-      bio: "FAA-certified drone pilot with over 5 years of experience in aerial photography. Specializes in commercial real estate and construction site documentation.",
+      bio: "FAA-certified drone pilot with experience in aerial photography. Specializes in commercial real estate and construction site documentation.",
       certifications: ["FAA Part 107", "DJI Certified"],
       social: {
         linkedin: "https://linkedin.com/in/chris-johnson",
@@ -21,7 +21,7 @@ function About() {
       name: "Matthew Odumosu",
       role: "Drone Technician & Field Assistant",
       quote: "Every property has a unique story. Our job is to tell that story through stunning aerial imagery.",
-      bio: "Award-winning photographer with expertise in aerial composition and post-processing. Led projects for major real estate developers across the state.",
+      bio: "Lead for operations and logistics. Ensures all equipment is flight-ready and assists in capturing the best shots.",
       certifications: ["Adobe Certified", "FAA Part 107"],
       social: {
         linkedin: "https://linkedin.com/in/sarah-williams",
@@ -83,10 +83,11 @@ function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
-                  whileHover={{ y: -10 }}
                 >
                   <div className="team-card-content">
-
+                    <div className="team-card-portrait">
+                      <img src={member.image} alt={member.name} className="portrait-image" />
+                    </div>
                     <h3>{member.name}</h3>
                     <span className="member-role">{member.role}</span>
                     
@@ -129,10 +130,6 @@ function About() {
                         <FaInstagram />
                       </motion.a>
                     </div>
-                  </div>
-                  
-                  <div className="team-card-image">
-                    <img src={member.image} alt={member.name} />
                   </div>
                 </motion.div>
               ))}
