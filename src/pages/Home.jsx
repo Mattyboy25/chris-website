@@ -256,9 +256,6 @@ function Home() {
                 </p>
                 
                 <div className="about-content-wrapper">
-                  <div className="image-container">
-                    <img src="/images/drone-hero.jpg" alt="Professional drone photography" />
-                  </div>
                   <Link to="/about" className="btn-secondary glass-btn-alt">
                     Learn More About Us
                   </Link>

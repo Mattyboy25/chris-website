@@ -427,6 +427,9 @@ body.dark .section-title {
   line-height: 1.6;
   margin-bottom: 40px;
   max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 body.light .section-description {
