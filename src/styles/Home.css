@@ -753,11 +753,15 @@ body.dark .glass-btn-alt:hover {
 
 .typing-text {
   position: relative;
+  color: #4bb6ef; /* Brand blue color */
+  text-shadow: 0 0 10px rgba(75, 182, 239, 0.3);
 }
 
 .changing-word {
   position: relative;
   display: inline-block;
+  color: #4bb6ef;
+  text-shadow: 0 0 10px rgba(75, 182, 239, 0.3);
 }
 
 .changing-word::after {
@@ -767,8 +771,9 @@ body.dark .glass-btn-alt:hover {
   top: 10%;
   height: 80%;
   width: 3px;
-  background: #fff;
+  background: #4bb6ef;
   animation: blink 0.75s step-end infinite;
+  box-shadow: 0 0 10px rgba(75, 182, 239, 0.5);
 }
 
 .static-text {

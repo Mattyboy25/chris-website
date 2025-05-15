@@ -13,6 +13,7 @@ function Home() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
+  const [isWaiting, setIsWaiting] = useState(false);
 
   const words = ['Awesome', 'Superior', 'Upward'];
   const staticText = 'Drone Services';
@@ -20,31 +21,44 @@ function Home() {
   const handleTyping = useCallback(() => {
     const currentWord = words[wordIndex];
     
+    if (isWaiting) return;
+
     if (!isDeleting) {
       // Typing
       if (charIndex < currentWord.length) {
-        setChangingWord(prev => currentWord.substring(0, charIndex + 1));
+        setChangingWord(currentWord.substring(0, charIndex + 1));
         setCharIndex(prev => prev + 1);
       } else {
         // Finished typing word
-        setTimeout(() => setIsDeleting(true), 2000); // Wait before deleting
+        setIsWaiting(true);
+        // Keep "Upward" displayed longer (5 seconds) than other words (2 seconds)
+        const waitTime = currentWord === 'Upward' ? 5000 : 2000;
+        setTimeout(() => {
+          setIsWaiting(false);
+          if (currentWord !== 'Upward') {
+            // For other words, continue with delete animation
+            setIsDeleting(true);
+          } else {
+            // For "Upward", stay longer then reset to first word
+            setTimeout(() => {
+              setCharIndex(0);
+              setWordIndex(0);
+            }, 3000); // Additional delay before resetting
+          }
+        }, waitTime);
       }
     } else {
       // Deleting
       if (charIndex > 0) {
-        setChangingWord(prev => currentWord.substring(0, charIndex - 1));
+        setChangingWord(currentWord.substring(0, charIndex - 1));
         setCharIndex(prev => prev - 1);
       } else {
         // Finished deleting
         setIsDeleting(false);
-        setWordIndex(prev => (prev + 1) % words.length);
-        if (wordIndex === words.length - 1) {
-          // If it's the last word, start over
-          setTimeout(() => setWordIndex(0), 500);
-        }
+        setWordIndex((prev) => prev + 1);
       }
     }
-  }, [wordIndex, charIndex, isDeleting, words]);
+  }, [wordIndex, charIndex, isDeleting, words, isWaiting]);
 
   useEffect(() => {
     const typingSpeed = isDeleting ? 75 : 100;
