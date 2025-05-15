@@ -14,9 +14,11 @@ function Home() {
   const [wordIndex, setWordIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isWaiting, setIsWaiting] = useState(false);
-  const [isGlowing, setIsGlowing] = useState(false);
+  const [isGlowing, setIsGlowing] = useState(false);  
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const audioRef = useRef(null);
 
-  const words = ['Awesome', 'Superior', 'Upward'];
+  const words = ['Inspiring', 'Superior', 'Upward'];
   const staticText = 'Drone Services';
 
   const handleTyping = useCallback(() => {
@@ -76,6 +78,38 @@ function Home() {
   // Handle video error and fallback to background image
   const handleVideoError = () => {
     setVideoError(true);
+  };  // Initialize audio when component mounts
+  useEffect(() => {
+    audioRef.current = new Audio('/Music/bg-music.mp3');
+    audioRef.current.loop = true;
+    audioRef.current.volume = 1.0;
+
+    // Try to start playing immediately
+    audioRef.current.play()
+      .then(() => setIsMusicPlaying(true))
+      .catch(() => {
+        // If initial autoplay fails, we'll try again when video plays
+        console.log('Initial autoplay failed, will try again with video play');
+      });
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+      }
+    };
+  }, []);
+
+  // Handle music toggle
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isMusicPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsMusicPlaying(!isMusicPlaying);
+    }
   };
 
   // Animation variants for text and button
@@ -138,10 +172,17 @@ function Home() {
   return (
     <PageTransition>
       <div className="home-wrapper">
-        <div className="hero-container">
+        <div className="hero-container">          
+          {/* Music Controls */}
+          <button 
+            className="music-toggle glass-btn-music"
+            onClick={toggleMusic}
+            aria-label={isMusicPlaying ? 'Pause Music' : 'Play Music'}
+          >
+            <i className={`fas ${isMusicPlaying ? 'fa-pause' : 'fa-play'}`}></i>
+          </button>
           {!videoError ? (
-            <div className="video-container" ref={videoContainerRef}>
-              <video 
+            <div className="video-container" ref={videoContainerRef}>              <video 
                 ref={videoRef}
                 src="/videos/main-video.mp4"
                 autoPlay 
@@ -150,6 +191,13 @@ function Home() {
                 playsInline
                 className="hero-video visible"
                 onError={handleVideoError}
+                onPlay={() => {
+                  if (audioRef.current && !isMusicPlaying) {
+                    audioRef.current.play()
+                      .then(() => setIsMusicPlaying(true))
+                      .catch(console.error);
+                  }
+                }}
               />
             </div>
           ) : (
