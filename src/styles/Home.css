@@ -100,18 +100,16 @@
 
 /* Enhanced animated text styles */
 .hero-title {
-  font-size: 50px;
-  margin-bottom: 24px;
-  text-shadow: 0 0 15px rgba(75, 182, 239, 0.3);
-  letter-spacing: 1px;
-  position: relative;
+  font-size: 3.5rem;
   font-weight: 700;
-  background: linear-gradient(to right, #4bb6ef, #ffffff, #4bb6ef);
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent !important;
-  animation: shine 8s linear infinite;
+  letter-spacing: 0.5px;
+  min-height: 4rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  -webkit-font-smoothing: antialiased;
+  will-change: contents;
 }
 
 .hero-subtitle {
@@ -747,4 +745,63 @@ body.dark .glass-btn-alt:hover {
   .content-wrapper {
     margin-top: -5vh;
   }
+}
+
+.dynamic-title {
+  margin-bottom: 1rem;
+}
+
+.typing-text {
+  position: relative;
+}
+
+.changing-word {
+  position: relative;
+  display: inline-block;
+}
+
+.changing-word::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 10%;
+  height: 80%;
+  width: 3px;
+  background: #fff;
+  animation: blink 0.75s step-end infinite;
+}
+
+.static-text {
+  opacity: 0.95;
+  transform: translateZ(0);
+}
+
+@keyframes blink {
+  from, to { 
+    opacity: 0; 
+  }
+  50% { 
+    opacity: 1; 
+  }
+}
+
+.hero-titles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  min-height: 4rem;
+}
+
+.static-text {
+  opacity: 0.95;
 }

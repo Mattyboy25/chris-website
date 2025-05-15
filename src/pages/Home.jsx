@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 import '../styles/Home.css';
 
@@ -8,6 +8,52 @@ function Home() {
   const [videoError, setVideoError] = useState(false);
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
+  const [changingWord, setChangingWord] = useState('');
+  const intervalRef = useRef(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+
+  const words = ['Awesome', 'Superior', 'Upward'];
+  const staticText = 'Drone Services';
+
+  const handleTyping = useCallback(() => {
+    const currentWord = words[wordIndex];
+    
+    if (!isDeleting) {
+      // Typing
+      if (charIndex < currentWord.length) {
+        setChangingWord(prev => currentWord.substring(0, charIndex + 1));
+        setCharIndex(prev => prev + 1);
+      } else {
+        // Finished typing word
+        setTimeout(() => setIsDeleting(true), 2000); // Wait before deleting
+      }
+    } else {
+      // Deleting
+      if (charIndex > 0) {
+        setChangingWord(prev => currentWord.substring(0, charIndex - 1));
+        setCharIndex(prev => prev - 1);
+      } else {
+        // Finished deleting
+        setIsDeleting(false);
+        setWordIndex(prev => (prev + 1) % words.length);
+        if (wordIndex === words.length - 1) {
+          // If it's the last word, start over
+          setTimeout(() => setWordIndex(0), 500);
+        }
+      }
+    }
+  }, [wordIndex, charIndex, isDeleting, words]);
+
+  useEffect(() => {
+    const typingSpeed = isDeleting ? 75 : 100;
+    intervalRef.current = setInterval(handleTyping, typingSpeed);
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [handleTyping, isDeleting]);
 
   // Handle video error and fallback to background image
   const handleVideoError = () => {
@@ -16,13 +62,11 @@ function Home() {
 
   // Animation variants for text and button
   const titleVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0 },
     visible: { 
-      opacity: 1, 
-      y: 0,
+      opacity: 1,
       transition: { 
-        duration: 0.8, 
-        ease: "easeOut" 
+        duration: 0.3
       }
     }
   };
@@ -94,23 +138,27 @@ function Home() {
             <div className="hero-fallback-bg"></div>
           )}
           <div className="hero-content">
-            <motion.h1 
-              initial="hidden"
-              animate="visible"
-              variants={titleVariants}
-              className="hero-title"
-            >
-              AERIAL PHOTOGRAPHY & VIDEOGRAPHY
-            </motion.h1>
-            
-            <motion.p 
-              initial="hidden"
-              animate="visible"
-              variants={subtitleVariants}
-              className="hero-subtitle"
-            >
-              Upward Drone Services - Elevating Your Perspective
-            </motion.p>
+            <div className="hero-titles">
+              <motion.div 
+                className="dynamic-title"
+                variants={titleVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <motion.h1 className="hero-title">
+                  <span className="typing-text changing-word">{changingWord}</span>
+                  <span className="static-text">{staticText}</span>
+                </motion.h1>
+              </motion.div>
+              <motion.p 
+                initial="hidden"
+                animate="visible"
+                variants={subtitleVariants}
+                className="hero-subtitle"
+              >
+                Elevating Your Perspective
+              </motion.p>
+            </div>
             
             <motion.div 
               className="hero-btns"
