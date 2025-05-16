@@ -39,29 +39,54 @@ function Contact() {  const [formData, setFormData] = useState({
     });
   };  // Handle video error and fallback to background image
   const handleVideoError = () => {
+    console.error('Video loading error. Retries:', loadRetries);
+    
     // Try to reload the video a few times before giving up
     if (loadRetries < 3 && videoRef.current) {
       setLoadRetries(prevRetries => prevRetries + 1);
       // Wait a second before trying to reload
       setTimeout(() => {
         if (videoRef.current) {
-          const currentSrc = videoRef.current.src;
-          videoRef.current.src = '';  // Reset the source
-          videoRef.current.src = currentSrc;  // Set it back
-          videoRef.current.load();  // Force reload
+          const isDarkMode = document.body.classList.contains('dark');
+          const videoSource = isDarkMode ? '/videos/contact-dark.mp4' : '/videos/contact-light.mp4';
+          
+          // Reset and reload the video
+          videoRef.current.src = ''; // Clear the source
+          videoRef.current.src = videoSource; // Set the appropriate source
+          videoRef.current.load(); // Force reload
+          
+          // Try to play the video
+          const playPromise = videoRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(error => {
+              console.error('Error playing video:', error);
+              setVideoError(true);
+            });
+          }
         }
       }, 1000);
     } else {
+      console.error('Max retries reached or video element not available. Falling back to static background.');
       setVideoError(true);
     }
-  };
-    // Handle video loaded
+  };  // Handle video loaded
   const handleVideoLoaded = () => {
+    console.log('Video loaded successfully!');
     setVideoLoaded(true);
     setLoadRetries(0); // Reset retry count on successful load
     
     // Add a class to the body when the video is loaded to enhance glass effect
     document.body.classList.add('video-loaded');
+    
+    // Ensure the video plays
+    if (videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.error('Error playing video:', error);
+        });
+      }
+    }
   };
   // Animation variants
   const fadeInUpVariants = {
@@ -74,8 +99,7 @@ function Contact() {  const [formData, setFormData] = useState({
         ease: "easeOut" 
       }
     }
-  };
-  // Preload the videos
+  };  // Preload the videos
   useEffect(() => {
     // Preload both videos
     const preloadVideos = () => {
@@ -95,9 +119,13 @@ function Contact() {  const [formData, setFormData] = useState({
       const darkVideoLink = createPreloadLink('/videos/contact-dark.mp4');
       const lightVideoLink = createPreloadLink('/videos/contact-light.mp4');
       
-      // Initially use the correct one based on theme
+      // Set the src directly on the video element
       if (videoRef.current) {
-        videoRef.current.src = isDarkMode ? '/videos/contact-dark.mp4' : '/videos/contact-light.mp4';
+        const videoSrc = isDarkMode ? '/videos/contact-dark.mp4' : '/videos/contact-light.mp4';
+        videoRef.current.src = videoSrc;
+        
+        // Force load the video element
+        videoRef.current.load();
       }
       
       // Clean up preload links on unmount
@@ -121,13 +149,20 @@ function Contact() {  const [formData, setFormData] = useState({
   // Determine which video to use based on light/dark theme
   useEffect(() => {
     const videoElement = videoRef.current;
-    if (videoElement) {
-      const updateVideoSource = () => {
+    if (videoElement) {      const updateVideoSource = () => {
         const isDarkMode = document.body.classList.contains('dark');
+        // Use absolute paths correctly for Vite
         const videoSource = isDarkMode ? '/videos/contact-dark.mp4' : '/videos/contact-light.mp4';
         
-        if (videoElement.src !== videoSource) {
+        // Check if the video source has changed
+        // Ensure we're using the correct absolute URL comparison
+        const currentSrc = videoElement.src;
+        const fullVideoSource = new URL(videoSource, window.location.origin).href;
+        
+        if (currentSrc !== fullVideoSource) {
           videoElement.src = videoSource;
+          // Force reload when changing the source
+          videoElement.load();
         }
       };
 
@@ -154,18 +189,14 @@ function Contact() {  const [formData, setFormData] = useState({
 
   return (
     <PageTransition>
-      <div className="contact-page-wrapper">        {/* Background Video */}        {!videoError ? (          <div className="video-container" ref={videoContainerRef}>
-            {!videoLoaded && (
-              <div className="video-loading-placeholder"></div>
-            )}            <video 
+      <div className="contact-page-wrapper">        {/* Background Video */}        {!videoError ? (          <div className="video-container" ref={videoContainerRef}>            <video 
               ref={videoRef}
-              src="/videos/contact-dark.mp4"
               autoPlay 
               loop 
               muted 
               playsInline
               preload="auto"
-              className={`hero-video contact-video ${videoLoaded ? 'fade-in' : ''}`}
+              className="hero-video contact-video"
               onError={handleVideoError}
               onLoadedData={handleVideoLoaded}
               poster="/images/video-poster.jpg"
