@@ -133,15 +133,24 @@ function Home() {
       }
       setIsMusicPlaying(!isMusicPlaying);
     }
-  };  // Function to handle card hover effect - simple glow only
+  };  // Function to handle card hover effect with glassy overlay
   const handleCardMouseMove = (e) => {
     // Get the card element from the wrapper
     const wrapper = e.currentTarget;
     const card = wrapper.querySelector('.equipment-card');
+    const imageContainer = wrapper.querySelector('.equipment-image-container');
+    const specsOverlay = wrapper.querySelector('.equipment-specs-overlay');
     
-    // Apply just the glowing shadow effect, no scale or translation
-    card.style.transition = 'box-shadow 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)';
-    card.style.boxShadow = '0 0 25px rgba(75, 182, 239, 0.4)';
+    // Apply glowing shadow effect with smooth transition
+    card.style.transition = 'all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)';
+    card.style.boxShadow = '0 0 30px rgba(75, 182, 239, 0.5)';
+    card.style.borderColor = 'rgba(75, 182, 239, 0.3)';
+    
+    // Apply blur to the image
+    imageContainer.style.filter = 'blur(3px) brightness(0.7)';
+    
+    // Show the specs overlay
+    specsOverlay.style.opacity = '1';
     
     // Add class to handle all child hover states
     wrapper.classList.add('is-hovering');
@@ -151,10 +160,25 @@ function Home() {
   const handleCardMouseLeave = (e) => {
     const wrapper = e.currentTarget;
     const card = wrapper.querySelector('.equipment-card');
+    const imageContainer = wrapper.querySelector('.equipment-image-container');
+    const specsOverlay = wrapper.querySelector('.equipment-specs-overlay');
     
-    // Remove hover effect - just restore the original shadow
-    card.style.transition = 'box-shadow 0.4s ease-out';
-    card.style.boxShadow = '0 7px 20px rgba(0, 0, 0, 0.1)';
+    // Remove hover effect - restore the original shadow with smooth transition
+    card.style.transition = 'all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)';
+    
+    if (document.body.classList.contains('light')) {
+      card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.07)';
+      card.style.borderColor = 'rgba(240, 240, 240, 0.8)';
+    } else {
+      card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+      card.style.borderColor = 'rgba(75, 75, 90, 0.2)';
+    }
+    
+    // Remove blur from the image
+    imageContainer.style.filter = 'blur(0) brightness(1)';
+    
+    // Hide the specs overlay
+    specsOverlay.style.opacity = '0';
     
     // Remove class
     wrapper.classList.remove('is-hovering');
@@ -377,11 +401,12 @@ function Home() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               variants={fadeInUpVariants}
-            >
-              <h2 className="section-title">Our Equipment</h2>              <p className="section-description">
-                We use only the latest drone technology and camera equipment to ensure the highest quality results.
-                Our professional gear allows us to capture stunning footage in any environment.
-              </p>              <div className="equipment-showcase">
+            >              <h2 className="section-title">Our Professional Gear</h2>
+              <p className="section-description">
+                We utilize cutting-edge drone technology and premium camera equipment to capture stunning aerial footage.
+                Every piece of our gear is carefully selected to deliver exceptional quality in any environment.
+              </p>
+              <div className="equipment-showcase">
                 {/* First Equipment Card - DJI Mavic Air 2S */}
                 <div 
                   className="equipment-card-wrapper"
@@ -402,18 +427,29 @@ function Home() {
                   >
                     <div className="equipment-image-container">
                       <img src="/images/equipment/Air-2S.png" alt="DJI Mavic Air 2S" className="equipment-image" />
-                      <div className="equipment-overlay">
-                        <span className="equipment-badge">Primary Drone</span>
-                      </div>
+                      <span className="equipment-name">DJI Mavic Air 2S</span>
                     </div>
-                    <div className="equipment-details">
+                    <div className="equipment-specs-overlay">
+                      <span className="equipment-badge">Primary Drone</span>
                       <h3>DJI Mavic Air 2S</h3>
-                      <ul>
-                        <li><i className="fas fa-camera"></i> 1-inch CMOS Sensor</li>
-                        <li><i className="fas fa-film"></i> 5.4K Video</li>
-                        <li><i className="fas fa-battery-full"></i> 31 Min Flight Time</li>
-                        <li><i className="fas fa-arrows-alt"></i> 12km Transmission</li>
-                      </ul>
+                      <div className="equipment-specs-grid">
+                        <div className="spec-item">
+                          <i className="fas fa-camera"></i>
+                          <span>1-inch CMOS Sensor</span>
+                        </div>
+                        <div className="spec-item">
+                          <i className="fas fa-film"></i>
+                          <span>5.4K Video</span>
+                        </div>
+                        <div className="spec-item">
+                          <i className="fas fa-battery-full"></i>
+                          <span>31 Min Flight Time</span>
+                        </div>
+                        <div className="spec-item">
+                          <i className="fas fa-arrows-alt"></i>
+                          <span>12km Transmission</span>
+                        </div>
+                      </div>
                     </div>
                   </motion.div>
                 </div>
@@ -438,18 +474,29 @@ function Home() {
                   >
                     <div className="equipment-image-container">
                       <img src="/images/equipment/a7III.png" alt="Sony a7iii" className="equipment-image" />
-                      <div className="equipment-overlay">
-                        <span className="equipment-badge">Ground Photography</span>
-                      </div>
+                      <span className="equipment-name">Sony a7iii</span>
                     </div>
-                    <div className="equipment-details">
+                    <div className="equipment-specs-overlay">
+                      <span className="equipment-badge">Ground Photography</span>
                       <h3>Sony a7iii</h3>
-                      <ul>
-                        <li><i className="fas fa-camera"></i> 24.2MP Full-Frame Sensor</li>
-                        <li><i className="fas fa-film"></i> 4K HDR Video</li>
-                        <li><i className="fas fa-clock"></i> 10 FPS Continuous Shooting</li>
-                        <li><i className="fas fa-moon"></i> Exceptional Low-Light Performance</li>
-                      </ul>
+                      <div className="equipment-specs-grid">
+                        <div className="spec-item">
+                          <i className="fas fa-camera"></i>
+                          <span>24.2MP Full-Frame Sensor</span>
+                        </div>
+                        <div className="spec-item">
+                          <i className="fas fa-film"></i>
+                          <span>4K HDR Video</span>
+                        </div>
+                        <div className="spec-item">
+                          <i className="fas fa-clock"></i>
+                          <span>10 FPS Continuous Shooting</span>
+                        </div>
+                        <div className="spec-item">
+                          <i className="fas fa-moon"></i>
+                          <span>Exceptional Low-Light Performance</span>
+                        </div>
+                      </div>
                     </div>
                   </motion.div>
                 </div>
