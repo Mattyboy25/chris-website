@@ -133,6 +133,22 @@ function Home() {
       }
       setIsMusicPlaying(!isMusicPlaying);
     }
+  };  // Function to handle card hover effect
+  const handleCardMouseMove = (e) => {
+    const card = e.currentTarget.querySelector('.equipment-card');
+    
+    // Simple hover effect without tracking
+    card.style.transition = 'transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)';
+    card.style.transform = 'perspective(1500px) translateY(-8px) scale3d(1.02, 1.02, 1.02)';
+    card.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+  };
+  
+  // Reset card when mouse leaves
+  const handleCardMouseLeave = (e) => {
+    const card = e.currentTarget.querySelector('.equipment-card');
+    card.style.transition = 'transform 0.4s ease-out, box-shadow 0.4s ease-out';
+    card.style.transform = 'perspective(1000px) translateY(0) scale3d(1, 1, 1)';
+    card.style.boxShadow = '0 7px 20px rgba(0, 0, 0, 0.1)';
   };
 
   // Animation variants for text and button
@@ -353,11 +369,94 @@ function Home() {
               viewport={{ once: true, amount: 0.2 }}
               variants={fadeInUpVariants}
             >
-              <h2 className="section-title">Our Equipment</h2>
-              <ul className="equipment-list">
-                <motion.li>DJI Mavic Air 2S</motion.li>
-                <motion.li>Sony a7iii</motion.li>
-              </ul>
+              <h2 className="section-title">Our Equipment</h2>              <p className="section-description">
+                We use only the latest drone technology and camera equipment to ensure the highest quality results.
+                Our professional gear allows us to capture stunning footage in any environment.
+              </p>              <div className="equipment-showcase">
+                {/* First Equipment Card - DJI Mavic Air 2S */}
+                <div 
+                  className="equipment-card-wrapper"
+                  onMouseMove={handleCardMouseMove}
+                  onMouseLeave={handleCardMouseLeave}
+                >
+                  <motion.div 
+                    className="equipment-card"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      type: "spring", 
+                      stiffness: 300,
+                      delay: 0.1, 
+                      duration: 0.5 
+                    }}
+                  >
+                    <div className="equipment-image-container">
+                      <img src="/images/equipment/Air-2S.png" alt="DJI Mavic Air 2S" className="equipment-image" />
+                      <div className="equipment-overlay">
+                        <span className="equipment-badge">Primary Drone</span>
+                      </div>
+                    </div>
+                    <div className="equipment-details">
+                      <h3>DJI Mavic Air 2S</h3>
+                      <ul>
+                        <li><i className="fas fa-camera"></i> 1-inch CMOS Sensor</li>
+                        <li><i className="fas fa-film"></i> 5.4K Video</li>
+                        <li><i className="fas fa-battery-full"></i> 31 Min Flight Time</li>
+                        <li><i className="fas fa-arrows-alt"></i> 12km Transmission</li>
+                      </ul>
+                    </div>
+                  </motion.div>
+                </div>
+                
+                {/* Second Equipment Card - Sony a7iii */}
+                <div 
+                  className="equipment-card-wrapper"
+                  onMouseMove={handleCardMouseMove}
+                  onMouseLeave={handleCardMouseLeave}
+                >
+                  <motion.div 
+                    className="equipment-card"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      type: "spring", 
+                      stiffness: 300,
+                      delay: 0.2, 
+                      duration: 0.5 
+                    }}
+                  >
+                    <div className="equipment-image-container">
+                      <img src="/images/equipment/a7III.png" alt="Sony a7iii" className="equipment-image" />
+                      <div className="equipment-overlay">
+                        <span className="equipment-badge">Ground Photography</span>
+                      </div>
+                    </div>
+                    <div className="equipment-details">
+                      <h3>Sony a7iii</h3>
+                      <ul>
+                        <li><i className="fas fa-camera"></i> 24.2MP Full-Frame Sensor</li>
+                        <li><i className="fas fa-film"></i> 4K HDR Video</li>
+                        <li><i className="fas fa-clock"></i> 10 FPS Continuous Shooting</li>
+                        <li><i className="fas fa-moon"></i> Exceptional Low-Light Performance</li>
+                      </ul>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+              
+              <motion.div 
+                className="equipment-cta"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+              >
+                <Link to="/about" className="btn-secondary equipment-btn">
+                  View Full Equipment List
+                </Link>
+              </motion.div>
             </motion.div>
           </section>
           
