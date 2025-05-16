@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaLinkedin, FaInstagram, FaPlane, FaCamera, FaCertificate, FaVideo, FaQuoteLeft } from 'react-icons/fa';
 import PageTransition from '../components/PageTransition';
 import '../styles/About.css';
 
-function About() {
-  const teamMembers = [    {
+function About() {  useEffect(() => {
+    // Check if URL has a hash and scroll to that element
+    if (window.location.hash) {
+      const id = window.location.hash.substring(1); // Remove the # character
+      const element = document.getElementById(id);
+      if (element) {
+        // Add a small delay to ensure the page is fully loaded
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      }
+    }
+  }, [window.location.hash]);
+
+  const teamMembers = [{
       name: "Christian Jacobs",
       role: "Founder & Lead Pilot",
       quote: "Capturing the world from above is more than just flying a drone—it's about telling stories from a new perspective.",
@@ -135,9 +148,9 @@ function About() {
               ))}
             </div>
           </div>
-          
-          <motion.div 
+            <motion.div 
             className="equipment-section glass-card"
+            id="equipment"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

@@ -8,14 +8,24 @@ const AnimatedLayout = ({ children }) => {
   
   // Check if current page is Services
   const isServicesPage = location.pathname === '/services';
-  
-  // Auto-scroll to top on page change
+  // Auto-scroll to top on page change or to element if hash is present
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }, [location.pathname]);
+    if (location.hash) {
+      // Wait for a moment to ensure the page content is loaded
+      setTimeout(() => {
+        const id = location.hash.substring(1); // Remove the # character
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 500); // Increased delay for reliability
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [location.pathname, location.hash]);
   
   // Track when location changes to measure new height
   useEffect(() => {

@@ -501,15 +501,14 @@ function Home() {
                   </motion.div>
                 </div>
               </div>
-              
-              <motion.div 
+                <motion.div 
                 className="equipment-cta"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
               >
-                <Link to="/about" className="btn-secondary equipment-btn">
+                <Link to="/about#equipment" className="btn-secondary equipment-btn">
                   View Full Equipment List
                 </Link>
               </motion.div>
