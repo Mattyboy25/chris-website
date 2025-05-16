@@ -913,8 +913,7 @@ body.dark .glass-btn-alt:hover {
 /* Custom size adjustment for Sony A7III image */
 .equipment-image-container img[alt="Sony a7iii"] {
   object-fit: contain;
-  padding: 20px;
-  max-height: 160px;
+
 }
 
 .equipment-image-container img[alt="DJI Mavic Air 2S"] {
@@ -926,6 +925,20 @@ body.dark .glass-btn-alt:hover {
 .equipment-card-wrapper {
   perspective: 1500px;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+/* Fix for child elements interfering with hover */
+.equipment-card-wrapper * {
+  pointer-events: none;
+}
+
+/* Enable clickable elements inside the card */
+.equipment-card-wrapper a,
+.equipment-card-wrapper button {
+  pointer-events: auto;
 }
 
 .equipment-card {
@@ -966,14 +979,14 @@ body.dark .equipment-card {
   transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.equipment-card:hover .equipment-image {
+/* Change the hover effect to just show the image zoom without card scale */
+.equipment-card-wrapper.is-hovering .equipment-image {
   transform: scale(1.05);
 }
 
-/* Add a CSS fallback hover effect */
-.equipment-card-wrapper:hover .equipment-card {
-  transform: perspective(1500px) translateY(-8px) scale3d(1.02, 1.02, 1.02);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+/* Remove card scale transform */
+.equipment-card-wrapper.is-hovering .equipment-card {
+  box-shadow: 0 0 25px rgba(75, 182, 239, 0.4);
 }
 
 .equipment-overlay {
@@ -988,6 +1001,10 @@ body.dark .equipment-card {
   padding: 15px;
   opacity: 0;
   transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.equipment-card-wrapper.is-hovering .equipment-overlay {
+  opacity: 1;
 }
 
 .equipment-card:hover .equipment-overlay {
@@ -1006,7 +1023,7 @@ body.dark .equipment-card {
   transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.equipment-card:hover .equipment-badge {
+.equipment-card-wrapper.is-hovering .equipment-badge {
   transform: translateY(0);
 }
 
@@ -1021,7 +1038,7 @@ body.dark .equipment-card {
   transition: color 0.3s ease;
 }
 
-.equipment-card:hover .equipment-details h3 {
+.equipment-card-wrapper.is-hovering .equipment-details h3 {
   color: #2c9bdb;
 }
 

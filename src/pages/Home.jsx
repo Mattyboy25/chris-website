@@ -133,22 +133,31 @@ function Home() {
       }
       setIsMusicPlaying(!isMusicPlaying);
     }
-  };  // Function to handle card hover effect
+  };  // Function to handle card hover effect - simple glow only
   const handleCardMouseMove = (e) => {
-    const card = e.currentTarget.querySelector('.equipment-card');
+    // Get the card element from the wrapper
+    const wrapper = e.currentTarget;
+    const card = wrapper.querySelector('.equipment-card');
     
-    // Simple hover effect without tracking
-    card.style.transition = 'transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)';
-    card.style.transform = 'perspective(1500px) translateY(-8px) scale3d(1.02, 1.02, 1.02)';
-    card.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+    // Apply just the glowing shadow effect, no scale or translation
+    card.style.transition = 'box-shadow 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)';
+    card.style.boxShadow = '0 0 25px rgba(75, 182, 239, 0.4)';
+    
+    // Add class to handle all child hover states
+    wrapper.classList.add('is-hovering');
   };
   
   // Reset card when mouse leaves
   const handleCardMouseLeave = (e) => {
-    const card = e.currentTarget.querySelector('.equipment-card');
-    card.style.transition = 'transform 0.4s ease-out, box-shadow 0.4s ease-out';
-    card.style.transform = 'perspective(1000px) translateY(0) scale3d(1, 1, 1)';
+    const wrapper = e.currentTarget;
+    const card = wrapper.querySelector('.equipment-card');
+    
+    // Remove hover effect - just restore the original shadow
+    card.style.transition = 'box-shadow 0.4s ease-out';
     card.style.boxShadow = '0 7px 20px rgba(0, 0, 0, 0.1)';
+    
+    // Remove class
+    wrapper.classList.remove('is-hovering');
   };
 
   // Animation variants for text and button
