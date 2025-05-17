@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import PageTransition from '../components/PageTransition';
 import '../styles/Portfolio.css'; // Updated import to use Portfolio.css
 
@@ -74,6 +75,8 @@ function Portfolio() {
             </div>
           ))}
         </div>
+        {/* Floating Book Now Button */}
+        <Link to="/contact" className="floating-book-btn">Book now</Link>
       </div>
     </PageTransition>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/Services.css';
 import '../styles/ServiceDetail.css';
 import PageTransition from '../components/PageTransition';
@@ -495,6 +495,9 @@ function Services() {
             </motion.div>
           </div>
         </div>
+
+        {/* Floating Book Now Button */}
+        <Link to="/contact" className="floating-book-btn">Book now</Link>
       </div>
     </PageTransition>
   );
