@@ -234,11 +234,11 @@ function Contact() {  const [formData, setFormData] = useState({
                   <div className="contact-details">
                     <div className="contact-item">
                       <FaPhone />
-                      <p>(555) 123-4567</p>
+                      <p>(770) 733-0899</p>
                     </div>
                     <div className="contact-item">
                       <FaEnvelope />
-                      <p>info@skyvisiondrones.com</p>
+                      <p>contact@upwarddroneservices.com</p>
                     </div>
                     <div className="contact-item">
                       <FaMapMarkerAlt />
