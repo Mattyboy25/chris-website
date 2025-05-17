@@ -78,7 +78,33 @@ function Home() {
   // Handle video error and fallback to background image
   const handleVideoError = () => {
     setVideoError(true);
-  };  // Initialize audio when component mounts
+  };  
+
+  // Play video only once when scrolled into view
+  useEffect(() => {
+    if (videoError) return;
+    let hasPlayed = false;
+    const handleScroll = () => {
+      if (hasPlayed) return;
+      const videoContainer = videoContainerRef.current;
+      if (videoContainer) {
+        const rect = videoContainer.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          // Play video if not already playing
+          if (videoRef.current && videoRef.current.paused) {
+            videoRef.current.play();
+          }
+          hasPlayed = true;
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    // Clean up
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [videoError]);
+
+  // Initialize audio when component mounts
   useEffect(() => {
     // Check if user is on mobile
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
