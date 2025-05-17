@@ -337,8 +337,8 @@ function Home() {
             >
               <motion.div className="button-group">
                 <motion.div whileHover="hover">
-                  <Link to="/services" className="btn-primary glass-btn">
-                    EXPLORE SERVICES
+                  <Link to="/contact" className="btn-primary glass-btn">
+                    Book now
                   </Link>
                 </motion.div>
                 <motion.div whileHover="hover">
