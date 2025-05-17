@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 import '../styles/Contact.css';
 
-function Contact() {  const [formData, setFormData] = useState({
+function Contact() {  
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
@@ -19,9 +20,22 @@ function Contact() {  const [formData, setFormData] = useState({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let newValue = value;
+    if (name === 'phone') {
+      // Remove all non-digit characters
+      const digits = value.replace(/\D/g, '');
+      // Format as 000-000-0000
+      if (digits.length <= 3) {
+        newValue = digits;
+      } else if (digits.length <= 6) {
+        newValue = `${digits.slice(0, 3)}-${digits.slice(3)}`;
+      } else {
+        newValue = `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+      }
+    }
     setFormData(prevState => ({
       ...prevState,
-      [name]: value
+      [name]: newValue
     }));
   };
 
@@ -37,7 +51,9 @@ function Contact() {  const [formData, setFormData] = useState({
       service: '',
       message: ''
     });
-  };  // Handle video error and fallback to background image
+  };  
+
+  // Handle video error and fallback to background image
   const handleVideoError = () => {
     console.error('Video loading error. Retries:', loadRetries);
     
@@ -69,7 +85,9 @@ function Contact() {  const [formData, setFormData] = useState({
       console.error('Max retries reached or video element not available. Falling back to static background.');
       setVideoError(true);
     }
-  };  // Handle video loaded
+  };  
+
+  // Handle video loaded
   const handleVideoLoaded = () => {
     console.log('Video loaded successfully!');
     setVideoLoaded(true);
@@ -88,6 +106,7 @@ function Contact() {  const [formData, setFormData] = useState({
       }
     }
   };
+
   // Animation variants
   const fadeInUpVariants = {
     hidden: { opacity: 0, y: 40 },
@@ -99,7 +118,9 @@ function Contact() {  const [formData, setFormData] = useState({
         ease: "easeOut" 
       }
     }
-  };  // Preload the videos
+  };  
+
+  // Preload the videos
   useEffect(() => {
     // Preload both videos
     const preloadVideos = () => {
@@ -149,7 +170,8 @@ function Contact() {  const [formData, setFormData] = useState({
   // Determine which video to use based on light/dark theme
   useEffect(() => {
     const videoElement = videoRef.current;
-    if (videoElement) {      const updateVideoSource = () => {
+    if (videoElement) {      
+      const updateVideoSource = () => {
         const isDarkMode = document.body.classList.contains('dark');
         // Use absolute paths correctly for Vite
         const videoSource = isDarkMode ? '/videos/contact-dark.mp4' : '/videos/contact-light.mp4';
@@ -189,7 +211,11 @@ function Contact() {  const [formData, setFormData] = useState({
 
   return (
     <PageTransition>
-      <div className="contact-page-wrapper">        {/* Background Video */}        {!videoError ? (          <div className="video-container" ref={videoContainerRef}>            <video 
+      <div className="contact-page-wrapper">        
+        {/* Background Video */}        
+        {!videoError ? (          
+          <div className="video-container" ref={videoContainerRef}>            
+            <video 
               ref={videoRef}
               autoPlay 
               loop 
