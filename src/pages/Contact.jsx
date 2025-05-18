@@ -13,12 +13,14 @@ function Contact() {
     service: '',
     message: ''
   });
+  const [messagePlaceholder, setMessagePlaceholder] = useState('');
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [loadRetries, setLoadRetries] = useState(0);
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
   const [serviceDropdownOpen, setServiceDropdownOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0, openUpward: false });
   const serviceOptions = [
     { value: 'real-estate', label: 'Real Estate' },
     { value: 'construction', label: 'Construction' },
@@ -47,6 +49,16 @@ function Contact() {
       ...prevState,
       [name]: newValue
     }));
+  };
+
+  const handleServiceChange = (selectedService) => {
+    setFormData(prev => ({ ...prev, service: selectedService }));
+    if (selectedService === 'custom') {
+      setMessagePlaceholder('Please describe your project requirements and any specific needs you have. Include details about location, timeline, and desired outcomes.');
+    } else {
+      setMessagePlaceholder('');
+    }
+    setServiceDropdownOpen(false);
   };
 
   const handleSubmit = (e) => {
@@ -221,18 +233,86 @@ function Contact() {
 
   // Close dropdown on outside click
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (serviceDropdownRef.current && !serviceDropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event) => {
+      if (
+        serviceDropdownRef.current && 
+        !serviceDropdownRef.current.contains(event.target) &&
+        !event.target.closest('.custom-select-dropdown')
+      ) {
+        setServiceDropdownOpen(false);
+      }
+    };
+
+    if (serviceDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      // Update position on scroll
+      window.addEventListener('scroll', updateDropdownPosition);
+      window.addEventListener('resize', updateDropdownPosition);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', updateDropdownPosition);
+      window.removeEventListener('resize', updateDropdownPosition);
+    };
+  }, [serviceDropdownOpen]);  const updateDropdownPosition = () => {
+    if (serviceDropdownRef.current) {
+      const inputElement = serviceDropdownRef.current.querySelector('.custom-select-input');
+      const rect = inputElement.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate if dropdown should open upward or downward
+      const spaceBelow = viewportHeight - rect.bottom;
+      const spaceNeeded = Math.min(300, serviceOptions.length * 44); // 44px per option
+      const openUpward = spaceBelow < spaceNeeded && rect.top > spaceNeeded;
+      
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY + 5, // Add 5px gap
+        left: rect.left + window.scrollX,
+        width: rect.width,
+        openUpward: false // Force dropdown to always open downward
+      });
+    }
+  };
+
+  // Update dropdown position when it opens
+  useEffect(() => {
+    if (serviceDropdownOpen) {
+      updateDropdownPosition();
+    }
+  }, [serviceDropdownOpen]);
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setServiceDropdownOpen(prev => !prev);
+    } else if (e.key === 'Escape') {
+      setServiceDropdownOpen(false);
+    } else if (e.key === 'Tab' && !e.shiftKey && serviceDropdownOpen) {
+      e.preventDefault();
+      const firstOption = document.querySelector('.custom-select-option');
+      if (firstOption) firstOption.focus();
+    }
+  };
+
+  const handleOptionKeyDown = (e, opt) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleServiceChange(opt.value);
+    } else if (e.key === 'Escape') {
+      setServiceDropdownOpen(false);
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const options = Array.from(document.querySelectorAll('.custom-select-option'));
+      const currentIndex = options.indexOf(e.target);
+      if (currentIndex < options.length - 1) {
+        options[currentIndex + 1].focus();
+      } else {
         setServiceDropdownOpen(false);
       }
     }
-    if (serviceDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [serviceDropdownOpen]);
+  };
 
   return (
     <PageTransition>
@@ -341,45 +421,46 @@ function Contact() {
                       />
                     </div>
                     
-                    <div className="form-group" ref={serviceDropdownRef} style={{ position: 'relative' }}>
+                    <div className="form-group" ref={serviceDropdownRef}>
                       <label htmlFor="service">Service Interested In</label>
-                      <div
-                        className="custom-select-input"
-                        tabIndex={0}
-                        onClick={() => setServiceDropdownOpen((open) => !open)}
-                        onBlur={() => setTimeout(() => setServiceDropdownOpen(false), 150)}
-                        style={{ cursor: 'pointer', background: '#fff', border: '1px solid #ccc', borderRadius: 6, padding: '12px', minHeight: 44 }}
-                      >
-                        {serviceOptions.find(opt => opt.value === formData.service)?.label || 'Select a Service'}
+                      <div className="custom-select-container" style={{ position: 'relative' }}>
+                        <div
+                          className="custom-select-input"
+                          role="combobox"
+                          aria-expanded={serviceDropdownOpen}
+                          aria-haspopup="listbox"
+                          aria-controls="service-options"
+                          tabIndex={0}
+                          onClick={() => setServiceDropdownOpen(prev => !prev)}
+                          onKeyDown={handleKeyDown}
+                        >
+                          {serviceOptions.find(opt => opt.value === formData.service)?.label || 'Select a Service'}
+                        </div>
+                        {serviceDropdownOpen && (
+                          <div 
+                            className="custom-select-dropdown"
+                            role="listbox"
+                            id="service-options"
+                          >
+                            {serviceOptions.map(opt => (
+                              <div
+                                key={opt.value}
+                                className={`custom-select-option ${formData.service === opt.value ? 'selected' : ''}`}
+                                role="option"
+                                aria-selected={formData.service === opt.value}
+                                tabIndex={0}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleServiceChange(opt.value);
+                                }}
+                                onKeyDown={(e) => handleOptionKeyDown(e, opt)}
+                              >
+                                {opt.label}
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                      {serviceDropdownOpen && ReactDOM.createPortal(
-                        <div className="custom-select-dropdown" style={{
-                          position: 'absolute',
-                          top: serviceDropdownRef.current ? serviceDropdownRef.current.getBoundingClientRect().bottom + window.scrollY : 0,
-                          left: serviceDropdownRef.current ? serviceDropdownRef.current.getBoundingClientRect().left + window.scrollX : 0,
-                          width: serviceDropdownRef.current ? serviceDropdownRef.current.offsetWidth : 200,
-                          background: '#fff',
-                          border: '1px solid #ccc',
-                          borderRadius: 6,
-                          zIndex: 99999,
-                          boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
-                        }}>
-                          {serviceOptions.map(opt => (
-                            <div
-                              key={opt.value}
-                              className="custom-select-option"
-                              style={{ padding: '12px', cursor: 'pointer', background: formData.service === opt.value ? '#e6f4ff' : '#fff' }}
-                              onClick={() => {
-                                setFormData(prev => ({ ...prev, service: opt.value }));
-                                setServiceDropdownOpen(false);
-                              }}
-                            >
-                              {opt.label}
-                            </div>
-                          ))}
-                        </div>,
-                        document.body
-                      )}
                     </div>
                     
                     <div className="form-group">
@@ -389,6 +470,7 @@ function Contact() {
                         name="message" 
                         value={formData.message} 
                         onChange={handleChange} 
+                        placeholder={messagePlaceholder}
                         required
                       ></textarea>
                     </div>

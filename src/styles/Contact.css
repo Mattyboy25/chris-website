@@ -300,9 +300,16 @@ social-links a {
 .form-group {
   margin-bottom: 20px;
   position: relative;
-  z-index: 10;
   pointer-events: auto;
   overflow: visible !important;
+}
+
+.form-group:has(.custom-select-container) {
+  z-index: 100;
+}
+
+.form-group:not(:has(.custom-select-container)) {
+  z-index: 1;
 }
 
 .form-group label {
@@ -386,64 +393,126 @@ body.dark .form-group textarea {
   box-shadow: 0 6px 20px rgba(75, 182, 239, 0.4);
 }
 
-/* Custom Service Dropdown */
+/* Custom Select Styles */
+.custom-select-container {
+  position: relative;
+  width: 100%;
+}
+
 .custom-select-input {
-  background: rgba(255,255,255,0.7);
-  color: #222;
+  width: 100%;
+  padding: 12px;
   border: 1px solid #4bb6ef;
   border-radius: 6px;
-  padding: 12px;
-  min-height: 44px;
-  transition: border 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(75,182,239,0.08);
-  font-size: 1rem;
-  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.custom-select-input:focus, .custom-select-input:active {
-  border: 1.5px solid #3399cc;
-  box-shadow: 0 0 0 2px #4bb6ef33;
+
+.body.light .custom-select-input {
+  border: 1px solid #ddd ;
+}
+
+body.dark .custom-select-input {
+  border: 1px solid #444;
+}
+
+.custom-select-input::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin-left: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.custom-select-input[aria-expanded="true"]::after {
+  transform: rotate(-135deg) translateY(-3px);
 }
 
 .custom-select-dropdown {
-  background: rgba(255,255,255,0.7);
-  color: #222;
-  border: 1px solid #4bb6ef;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 4px;
+  background: var(--dropdown-bg);
+  border: 1px solid rgba(75, 182, 239, 0.3);
   border-radius: 6px;
-  box-shadow: 0 8px 24px rgba(75,182,239,0.15);
-  z-index: 99999;
-  font-size: 1rem;
-  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 250px;
+  overflow-y: auto;
+  animation: dropdownFadeIn 0.2s ease-out forwards;
+}
+
+.custom-select-container {
+  position: relative;
+  z-index: 100;
+}
+
+body.light .custom-select-dropdown {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #222;
+  border: 1px solid #ddd;
+    backdrop-filter: blur(20px);
+}
+
+body.dark .custom-select-dropdown {
+  background-color: rgba(61, 61, 61, 0.7);
+  color: #f1f1f1;
+  border: 1px solid #444;
+  backdrop-filter: blur(20px);
 }
 
 .custom-select-option {
   padding: 12px;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-.custom-select-option:hover, .custom-select-option:focus {
-  background: #4bb6ef;
-  color: #fff;
-}
-.custom-select-option[aria-selected="true"], .custom-select-option.selected {
-  background: #e6f4ff;
-  color: #222;
+  transition: all 0.2s ease;
 }
 
-body.dark .custom-select-input, body.dark .custom-select-dropdown {
-  background: rgba(61, 61, 61, 0.7);
+.custom-select-option:hover,
+.custom-select-option:focus {
+  background: rgba(75, 182, 239, 0.1);
+}
+
+.custom-select-option.selected {
+  background: rgba(75, 182, 239, 0.2);
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Input themes */
+body.light .custom-select-input {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #222;
+  border: 1px solid #ddd;
+}
+
+body.dark .custom-select-input {
+  background-color: rgba(61, 61, 61, 0.7);
   color: #f1f1f1;
-  border: 1px solid #4bb6ef;
+  border: 1px solid #444;
 }
-body.dark .custom-select-option {
-  color: #f1f1f1;
-}
-body.dark .custom-select-option:hover, body.dark .custom-select-option:focus {
-  background: #4bb6ef;
-  color: #fff;
-}
-body.dark .custom-select-option.selected {
-  background: #2d3a4a;
-  color: #4bb6ef;
+
+/* Ensure proper stacking context for the form */
+.contact-form-container {
+  position: relative;
+  z-index: 1;
 }
 
 /* Media queries */
@@ -465,4 +534,9 @@ body.dark .custom-select-option.selected {
   .glass-section {
     padding: 30px 20px;
   }
+}
+
+.dropdown-backdrop {
+  background: transparent;
+  z-index: 999;
 }
