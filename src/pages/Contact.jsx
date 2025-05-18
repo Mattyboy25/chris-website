@@ -24,6 +24,7 @@ function Contact() {
     email: '',
     phone: '',
     service: '',
+    serviceLabel: '',
     message: ''
   });
   const [messagePlaceholder, setMessagePlaceholder] = useState('');
@@ -65,7 +66,12 @@ function Contact() {
   };
 
   const handleServiceChange = (selectedService) => {
-    setFormData(prev => ({ ...prev, service: selectedService }));
+    const selectedOption = serviceOptions.find(opt => opt.value === selectedService);
+    setFormData(prev => ({ 
+      ...prev, 
+      service: selectedService,
+      serviceLabel: selectedOption?.label || '' 
+    }));
     if (selectedService === 'custom') {
       setMessagePlaceholder('Please describe your project requirements and any specific needs you have. Include details about location, timeline, and desired outcomes.');
     } else {
@@ -97,6 +103,7 @@ function Contact() {
         email: '',
         phone: '',
         service: '',
+        serviceLabel: '',
         message: ''
       });
     } catch (error) {
@@ -452,9 +459,13 @@ function Contact() {
                         onChange={handleChange} 
                       />
                     </div>
-                    
-                    <div className="form-group" ref={serviceDropdownRef}>
+                      <div className="form-group" ref={serviceDropdownRef}>
                       <label htmlFor="service">Service Interested In</label>
+                      <input 
+                        type="hidden" 
+                        name="serviceLabel" 
+                        value={formData.serviceLabel} 
+                      />
                       <div className="custom-select-container" style={{ position: 'relative' }}>
                         <div
                           className="custom-select-input"
