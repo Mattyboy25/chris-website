@@ -52,7 +52,8 @@ body.light .video-loading-placeholder {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 0; /* Changing from -1 to 0 to ensure it's visible */
+  z-index: 1; /* Changing from -1 to 1 to ensure it's visible */
+  pointer-events: none;
 }
 
 .video-container::after {
@@ -95,7 +96,7 @@ body.light .video-loading-placeholder {
   width: 100%;
   height: 100%;
   position: absolute;
-  z-index: -1;
+  z-index: 1;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -103,6 +104,7 @@ body.light .video-loading-placeholder {
   transform: scale(1.05);
   opacity: 0;
   animation: fallbackFadeIn 0.8s ease-in-out forwards;
+  pointer-events: none;
 }
 
 @keyframes fallbackFadeIn {
@@ -159,7 +161,9 @@ body.dark .contact-fallback-bg {
   margin-bottom: 40px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  overflow: hidden;
+  overflow: visible !important;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 /* Light Theme Glass Sections */
@@ -200,12 +204,16 @@ body.dark.video-loaded .glass-section {
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
-  z-index: 2;
+  z-index: 10;
   width: 100%;
 }
 
 .contact-content {
   width: 100%;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  overflow: visible !important;
 }
 
 .contact-content-inner {
@@ -213,12 +221,20 @@ body.dark.video-loaded .glass-section {
   grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
   grid-gap: 40px;
   width: 100%;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  overflow: visible !important;
 }
 
 .contact-info, .contact-form-container {
   padding: 35px;
   border-radius: 10px;
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  overflow: visible !important;
 }
 
 .contact-info:hover, 
@@ -260,7 +276,7 @@ body.dark.video-loaded .glass-section {
   margin-top: 30px;
 }
 
-.social-links a {
+social-links a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -283,6 +299,10 @@ body.dark.video-loaded .glass-section {
 
 .form-group {
   margin-bottom: 20px;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  overflow: visible !important;
 }
 
 .form-group label {
@@ -305,6 +325,17 @@ body.dark.video-loaded .glass-section {
   border-radius: 6px;
   font-size: 16px;
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.contact-form select, .contact-form input, .contact-form textarea {
+  background: rgba(255,255,255,0.95);
+  color: #222;
+  z-index: 10000 !important;
+  position: relative;
+  pointer-events: auto;
 }
 
 body.light .form-group input, 
@@ -353,6 +384,66 @@ body.dark .form-group textarea {
   background-color: #4bb6ef;
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(75, 182, 239, 0.4);
+}
+
+/* Custom Service Dropdown */
+.custom-select-input {
+  background: rgba(255,255,255,0.7);
+  color: #222;
+  border: 1px solid #4bb6ef;
+  border-radius: 6px;
+  padding: 12px;
+  min-height: 44px;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(75,182,239,0.08);
+  font-size: 1rem;
+  outline: none;
+}
+.custom-select-input:focus, .custom-select-input:active {
+  border: 1.5px solid #3399cc;
+  box-shadow: 0 0 0 2px #4bb6ef33;
+}
+
+.custom-select-dropdown {
+  background: rgba(255,255,255,0.7);
+  color: #222;
+  border: 1px solid #4bb6ef;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(75,182,239,0.15);
+  z-index: 99999;
+  font-size: 1rem;
+  overflow: hidden;
+}
+
+.custom-select-option {
+  padding: 12px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.custom-select-option:hover, .custom-select-option:focus {
+  background: #4bb6ef;
+  color: #fff;
+}
+.custom-select-option[aria-selected="true"], .custom-select-option.selected {
+  background: #e6f4ff;
+  color: #222;
+}
+
+body.dark .custom-select-input, body.dark .custom-select-dropdown {
+  background: rgba(61, 61, 61, 0.7);
+  color: #f1f1f1;
+  border: 1px solid #4bb6ef;
+}
+body.dark .custom-select-option {
+  color: #f1f1f1;
+}
+body.dark .custom-select-option:hover, body.dark .custom-select-option:focus {
+  background: #4bb6ef;
+  color: #fff;
+}
+body.dark .custom-select-option.selected {
+  background: #2d3a4a;
+  color: #4bb6ef;
 }
 
 /* Media queries */

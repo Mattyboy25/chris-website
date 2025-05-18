@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
@@ -17,6 +18,15 @@ function Contact() {
   const [loadRetries, setLoadRetries] = useState(0);
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
+  const [serviceDropdownOpen, setServiceDropdownOpen] = useState(false);
+  const serviceOptions = [
+    { value: 'real-estate', label: 'Real Estate' },
+    { value: 'construction', label: 'Construction' },
+    { value: 'events', label: 'Events' },
+    { value: 'wedding', label: 'Wedding' },
+    { value: 'custom', label: 'Custom' },
+  ];
+  const serviceDropdownRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -209,6 +219,21 @@ function Contact() {
     }
   }, []);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (serviceDropdownRef.current && !serviceDropdownRef.current.contains(event.target)) {
+        setServiceDropdownOpen(false);
+      }
+    }
+    if (serviceDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [serviceDropdownOpen]);
+
   return (
     <PageTransition>
       <div className="contact-page-wrapper">        
@@ -280,7 +305,7 @@ function Contact() {
                 </div>
                 
                 <div className="contact-form-container">
-                  <form className="contact-form" onSubmit={handleSubmit}>
+                  <form className="contact-form" onSubmit={handleSubmit} autoComplete="off">
                     <div className="form-group">
                       <label htmlFor="name">Name</label>
                       <input 
@@ -316,23 +341,45 @@ function Contact() {
                       />
                     </div>
                     
-                    <div className="form-group">
+                    <div className="form-group" ref={serviceDropdownRef} style={{ position: 'relative' }}>
                       <label htmlFor="service">Service Interested In</label>
-                      <select 
-                        id="service" 
-                        name="service" 
-                        value={formData.service} 
-                        onChange={handleChange} 
-                        required
+                      <div
+                        className="custom-select-input"
+                        tabIndex={0}
+                        onClick={() => setServiceDropdownOpen((open) => !open)}
+                        onBlur={() => setTimeout(() => setServiceDropdownOpen(false), 150)}
+                        style={{ cursor: 'pointer', background: '#fff', border: '1px solid #ccc', borderRadius: 6, padding: '12px', minHeight: 44 }}
                       >
-                        <option value="">Select a Service</option>
-                        <option value="aerial-photography">Aerial Photography</option>
-                        <option value="drone-videography">Drone Videography</option>
-                        <option value="real-estate">Real Estate Tours</option>
-                        <option value="construction">Construction Monitoring</option>
-                        <option value="events">Events Coverage</option>
-                        <option value="other">Other</option>
-                      </select>
+                        {serviceOptions.find(opt => opt.value === formData.service)?.label || 'Select a Service'}
+                      </div>
+                      {serviceDropdownOpen && ReactDOM.createPortal(
+                        <div className="custom-select-dropdown" style={{
+                          position: 'absolute',
+                          top: serviceDropdownRef.current ? serviceDropdownRef.current.getBoundingClientRect().bottom + window.scrollY : 0,
+                          left: serviceDropdownRef.current ? serviceDropdownRef.current.getBoundingClientRect().left + window.scrollX : 0,
+                          width: serviceDropdownRef.current ? serviceDropdownRef.current.offsetWidth : 200,
+                          background: '#fff',
+                          border: '1px solid #ccc',
+                          borderRadius: 6,
+                          zIndex: 99999,
+                          boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                        }}>
+                          {serviceOptions.map(opt => (
+                            <div
+                              key={opt.value}
+                              className="custom-select-option"
+                              style={{ padding: '12px', cursor: 'pointer', background: formData.service === opt.value ? '#e6f4ff' : '#fff' }}
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, service: opt.value }));
+                                setServiceDropdownOpen(false);
+                              }}
+                            >
+                              {opt.label}
+                            </div>
+                          ))}
+                        </div>,
+                        document.body
+                      )}
                     </div>
                     
                     <div className="form-group">
