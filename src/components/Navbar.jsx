@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from './ThemeContext';
-import ThemeToggle from './ThemeToggle';
 import '../App.css';
 
 function Navbar() {
@@ -83,9 +82,7 @@ function Navbar() {
             </Link>
           </li>
         </ul>
-        
-        <ThemeToggle />
-      </div>
+        </div>
     </nav>
   );
 }
