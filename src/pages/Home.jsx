@@ -13,10 +13,7 @@ function Home() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
-  const [isWaiting, setIsWaiting] = useState(false);
-  const [isGlowing, setIsGlowing] = useState(false);  
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const audioRef = useRef(null);
+  const [isWaiting, setIsWaiting] = useState(false);  const [isGlowing, setIsGlowing] = useState(false);
 
   const words = ['Inspiring', 'Superior', 'Upward'];
   const staticText = 'Drone Services';
@@ -103,63 +100,7 @@ function Home() {
     // Clean up
     return () => window.removeEventListener('scroll', handleScroll);
   }, [videoError]);
-
-  // Initialize audio when component mounts
-  useEffect(() => {
-    // Check if user is on mobile
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
-    // Only setup audio for non-mobile devices
-    if (!isMobile) {
-      audioRef.current = new Audio('/Music/bg-music.mp3');
-      audioRef.current.loop = true;
-      audioRef.current.volume = 1.0;
-
-      // Try to start playing immediately
-      audioRef.current.play()
-        .then(() => setIsMusicPlaying(true))
-        .catch(() => {
-          // If initial autoplay fails, we'll try again when video plays
-          console.log('Initial autoplay failed, will try again with video play');
-        });
-    } else {
-      console.log('Mobile device detected - music autoplay disabled');
-    }
-
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.src = '';
-      }
-    };
-  }, []);
-  // Handle music toggle
-  const toggleMusic = () => {
-    // Check if user is on mobile
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-      // On mobile, just update UI state without playing music
-      setIsMusicPlaying(!isMusicPlaying);
-      return;
-    }
-    
-    // For non-mobile devices, handle normal audio playback
-    if (audioRef.current) {
-      if (isMusicPlaying) {
-        audioRef.current.pause();
-      } else {
-        // Initialize audio if not already done
-        if (!audioRef.current.src) {
-          audioRef.current = new Audio('/Music/bg-music.mp3');
-          audioRef.current.loop = true;
-          audioRef.current.volume = 1.0;
-        }
-        audioRef.current.play();
-      }
-      setIsMusicPlaying(!isMusicPlaying);
-    }
-  };  // Function to handle card hover effect with glassy overlay
+// Function to handle card hover effect with glassy overlay
   const handleCardMouseMove = (e) => {
     // Get the card element from the wrapper
     const wrapper = e.currentTarget;
@@ -269,16 +210,7 @@ function Home() {
 
   return (
     <PageTransition>
-      <div className="home-wrapper">
-        <div className="hero-container">          
-          {/* Music Controls */}
-          <button 
-            className="music-toggle glass-btn-music"
-            onClick={toggleMusic}
-            aria-label={isMusicPlaying ? 'Pause Music' : 'Play Music'}
-          >
-            <i className={`fas ${isMusicPlaying ? 'fa-pause' : 'fa-play'}`}></i>
-          </button>
+      <div className="home-wrapper">        <div className="hero-container">
           {!videoError ? (
             <div className="video-container" ref={videoContainerRef}>              <video 
                 ref={videoRef}
@@ -287,19 +219,7 @@ function Home() {
                 loop 
                 muted 
                 playsInline
-                className="hero-video visible"
-                onError={handleVideoError}
-                onPlay={() => {
-                  // Check if user is on mobile
-                  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                  
-                  // Only try to play music for non-mobile devices
-                  if (!isMobile && audioRef.current && !isMusicPlaying) {
-                    audioRef.current.play()
-                      .then(() => setIsMusicPlaying(true))
-                      .catch(console.error);
-                  }
-                }}
+                className="hero-video visible"                onError={handleVideoError}
               />
             </div>
           ) : (
