@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
+import SuccessFeedback from '../components/SuccessFeedback';
 import emailjs from '@emailjs/browser';
 import '../styles/Contact.css';
 
@@ -10,6 +11,7 @@ import '../styles/Contact.css';
 emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
 function Contact() {  
+  const [showSuccess, setShowSuccess] = useState(false);
   // Verify EmailJS initialization on component mount
   useEffect(() => {
     console.log('Checking EmailJS configuration...');
@@ -88,8 +90,7 @@ function Contact() {
     console.log('Template ID:', import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
     console.log('Form data:', formData);
 
-    try {
-      const result = await emailjs.sendForm(
+    try {      const result = await emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         form.current,
@@ -97,7 +98,7 @@ function Contact() {
       );
 
       console.log('Email sent successfully:', result.text);
-      alert('Thanks for your message! We will get back to you soon.');
+      setShowSuccess(true);
       setFormData({
         name: '',
         email: '',
@@ -356,6 +357,10 @@ function Contact() {
   return (
     <PageTransition>
       <div className="contact-page-wrapper">        
+        {showSuccess && (
+          <SuccessFeedback onClose={() => setShowSuccess(false)} />
+        )}
+        
         {/* Background Video */}        
         {!videoError ? (          
           <div className="video-container" ref={videoContainerRef}>            
