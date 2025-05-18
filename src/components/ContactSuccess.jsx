@@ -3,85 +3,59 @@ import { motion } from 'framer-motion';
 import '../styles/ContactSuccess.css';
 
 const ContactSuccess = () => {
-  // Animation variants for the checkmark
-  const checkmarkVariants = {
-    hidden: { 
-      pathLength: 0,
-      opacity: 0 
-    },
-    visible: {
-      pathLength: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  // Animation variants for the circle
-  const circleVariants = {
-    hidden: { 
-      scale: 0,
-      opacity: 0 
-    },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut"
-      }
-    }
-  };
-
   return (
-    <motion.div 
-      className="contact-success"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className="contact-success-container">
       <motion.h2
+        className="success-title"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="success-title"
+        transition={{ duration: 0.5 }}
       >
         Thank You for Reaching Out!
       </motion.h2>
-      <div className="checkmark-container">
-        <motion.div
-          className="circle"
-          variants={circleVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.svg
-            viewBox="0 0 50 50"
-            className="checkmark"
-          >
-            <motion.path
-              d="M14,26 L 22,33 L 36,16"
-              fill="transparent"
-              strokeWidth="4"
-              stroke="#fff"
-              variants={checkmarkVariants}
-              initial="hidden"
-              animate="visible"
-            />
-          </motion.svg>
-        </motion.div>
-      </div>
+
+      <motion.div
+        className="checkmark-wrapper"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+          delay: 0.2
+        }}
+      >
+        <svg className="checkmark" viewBox="0 0 52 52">
+          <motion.circle
+            className="checkmark-circle"
+            cx="26"
+            cy="26"
+            r="25"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          />
+          <motion.path
+            className="checkmark-check"
+            fill="none"
+            d="M14.1 27.2l7.1 7.2 16.7-16.8"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          />
+        </svg>
+      </motion.div>
+
       <motion.p
+        className="success-message"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-        className="success-message"
+        transition={{ duration: 0.5, delay: 1.2 }}
       >
         Our team has received your email and will get back to you within 24 hours.
       </motion.p>
-    </motion.div>
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
-import SuccessFeedback from '../components/SuccessFeedback';
+import ContactSuccess from '../components/ContactSuccess';
 import emailjs from '@emailjs/browser';
 import '../styles/Contact.css';
 
@@ -294,8 +294,9 @@ function Contact() {
       document.removeEventListener('mousedown', handleClickOutside);
       window.removeEventListener('scroll', updateDropdownPosition);
       window.removeEventListener('resize', updateDropdownPosition);
-    };
-  }, [serviceDropdownOpen]);  const updateDropdownPosition = () => {
+    };  }, [serviceDropdownOpen]);
+  
+  const updateDropdownPosition = () => {
     if (serviceDropdownRef.current) {
       const inputElement = serviceDropdownRef.current.querySelector('.custom-select-input');
       const rect = inputElement.getBoundingClientRect();
@@ -353,14 +354,9 @@ function Contact() {
       }
     }
   };
-
   return (
     <PageTransition>
       <div className="contact-page-wrapper">        
-        {showSuccess && (
-          <SuccessFeedback onClose={() => setShowSuccess(false)} />
-        )}
-        
         {/* Background Video */}        
         {!videoError ? (          
           <div className="video-container" ref={videoContainerRef}>            
@@ -392,8 +388,7 @@ function Contact() {
             <h1>CONTACT US</h1>
             <p>Get in touch for a free consultation</p>
           </motion.div>
-          
-          <div className="contact-content glass-section">
+            <div className="contact-content glass-section">
             <motion.div 
               className="section-content"
               initial="hidden"
@@ -401,9 +396,12 @@ function Contact() {
               viewport={{ once: true, amount: 0.2 }}
               variants={fadeInUpVariants}
             >
-              <div className="contact-content-inner">
-                <div className="contact-info">
-                  <h2>Reach Out</h2>
+              {showSuccess ? (
+                <ContactSuccess />
+              ) : (
+                <div className="contact-content-inner">
+                  <div className="contact-info">
+                    <h2>Reach Out</h2>
                   <p>We'd love to hear about your project. Fill out the form and our team will get back to you within 24 hours.</p>
                   
                   <div className="contact-details">
@@ -533,8 +531,8 @@ function Contact() {
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </motion.button>
                   </form>
-                </div>
-              </div>
+                </div>                </div>
+              )}
             </motion.div>
           </div>
         </div>
