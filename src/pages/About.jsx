@@ -25,11 +25,10 @@ function About() {  useEffect(() => {
       bio: "FAA-certified drone pilot with experience in aerial photography. Specializes in commercial real estate and construction site documentation.",
       certifications: ["FAA Part 107", "DJI Certified"],
       social: {
-        linkedin: "https://linkedin.com/in/chris-johnson",
         instagram: "@chris.drones"
       },
       icon: <FaPlane />,
-      image: "/images/chris.jpg" // You'll need to add these images
+      image: "/images/Christian.jpg" // You'll need to add these images
     },{
       name: "Matthew Odumosu",
       role: "Drone Technician & Field Assistant",
@@ -41,7 +40,7 @@ function About() {  useEffect(() => {
         instagram: "@sarah.aerial"
       },
       icon: <FaCamera />,
-      image: "/images/matthew.png"
+      image: "/images/Matthew.JPG"
     }
  
   ];
@@ -123,26 +122,7 @@ function About() {  useEffect(() => {
                       ))}
                     </div>
                     
-                    <div className="member-social">
-                      <motion.a 
-                        href={member.social.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        className="social-link"
-                      >
-                        <FaLinkedin />
-                      </motion.a>
-                      <motion.a 
-                        href={`https://instagram.com/${member.social.instagram.substring(1)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        className="social-link"
-                      >
-                        <FaInstagram />
-                      </motion.a>
-                    </div>
+
                   </div>
                 </motion.div>
               ))}
