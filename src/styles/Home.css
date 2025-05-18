@@ -249,6 +249,77 @@ body.light .hero-content p {
   box-shadow: 0 6px 20px rgba(75, 182, 239, 0.5);
 }
 
+/* Animated Scroll Down Arrow */
+.scroll-arrow-container {
+  position: absolute;  /* Changed from absolute to fixed */
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;  /* Increased z-index to ensure visibility */
+  cursor: pointer;
+  animation: float-arrow 2s ease-in-out infinite;
+}
+
+.scroll-arrow {
+  width: 50px;  /* Increased size */
+  height: 50px;  /* Increased size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 28px;  /* Increased font size */
+  transition: all 0.3s ease;
+}
+
+.scroll-arrow-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.4s ease;
+  opacity: 1;
+  z-index: 10;
+}
+
+.scroll-arrow-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+.scroll-arrow:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(5px);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes float-arrow {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* Make arrow less prominent on mobile */
+@media screen and (max-width: 768px) {
+  .scroll-arrow-container {
+    bottom: 80px;
+  }
+  
+  .scroll-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+}
+
 /* Services Section on Home Page */
 .services-container {
   padding: 80px 20px;
@@ -396,7 +467,6 @@ body.dark .service-card h2 {
 .glass-section {
   position: relative;
   padding: 80px 40px;
-
   overflow: hidden;
 }
 

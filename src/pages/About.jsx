@@ -40,7 +40,7 @@ function About() {  useEffect(() => {
         instagram: "@sarah.aerial"
       },
       icon: <FaCamera />,
-      image: "/images/Matthew.JPG"
+      image: "/images/Matthew.PNG"
     }
  
   ];

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useAnimation } from 'framer-motion';
+import { FaChevronDown } from 'react-icons/fa';
 import PageTransition from '../components/PageTransition';
 import '../styles/Home.css';
 
@@ -13,7 +14,9 @@ function Home() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
-  const [isWaiting, setIsWaiting] = useState(false);  const [isGlowing, setIsGlowing] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(false);  
+  const [isGlowing, setIsGlowing] = useState(false);
+  const [showScrollArrow, setShowScrollArrow] = useState(true);
 
   const words = ['Inspiring', 'Superior', 'Upward'];
   const staticText = 'Drone Services';
@@ -63,6 +66,23 @@ function Home() {
   }, [wordIndex, charIndex, isDeleting, words, isWaiting]);
 
   useEffect(() => {
+  let lastScrollY = window.scrollY;
+
+  const handleScrollArrowVisibility = () => {
+    const currentScrollY = window.scrollY;
+    // Hide if scrolling down, show if scrolling up or near top
+    setShowScrollArrow(currentScrollY < 50 || currentScrollY < lastScrollY);
+    lastScrollY = currentScrollY;
+  };
+
+  window.addEventListener('scroll', handleScrollArrowVisibility);
+  return () => {
+    window.removeEventListener('scroll', handleScrollArrowVisibility);
+  };
+}, []);
+
+
+  useEffect(() => {
     // Faster typing/deletion speeds
     const typingSpeed = isDeleting ? 55 : 80; // Much faster now
     intervalRef.current = setInterval(handleTyping, typingSpeed);
@@ -100,7 +120,8 @@ function Home() {
     // Clean up
     return () => window.removeEventListener('scroll', handleScroll);
   }, [videoError]);
-// Function to handle card hover effect with glassy overlay
+
+  // Function to handle card hover effect with glassy overlay
   const handleCardMouseMove = (e) => {
     // Get the card element from the wrapper
     const wrapper = e.currentTarget;
@@ -208,18 +229,28 @@ function Home() {
     }
   };
 
+  const handleScrollClick = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <PageTransition>
-      <div className="home-wrapper">        <div className="hero-container">
+      <div className="home-wrapper">        
+        <div className="hero-container">
           {!videoError ? (
-            <div className="video-container" ref={videoContainerRef}>              <video 
+            <div className="video-container" ref={videoContainerRef}>              
+              <video 
                 ref={videoRef}
                 src="/videos/main-video.mp4"
                 autoPlay 
                 loop 
                 muted 
                 playsInline
-                className="hero-video visible"                onError={handleVideoError}
+                className="hero-video visible"                
+                onError={handleVideoError}
               />
             </div>
           ) : (
@@ -269,8 +300,13 @@ function Home() {
               </motion.div>
             </motion.div>
           </div>
+            <div className={`scroll-arrow-container ${showScrollArrow ? 'visible' : 'hidden'}`}  onClick={handleScrollClick}>
+          <div className="scroll-arrow">
+            <FaChevronDown />
+          </div>
         </div>
-        
+        </div>
+          
         {/* Content that overlaps the video */}
         <div className="content-wrapper">
           {/* Combined Featured Services and About Section */}
@@ -347,7 +383,8 @@ function Home() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               variants={fadeInUpVariants}
-            >              <h2 className="section-title">Our Professional Gear</h2>
+            >              
+              <h2 className="section-title">Our Professional Gear</h2>
               <p className="section-description">
                 We utilize cutting-edge drone technology and premium camera equipment to capture stunning aerial footage.
                 Every piece of our gear is carefully selected to deliver exceptional quality in any environment.
@@ -447,7 +484,7 @@ function Home() {
                   </motion.div>
                 </div>
               </div>
-                <motion.div 
+              <motion.div 
                 className="equipment-cta"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
