@@ -18,14 +18,14 @@ body {
 
 /* Theme Styles */
 body.light {
-  background-color: #ffffff !important;
-  color: #333333 !important;
-  --page-bg-color: #ffffff;
+  background-color: #f8f9fa;
+  color: #333;
+  --page-bg-color: #f8f9fa;
 }
 
 body.dark {
-  background-color: #181818 !important;
-  color: #f1f1f1 !important;
+  background-color: #121212;
+  color: #f1f1f1;
   --page-bg-color: #121212;
 }
 
@@ -54,25 +54,25 @@ main {
 }
 
 .navbar.light {
-  background-color: rgba(255, 255, 255, 0.85) !important;
+  background-color: rgba(202, 202, 202, 0.425);
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
   border-bottom: 1px solid rgba(200, 200, 200, 0.25);
 }
 
 .navbar.dark {
-  background-color: rgba(18, 18, 18, 0.85) !important;
+  background-color: rgba(18, 18, 18, 0.85);
   box-shadow: 0 2px 12px rgba(0,0,0,0.18);
   border-bottom: 1px solid rgba(40, 40, 40, 0.4);
 }
 
 .navbar.scrolled.light {
-  background-color: rgba(255, 255, 255, 0.97) !important;
+  background-color: rgba(255, 255, 255, 0.932);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
   border-bottom: 1px solid rgba(200, 200, 200, 0.35);
 }
 
 .navbar.scrolled.dark {
-  background-color: rgba(18, 18, 18, 0.97) !important;
+  background-color: rgba(18, 18, 18, 0.97);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
   border-bottom: 1px solid rgba(40, 40, 40, 0.5);
 }
