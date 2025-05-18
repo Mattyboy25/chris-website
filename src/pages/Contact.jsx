@@ -3,9 +3,22 @@ import ReactDOM from 'react-dom';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
+import emailjs from '@emailjs/browser';
 import '../styles/Contact.css';
 
+// Initialize EmailJS with your public key
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+
 function Contact() {  
+  // Verify EmailJS initialization on component mount
+  useEffect(() => {
+    console.log('Checking EmailJS configuration...');
+    if (!emailjs.init) {
+      console.error('EmailJS not initialized properly');
+    }
+  }, []);
+  const form = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -61,19 +74,38 @@ function Contact() {
     setServiceDropdownOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // This would connect to a backend service in a real application
-    console.log('Form submitted:', formData);
-    alert('Thanks for your message! We will get back to you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      service: '',
-      message: ''
-    });
-  };  
+    setIsSubmitting(true);
+
+    console.log('Service ID:', import.meta.env.VITE_EMAILJS_SERVICE_ID);
+    console.log('Template ID:', import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
+    console.log('Form data:', formData);
+
+    try {
+      const result = await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
+      console.log('Email sent successfully:', result.text);
+      alert('Thanks for your message! We will get back to you soon.');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('There was an error sending your message. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Handle video error and fallback to background image
   const handleVideoError = () => {
@@ -385,7 +417,7 @@ function Contact() {
                 </div>
                 
                 <div className="contact-form-container">
-                  <form className="contact-form" onSubmit={handleSubmit} autoComplete="off">
+                  <form className="contact-form" ref={form} onSubmit={handleSubmit} autoComplete="off">
                     <div className="form-group">
                       <label htmlFor="name">Name</label>
                       <input 
@@ -480,8 +512,9 @@ function Contact() {
                       className="submit-btn"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      disabled={isSubmitting}
                     >
-                      Send Message
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                     </motion.button>
                   </form>
                 </div>
