@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from './ThemeContext';
 import ThemeToggle from './ThemeToggle';
@@ -8,6 +8,18 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme } = useContext(ThemeContext);
+  const location = useLocation();
+
+  const scrollToTop = (e) => {
+    // Only prevent default if we're on the home page
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -48,7 +60,7 @@ function Navbar() {
   return (
     <nav className={`navbar ${theme} ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo" onClick={scrollToTop}>
           Upward Drone Services
         </Link>
         
