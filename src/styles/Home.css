@@ -18,6 +18,13 @@
   margin-top: 0;
 }
 
+.Home-section {
+
+ border-radius:0px !important;
+
+}
+
+
 .video-container {
   position: absolute;
   top: 0;

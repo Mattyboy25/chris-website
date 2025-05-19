@@ -228,10 +228,10 @@ function Home() {
       }
     }
   };
-
   const handleScrollClick = () => {
+    // Add offset for navbar (80px)
     window.scrollTo({
-      top: window.innerHeight,
+      top: window.innerHeight - 80,
       behavior: 'smooth'
     });
   };
@@ -310,7 +310,7 @@ function Home() {
         {/* Content that overlaps the video */}
         <div className="content-wrapper">
           {/* Combined Featured Services and About Section */}
-          <section className="combined-section glass-section">
+          <section className="combined-section glass-section Home-section">
             <motion.div 
               className="section-content"
               initial="hidden"
@@ -376,7 +376,7 @@ function Home() {
           </section>
           
           {/* Equipment List Section */}
-          <section className="equipment-section glass-section">
+          <section className="equipment-section glass-section Home-section">
             <motion.div 
               className="section-content"
               initial="hidden"
@@ -455,7 +455,7 @@ function Home() {
                       duration: 0.5 
                     }}
                   >
-                    <div className="equipment-image-container">
+                    <div className="equipment-image-container Home-section">
                       <img src="/images/equipment/a7III.png" alt="Sony a7iii" className="equipment-image" />
                       <span className="equipment-name">Sony a7iii</span>
                     </div>
@@ -499,7 +499,7 @@ function Home() {
           </section>
           
           {/* Call to Action Section */}
-          <section className="cta-section glass-section">
+          <section className="cta-section glass-section Home-section">
             <motion.div 
               className="section-content"
               initial="hidden"
