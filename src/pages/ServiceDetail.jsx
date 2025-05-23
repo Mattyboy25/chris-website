@@ -246,47 +246,7 @@ function ServiceDetail() {
                 </div>
               </>
             )}
-          </div>
-
-          <div className="service-sidebar">
-            <motion.div 
-              className="service-cta-card"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <h3>Ready to Get Started?</h3>
-              <p>Contact us today to discuss your project requirements and receive a customized quote.</p>
-              <motion.button 
-                className="cta-btn"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => navigate(`/contact?service=${service.slug}`)}
-              >
-                Request a Quote
-              </motion.button>
-            </motion.div>
-            
-            <motion.div 
-              className="service-info-card"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <h3>Service Details</h3>
-              <div className="info-item">
-                <span><FaClock /> Turnaround Time</span>
-                <span>{service.info.turnaround}</span>
-              </div>
-              <div className="info-item">
-                <span><FaMapMarkerAlt /> Coverage</span>
-                <span>{service.info.coverage}</span>
-              </div>
-              <div className="info-item">
-                <span><FaMoneyBillWave /> Starting at</span>
-                <span>{service.info.pricing}</span>
-              </div>
-            </motion.div>
+          </div>          <div className="service-sidebar">
           </div>
         </div>
       </div>
