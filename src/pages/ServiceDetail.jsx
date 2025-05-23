@@ -166,13 +166,12 @@ function ServiceDetail() {
                 </div>
 
                 <div className="option-group">
-                  <label>Turnaround Time</label>
-                  <select
+                  <label>Turnaround Time</label>                  <select
                     value={selectedOptions.turnaround}
                     onChange={(e) => handleOptionChange('turnaround', e.target.value)}
                   >
-                    <option value="standard">Standard (48-72 hours)</option>
-                    <option value="rush">Rush Service - 24 hours (+$100)</option>
+                    <option value="standard">24 hours</option>
+                    <option value="rush">Priority Service (+$100)</option>
                   </select>
                 </div>
 
