@@ -10,10 +10,8 @@ export const services = [
     iconName: "FaCamera",
     videoSrc: "/videos/Town.mp4",    features: [
       "10-20 High-quality aerial photos",
-      "Professional editing & color grading",
+      "Color grading",
       "Property boundary visualization",
-      "Digital delivery & download",
-      "MLS-ready formats"
     ],
     process: [
       { step: 1, title: "Booking", desc: "Schedule your shoot at a convenient time" },
