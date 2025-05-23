@@ -125,8 +125,26 @@ function Services() {const videoRef = useRef(null);
                 >
                   Get Started <FaArrowRight style={{ marginLeft: '8px' }} />
                 </motion.button>
-              </motion.div>
-            ))}          </div>
+              </motion.div>            ))}
+          </div>          <motion.div
+            className="service-card custom-quote-card"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="service-title">Custom Package</h3>
+            <div className="service-price">Tailored Pricing</div>
+            <p className="service-description">Don't see what you're looking for? Let us create a custom package that perfectly matches your needs.</p>
+            <motion.button 
+              onClick={() => navigate('/contact')}
+              className="service-cta"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Request Quote <FaArrowRight style={{ marginLeft: '8px' }} />
+            </motion.button>
+          </motion.div>
         </div>
       </div>
     </PageTransition>
