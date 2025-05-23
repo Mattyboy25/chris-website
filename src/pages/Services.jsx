@@ -1,22 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Services.css';
 import PageTransition from '../components/PageTransition';
 import { FaCheck, FaArrowRight } from 'react-icons/fa';
 import { services, iconMap } from '../data/servicesData';
-import PackageModal from '../components/PackageModal';
 
-function Services() {
-  const videoRef = useRef(null);
-  const [selectedPackage, setSelectedPackage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+function Services() {const videoRef = useRef(null);
   const [videoError, setVideoError] = useState(false);
-
-  // Debug effect for modal state changes
-  useEffect(() => {
-    console.log('Modal state changed:', { isModalOpen, selectedPackage });
-  }, [isModalOpen, selectedPackage]);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -30,9 +21,10 @@ function Services() {
   const handleVideoError = (error) => {
     console.error("Video loading error:", error);
     setVideoError(true);
-  };  const handlePackageClick = (packageData) => {
-    setSelectedPackage(packageData);
-    setIsModalOpen(true);
+  };  const navigate = useNavigate();
+  
+  const handlePackageClick = (packageData) => {
+    navigate(`/services/${packageData.slug}?customize=true`);
   };
 
   return (
@@ -134,16 +126,9 @@ function Services() {
                   Get Started <FaArrowRight style={{ marginLeft: '8px' }} />
                 </motion.button>
               </motion.div>
-            ))}
-          </div>
+            ))}          </div>
         </div>
       </div>
-
-      <PackageModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        package={selectedPackage}
-      />
     </PageTransition>
   );
 }
