@@ -4,42 +4,46 @@ import { Link } from 'react-router-dom';
 import '../styles/PackageModal.css';
 
 const PackageModal = ({ isOpen, onClose, package: packageData }) => {
-  console.log('PackageModal props:', { isOpen, packageData }); // Debug log
+  const [mounted, setMounted] = React.useState(false);
 
+  // Handle mounting animation
   React.useEffect(() => {
     if (isOpen) {
-      console.log('Modal opened with package:', packageData); // Debug log
+      setMounted(true);
     }
-  }, [isOpen, packageData]);
+  }, [isOpen]);
+
+  // Prevent body scroll when modal is open
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   return (
-    <AnimatePresence>
-      {isOpen && packageData && (
+    <AnimatePresence mode="wait">
+      {isOpen && packageData && mounted && (
         <motion.div 
           className="modal-overlay"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={(e) => {
-            console.log('Modal overlay clicked'); // Debug log
-            onClose();
-          }}
+          onClick={onClose}
         >
           <motion.div 
             className="modal-content glass-card"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}            onClick={e => e.stopPropagation()}
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            transition={{ type: "spring", duration: 0.5 }}
+            onClick={e => e.stopPropagation()}
           >
-            <button 
-              className="modal-close" 
-              onClick={(e) => {
-                console.log('Close button clicked'); // Debug log
-                onClose();
-              }}
-            >
-              &times;
-            </button>
+            <button className="modal-close" onClick={onClose}>&times;</button>
             
             <div className="modal-header">
               <h2>{packageData.title}</h2>

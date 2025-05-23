@@ -240,6 +240,9 @@ body.light .services-fallback-bg {
   align-items: center;
   box-shadow: 0 4px 15px rgba(75, 182, 239, 0.3);
   margin-top: auto;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .service-cta:hover {

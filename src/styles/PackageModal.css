@@ -5,26 +5,28 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* Modal Content */
 .modal-content {
   background: rgba(30, 30, 35, 0.95);
   border-radius: 20px;
-  padding: 30px;
+  padding: 40px;
   max-width: 800px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  border: 1px solid rgba(75, 182, 239, 0.2);
+  border: 1px solid rgba(75, 182, 239, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
 }
 
 body.light .modal-content {
@@ -39,7 +41,7 @@ body.light .modal-content {
   background: none;
   border: none;
   color: #4bb6ef;
-  font-size: 24px;
+  font-size: 28px;
   cursor: pointer;
   width: 40px;
   height: 40px;
@@ -64,31 +66,13 @@ body.light .modal-content {
 .modal-header h2 {
   font-size: 32px;
   margin-bottom: 15px;
-  background: linear-gradient(135deg, #4bb6ef, #2d8bc7);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #4bb6ef;
 }
 
 .package-price {
   font-size: 28px;
   color: #4bb6ef;
   font-weight: bold;
-}
-
-/* Modal Body */
-.modal-body {
-  margin-bottom: 30px;
-}
-
-.package-description {
-  color: #ccc;
-  line-height: 1.6;
-  margin-bottom: 30px;
-}
-
-body.light .package-description {
-  color: #666;
 }
 
 /* Features Section */
@@ -117,6 +101,7 @@ body.light .features-section h3 {
   gap: 10px;
   margin-bottom: 15px;
   color: #fff;
+  font-size: 16px;
 }
 
 body.light .features-list li {
@@ -133,18 +118,22 @@ body.light .features-list li {
   background: rgba(75, 182, 239, 0.1);
   border-radius: 15px;
   padding: 20px;
-  margin-bottom: 30px;
+  margin: 30px 0;
 }
 
 .info-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   color: #fff;
 }
 
 body.light .info-item {
   color: #444;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
 }
 
 .info-label {
@@ -154,7 +143,7 @@ body.light .info-item {
 
 /* Customization Section */
 .customization-section {
-  margin-bottom: 30px;
+  margin: 30px 0;
   text-align: center;
 }
 
@@ -168,7 +157,7 @@ body.light .customization-section h3 {
   color: #333;
 }
 
-customization-section p {
+.customization-section p {
   color: #ccc;
 }
 
@@ -179,22 +168,9 @@ body.light .customization-section p {
 /* Button Container */
 .button-container {
   display: flex;
-  gap: 15px;
-  justify-content: center;
-  width: 100%;
-}
-
-.button-container .book-now-btn,
-.button-container .customize-btn {
-  flex: 1;
-  max-width: 200px;
-}
-
-/* Modal Footer */
-.modal-footer {
-  display: flex;
   gap: 20px;
   justify-content: center;
+  margin-top: 30px;
 }
 
 .book-now-btn,
@@ -207,32 +183,67 @@ body.light .customization-section p {
   transition: all 0.3s ease;
   cursor: pointer;
   text-align: center;
-  border: none;
+  flex: 1;
+  max-width: 200px;
 }
 
 .book-now-btn {
   background: linear-gradient(135deg, #4bb6ef, #2d8bc7);
   color: #fff;
-  flex: 1;
-  max-width: 200px;
+  border: none;
 }
 
 .customize-btn {
   background: transparent;
   color: #4bb6ef;
   border: 2px solid #4bb6ef;
-  flex: 1;
-  max-width: 200px;
 }
 
-.book-now-btn:hover {
+.book-now-btn:hover,
+.customize-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(75, 182, 239, 0.3);
 }
 
 .customize-btn:hover {
   background: rgba(75, 182, 239, 0.1);
-  transform: translateY(-2px);
+}
+
+/* Package Description */
+.package-description {
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+body.light .package-description {
+  color: #666;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 30px 20px;
+  }
+
+  .modal-header h2 {
+    font-size: 24px;
+  }
+
+  .package-price {
+    font-size: 24px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .book-now-btn,
+  .customize-btn {
+    max-width: 100%;
+  }
 }
 
 /* Scrollbar Styling */
@@ -248,28 +259,4 @@ body.light .customization-section p {
 .modal-content::-webkit-scrollbar-thumb {
   background: #4bb6ef;
   border-radius: 4px;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .modal-content {
-    padding: 20px;
-  }
-
-  .modal-header h2 {
-    font-size: 24px;
-  }
-
-  .package-price {
-    font-size: 24px;
-  }
-
-  .modal-footer {
-    flex-direction: column;
-  }
-
-  .book-now-btn,
-  .customize-btn {
-    max-width: 100%;
-  }
 }

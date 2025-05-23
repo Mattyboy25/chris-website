@@ -13,6 +13,11 @@ function Services() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
+  // Debug effect for modal state changes
+  useEffect(() => {
+    console.log('Modal state changed:', { isModalOpen, selectedPackage });
+  }, [isModalOpen, selectedPackage]);
+
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.play().catch(err => {
@@ -25,10 +30,7 @@ function Services() {
   const handleVideoError = (error) => {
     console.error("Video loading error:", error);
     setVideoError(true);
-  };
-
-  const handlePackageClick = (packageData) => {
-    console.log("Package clicked:", packageData); // Debug log
+  };  const handlePackageClick = (packageData) => {
     setSelectedPackage(packageData);
     setIsModalOpen(true);
   };
@@ -119,16 +121,18 @@ function Services() {
                       {feature}
                     </motion.li>
                   ))}
-                </ul>
-                <button 
-                  onClick={() => {
-                    console.log("Button clicked", service); // Debug log
+                </ul>                <motion.button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    console.log("Button clicked for:", service.title);
                     handlePackageClick(service);
                   }} 
                   className="service-cta"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   Get Started <FaArrowRight style={{ marginLeft: '8px' }} />
-                </button>
+                </motion.button>
               </motion.div>
             ))}
           </div>
