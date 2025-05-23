@@ -28,6 +28,7 @@ function Services() {
   };
 
   const handlePackageClick = (packageData) => {
+    console.log("Package clicked:", packageData); // Debug log
     setSelectedPackage(packageData);
     setIsModalOpen(true);
   };
@@ -120,7 +121,10 @@ function Services() {
                   ))}
                 </ul>
                 <button 
-                  onClick={() => handlePackageClick(service)} 
+                  onClick={() => {
+                    console.log("Button clicked", service); // Debug log
+                    handlePackageClick(service);
+                  }} 
                   className="service-cta"
                 >
                   Get Started <FaArrowRight style={{ marginLeft: '8px' }} />

@@ -4,6 +4,14 @@ import { Link } from 'react-router-dom';
 import '../styles/PackageModal.css';
 
 const PackageModal = ({ isOpen, onClose, package: packageData }) => {
+  console.log('PackageModal props:', { isOpen, packageData }); // Debug log
+
+  React.useEffect(() => {
+    if (isOpen) {
+      console.log('Modal opened with package:', packageData); // Debug log
+    }
+  }, [isOpen, packageData]);
+
   return (
     <AnimatePresence>
       {isOpen && packageData && (
@@ -12,16 +20,26 @@ const PackageModal = ({ isOpen, onClose, package: packageData }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={onClose}
+          onClick={(e) => {
+            console.log('Modal overlay clicked'); // Debug log
+            onClose();
+          }}
         >
           <motion.div 
             className="modal-content glass-card"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            onClick={e => e.stopPropagation()}
+            exit={{ opacity: 0, y: 50 }}            onClick={e => e.stopPropagation()}
           >
-            <button className="modal-close" onClick={onClose}>&times;</button>
+            <button 
+              className="modal-close" 
+              onClick={(e) => {
+                console.log('Close button clicked'); // Debug log
+                onClose();
+              }}
+            >
+              &times;
+            </button>
             
             <div className="modal-header">
               <h2>{packageData.title}</h2>
