@@ -9,12 +9,9 @@ export const services = [
     title: "Basic Drone Photography",    shortDesc: "Essential aerial photography for real estate listings.",
     fullDesc: "Perfect for residential listings and small commercial properties, our basic package delivers high-quality aerial photography with professional color correction and quick turnaround time.",
     iconName: "FaCamera",
-    videoSrc: "/videos/Town.mp4",
-    features: [
+    videoSrc: "/videos/Town.mp4",    features: [
       "10-12 High-quality aerial images",
       "Color Correction",
-      "24-48 hour turnaround time",
-      "Multiple Angles and elevations",
       "Property boundary Visualization"
     ],
     process: [
