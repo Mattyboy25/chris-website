@@ -135,8 +135,7 @@ function Services() {const videoRef = useRef(null);
           >
             <h3 className="service-title">Custom Package</h3>
             <div className="service-price">Tailored Pricing</div>
-            <p className="service-description">Don't see what you're looking for? Let us create a custom package that perfectly matches your needs.</p>
-            <motion.button 
+            <p className="service-description">Don't see what you're looking for? Let us create a custom package that perfectly matches your needs.</p>            <motion.button 
               onClick={() => navigate('/contact')}
               className="service-cta"
               whileHover={{ scale: 1.05 }}
