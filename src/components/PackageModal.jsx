@@ -98,9 +98,8 @@ const PackageModal = ({ isOpen, onClose, package: packageData }) => {
                   className="book-now-btn"
                 >
                   Book Now
-                </Link>
-                <Link 
-                  to={`/contact?service=${packageData.slug}&customize=true`}
+                </Link>                <Link 
+                  to={`/services/${packageData.slug}?customize=true`}
                   className="customize-btn"
                   onClick={onClose}
                 >
