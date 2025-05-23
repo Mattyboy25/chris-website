@@ -307,7 +307,8 @@ body.light .services-fallback-bg {
 
 .custom-quote-card .service-cta {
   width: auto;
-  padding: 15px 30px;
+  padding: 15px 45px;
+  min-width: 200px;
 }
 
 /* Ensure the custom card spans full width on mobile */
