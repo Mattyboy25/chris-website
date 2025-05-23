@@ -1,0 +1,311 @@
+/* Services Page Styles */
+.services-page {
+  background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+  min-height: 100vh;
+  padding: 40px 20px 60px;
+}
+
+.services-hero {
+  position: relative;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  margin-bottom: 60px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.services-hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(2px);
+  transform: scale(1.1); /* Prevent blur from showing edges */
+  z-index: 1;
+}
+
+.services-fallback-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('/images/drone-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.7);
+  z-index: 1;
+}
+
+body.light .services-fallback-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('/images/drone-hero.jpg');
+  filter: brightness(0.9);
+}
+
+.services-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.25));
+  z-index: 2;
+}
+
+.services-hero h1 {
+  position: relative;
+  z-index: 3;
+  font-size: 56px;
+  margin-bottom: 20px;
+  background-image: linear-gradient(135deg, #fff, #4bb6ef);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.services-hero p {
+  position: relative;
+  z-index: 3;
+  font-size: 24px;
+  max-width: 800px;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.services-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.services-intro {
+  text-align: center;
+  margin-bottom: 80px;
+  padding: 0 20px;
+}
+
+.services-intro h2 {
+  font-size: 42px;
+  margin-bottom: 30px;
+  background-image: linear-gradient(135deg, #4bb6ef, #2d8bc7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(75, 182, 239, 0.2);
+}
+
+.services-intro p {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #ccc;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-out;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transform: translateZ(0) scale(1);
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(75, 182, 239, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.service-card:hover {
+  transform: translateY(-30px) scale(1.1);
+  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
+  border-color: rgba(75, 182, 239, 0.5);
+  z-index: 1;
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+.service-icon {
+  font-size: 3rem;
+  color: #4bb6ef;
+  margin-bottom: 25px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+  transform: scale(1.1);
+}
+
+.service-title {
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.service-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, #4bb6ef, transparent);
+}
+
+.service-price {
+  font-size: 32px;
+  color: #4bb6ef;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.service-description {
+  color: #ccc;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.service-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  flex-shrink: 0;
+}
+
+.service-features li {
+  color: #fff;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feature-icon {
+  color: #4bb6ef;
+  font-size: 1.2rem;
+}
+
+.service-cta {
+  background: linear-gradient(135deg, #4bb6ef, #2d8bc7);
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(75, 182, 239, 0.3);
+  margin-top: auto;
+}
+
+.service-cta:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(75, 182, 239, 0.4);
+  background: linear-gradient(135deg, #2d8bc7, #4bb6ef);
+}
+
+.service-cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.popular-tag {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #4bb6ef, #2d8bc7);
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+@media (max-width: 1200px) {
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .services-hero h1 {
+    font-size: 42px;
+  }
+
+  .services-hero p {
+    font-size: 20px;
+  }
+
+  .services-intro h2 {
+    font-size: 36px;
+  }
+
+  .service-card {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-hero h1 {
+    font-size: 36px;
+  }
+
+  .services-intro h2 {
+    font-size: 30px;
+  }
+
+  .service-card {
+    padding: 25px;
+  }
+
+  .service-title {
+    font-size: 24px;
+  }
+
+  .service-price {
+    font-size: 28px;
+  }
+}
