@@ -6,29 +6,28 @@ export const services = [
   {
     id: 1,
     slug: "basic-drone-photography",
-    title: "Basic Drone Photography",
-    shortDesc: "Essential aerial photography for real estate listings.",
-    fullDesc: "Our basic drone photography package provides essential aerial views of your property with 10-12 high-quality images that highlight your property's best features and its surrounding context. Perfect for residential listings and small commercial properties.",
+    title: "Basic Drone Photography",    shortDesc: "Essential aerial photography for real estate listings.",
+    fullDesc: "Perfect for residential listings and small commercial properties, our basic package delivers high-quality aerial photography with professional color correction and quick turnaround time.",
     iconName: "FaCamera",
     videoSrc: "/videos/Town.mp4",
     features: [
       "10-12 High-quality aerial images",
-      "Professional editing and color correction",
+      "Color Correction",
       "24-48 hour turnaround time",
-      "Property boundary visualization",
-      "Multiple angles and elevations"
+      "Multiple Angles and elevations",
+      "Property boundary Visualization"
     ],
     process: [
       { step: 1, title: "Booking", desc: "Schedule your shoot at a convenient time" },
       { step: 2, title: "Planning", desc: "Brief consultation about property highlights" },
       { step: 3, title: "Capture", desc: "Professional drone photography session" },
-      { step: 4, title: "Editing", desc: "Image enhancement and quality control" },
+      { step: 4, title: "Editing", desc: "Image enhancement and color correction" },
       { step: 5, title: "Delivery", desc: "Digital delivery of final images" }
     ],
     info: {
       turnaround: "24-48 hours",
       coverage: "Up to 1 acre",
-      pricing: "$150",
+      pricing: "Starting at $150",
       availability: "7 days a week"
     },
     relatedServices: [2, 3]
@@ -36,17 +35,15 @@ export const services = [
   {
     id: 2,
     slug: "standard-photo-video",
-    title: "Standard Package",
-    shortDesc: "Comprehensive photo and video coverage for properties.",
-    fullDesc: "Our standard package combines aerial photography and video for a complete property showcase. Includes high-resolution photos and a professionally edited video tour that highlights your property's key features from both air and ground perspectives.",
+    title: "Standard Package",    shortDesc: "Comprehensive photo and video coverage for properties.",
+    fullDesc: "Our standard package combines aerial and ground photography with video for a complete property showcase. Includes high-quality photos and a professionally edited video tour optimized for social media.",
     iconName: "FaVideo",    videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",
     features: [
       "15-20 High-quality aerial photos",
       "2-3 minute edited video tour",
-      "Ground-level shots included",
-      "Advanced editing and color grading",
-      "Social media optimized formats",
-      "Aerial property overview shots"
+      "Ground-level shots",
+      "Editing and color grading",
+      "Social media optimized formats"
     ],
     process: [
       { step: 1, title: "Consultation", desc: "Detailed planning of photo and video coverage" },
@@ -58,7 +55,7 @@ export const services = [
     info: {
       turnaround: "2-3 business days",
       coverage: "Up to 2 acres",
-      pricing: "$250-$600",
+      pricing: "Starting at $250",
       availability: "7 days a week"
     },
     relatedServices: [1, 3]
@@ -66,20 +63,16 @@ export const services = [
   {
     id: 3,
     slug: "premium-full-production",
-    title: "Premium Package",
-    shortDesc: "Full-service real estate marketing package.",
-    fullDesc: "Our premium package delivers the ultimate property showcase with comprehensive aerial and ground coverage, cinematic video tours, 3D virtual tours, and twilight photography. Perfect for luxury properties, large estates, and high-end commercial real estate.",
+    title: "Premium Package",    shortDesc: "Full-service real estate marketing package.",
+    fullDesc: "Our premium package delivers the ultimate property showcase with comprehensive aerial and ground coverage, cinematic video tours, 3D virtual tours, and twilight photography. Perfect for luxury properties and high-end real estate.",
     iconName: "FaHome",
     videoSrc: "/videos/City.mp4",
     features: [
-      "25+ High-resolution aerial & ground photos",
-      "5-7 minute cinematic video tour",
-      "3D Matterport virtual tour",
+      "25+ High-quality aerial shots",
+      "Ground-level shots",
+      "5 minute cinematic video tour",
       "Twilight/sunset shots",
-      "Drone orbit panoramas",
-      "Interior videography",
-      "Professional voice-over option",
-      "Aerial neighborhood overview"
+      "3D Matterport virtual tour"
     ],
     process: [
       { step: 1, title: "Strategy", desc: "Comprehensive marketing plan development" },
@@ -92,7 +85,7 @@ export const services = [
     info: {
       turnaround: "3-5 business days",
       coverage: "Up to 5 acres",
-      pricing: "$600-$2000",
+      pricing: "Starting at $500",
       availability: "7 days a week"
     },
     relatedServices: [1, 2]
