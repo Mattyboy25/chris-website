@@ -44,9 +44,8 @@ export const services = [
       { step: 3, title: "Production", desc: "Complete photo and video capture" },
       { step: 4, title: "Post-Production", desc: "Professional editing and enhancement" },
       { step: 5, title: "Review & Delivery", desc: "Final approval and file delivery" }
-    ],
-    info: {
-      turnaround: "2-3 business days",
+    ],    info: {
+      turnaround: "24 hours",
       coverage: "Up to 2 acres",
       pricing: "Starting at $300",
       availability: "7 days a week"
