@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaYoutube, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 import ContactSuccess from '../components/ContactSuccess';
@@ -13,7 +13,8 @@ emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 function Contact() {  
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState(null);
-
+  const [selectedAddons, setSelectedAddons] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   // Verify EmailJS initialization and get package details
   useEffect(() => {
     console.log('Checking EmailJS configuration...');
@@ -24,23 +25,92 @@ function Contact() {
     // Get package details from URL
     const urlParams = new URLSearchParams(window.location.search);
     const serviceSlug = urlParams.get('service');
+    const customPrice = urlParams.get('customPrice');
+    
+    // Set initial total price from URL parameter
+    if (customPrice) {
+      const price = parseFloat(customPrice);
+      setTotalPrice(price);
+      
+      // Also set in formData
+      setFormData(prev => ({
+        ...prev,
+        customPrice: price.toString()
+      }));
+    }
+
+    // Load package data
     if (serviceSlug) {
       import('../data/servicesData.js').then(({ services }) => {
         const pkg = services.find(s => s.slug === serviceSlug);
         if (pkg) {
           setSelectedPackage(pkg);
+          
+          // Try to load addons from localStorage
+          try {
+            const storedAddons = localStorage.getItem(`selected_addons_${serviceSlug}`);
+            if (storedAddons) {
+              const parsedAddons = JSON.parse(storedAddons);
+              setSelectedAddons(parsedAddons);
+              
+              // If we don't have a customPrice, calculate one based on addons
+              if (!customPrice) {
+                let basePrice = parseInt(pkg.info.pricing.replace(/[^0-9]/g, ''));
+                let addonTotal = parsedAddons.reduce((sum, addon) => sum + addon.price, 0);
+                const calculatedPrice = basePrice + addonTotal;
+                
+                setTotalPrice(calculatedPrice);
+                
+                // Also update formData
+                setFormData(prev => ({
+                  ...prev,
+                  customPrice: calculatedPrice.toString()
+                }));
+              }
+            }
+          } catch (error) {
+            console.error('Error loading addons from localStorage:', error);
+          }
         }
       });
     }
   }, []);
+  // Function to handle removing an addon
+  const handleRemoveAddon = (addonIndex) => {
+    const addonToRemove = selectedAddons[addonIndex];
+    
+    // Update selected addons
+    const updatedAddons = selectedAddons.filter((_, index) => index !== addonIndex);
+    setSelectedAddons(updatedAddons);
+    
+    // Update localStorage
+    if (selectedPackage) {
+      localStorage.setItem(`selected_addons_${selectedPackage.slug}`, JSON.stringify(updatedAddons));
+    }
+    
+    // Calculate new price
+    const newPrice = totalPrice - addonToRemove.price;
+    
+    // Update total price
+    setTotalPrice(newPrice);
+    
+    // Also update formData to reflect the new price
+    setFormData(prev => ({
+      ...prev,
+      customPrice: newPrice.toString()
+    }));
+  };
+  
   const form = useRef();
-  const [isSubmitting, setIsSubmitting] = useState(false);  const [formData, setFormData] = useState({
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     service: new URLSearchParams(window.location.search).get('service') || '',
     customPrice: new URLSearchParams(window.location.search).get('customPrice') || '',
-    message: ''
+    message: '',
+    packageDetails: ''
   });
   const [messagePlaceholder, setMessagePlaceholder] = useState('');
   const [videoError, setVideoError] = useState(false);
@@ -94,14 +164,42 @@ function Contact() {
     }
     setServiceDropdownOpen(false);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     console.log('Service ID:', import.meta.env.VITE_EMAILJS_SERVICE_ID);
     console.log('Template ID:', import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
+    
+    // Prepare package details for form submission
+    let packageDetailsText = '';
+    
+    if (selectedPackage) {
+      packageDetailsText = `Selected Package: ${selectedPackage.title}\n\n`;
+      packageDetailsText += `Included Features:\n`;
+      selectedPackage.features.forEach(feature => {
+        packageDetailsText += `- ${feature}\n`;
+      });
+      
+      if (selectedAddons.length > 0) {
+        packageDetailsText += `\nSelected Add-ons:\n`;
+        selectedAddons.forEach(addon => {
+          packageDetailsText += `- ${addon.name} (+$${addon.price})\n`;
+        });
+      }
+      
+      packageDetailsText += `\nTotal Price: $${totalPrice}`;
+      
+      // Add package details to form data
+      const hiddenPackageInput = document.createElement('input');
+      hiddenPackageInput.type = 'hidden';
+      hiddenPackageInput.name = 'packageDetails';
+      hiddenPackageInput.value = packageDetailsText;
+      form.current.appendChild(hiddenPackageInput);
+    }
+
     console.log('Form data:', formData);
+    console.log('Package details:', packageDetailsText);
 
     try {      const result = await emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -118,13 +216,25 @@ function Contact() {
         phone: '',
         service: '',
         serviceLabel: '',
-        message: ''
+        message: '',
+        packageDetails: ''
       });
+      
+      // Clear the addons from localStorage after successful submission
+      if (selectedPackage) {
+        localStorage.removeItem(`selected_addons_${selectedPackage.slug}`);
+      }
     } catch (error) {
       console.error('Error sending email:', error);
       alert('There was an error sending your message. Please try again later.');
     } finally {
       setIsSubmitting(false);
+      
+      // Remove the dynamically added package details input
+      const hiddenPackageInput = form.current.querySelector('input[name="packageDetails"]');
+      if (hiddenPackageInput) {
+        form.current.removeChild(hiddenPackageInput);
+      }
     }
   };
 
@@ -412,20 +522,44 @@ function Contact() {
               {showSuccess ? (
                 <ContactSuccess />
               ) : (                <div className="contact-content-inner">
-                  <div className="contact-info">
-                    {selectedPackage && (
+                  <div className="contact-info">                    {selectedPackage && (
                       <>
                         <h2>Selected Package: {selectedPackage.title}</h2>
                         <div className="package-summary">
                           <h3>Included Features:</h3>
                           <ul className="package-features">
                             {selectedPackage.features.map((feature, index) => (
-                              <li key={index}><span className="feature-check"></span>{feature}</li>
+                              <li key={index}><span className="feature-check">✅</span>{feature}</li>
                             ))}
                           </ul>
 
+                          {selectedAddons && selectedAddons.length > 0 && (
+                            <>
+                              <h3>Add-Ons:</h3>
+                              <ul className="package-addons">
+                                {selectedAddons.map((addon, index) => (
+                                  <li key={index}>
+                                    <div className="addon-item">
+                                      <span className="addon-text">
+                                        {addon.name} (+${addon.price})
+                                      </span>
+                                      <button 
+                                        type="button" 
+                                        className="remove-addon-btn"
+                                        onClick={() => handleRemoveAddon(index)}
+                                        aria-label={`Remove ${addon.name}`}
+                                      >
+                                        ❌
+                                      </button>
+                                    </div>
+                                  </li>
+                                ))}
+                              </ul>
+                            </>
+                          )}
+
                           <div className="package-details">
-                            <p className="package-price">Total Price: ${formData.customPrice}</p>
+                            <p className="package-price">Total Price: ${totalPrice}</p>
                             <div className="package-info">
                               <p><strong>Coverage:</strong> {selectedPackage.info.coverage}</p>
                               <p><strong>Turnaround:</strong> {selectedPackage.info.turnaround}</p>

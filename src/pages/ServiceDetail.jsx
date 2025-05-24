@@ -32,33 +32,82 @@ function ServiceDetail() {
       ...prev,
       [option]: value
     }));
-  };
-  const calculatePrice = () => {
+  };  const calculatePrice = () => {
     let basePrice = parseInt(service.info.pricing.replace(/[^0-9]/g, ''));
     let totalPrice = basePrice;
+    const addons = [];
 
     if (service.slug === 'basic-drone-photography') {
       if (selectedOptions.photos > 0) {
-        totalPrice += selectedOptions.photos * 25; // $25 per additional photo
+        const price = selectedOptions.photos * 25; // $25 per additional photo
+        totalPrice += price;
+        addons.push({
+          name: `+${selectedOptions.photos} additional aerial photos`,
+          price: price
+        });
       }
-      if (selectedOptions.groundShots) totalPrice += 100;
+      if (selectedOptions.groundShots) {
+        totalPrice += 100;
+        addons.push({
+          name: 'Ground-Level Photography',
+          price: 100
+        });
+      }
     }
     
     else if (service.slug === 'standard-photo-video') {
       if (selectedOptions.photos > 0) {
-        totalPrice += selectedOptions.photos * 25; // $25 per additional photo
+        const price = selectedOptions.photos * 25; // $25 per additional photo
+        totalPrice += price;
+        addons.push({
+          name: `+${selectedOptions.photos} additional photos`,
+          price: price
+        });
       }
-      if (selectedOptions.twilight) totalPrice += 200;
-      if (selectedOptions.aerials) totalPrice += 150;
+      if (selectedOptions.twilight) {
+        totalPrice += 200;
+        addons.push({
+          name: 'Twilight/Sunset Photos',
+          price: 200
+        });
+      }
+      if (selectedOptions.aerials) {
+        totalPrice += 150;
+        addons.push({
+          name: 'Additional Aerial Shots',
+          price: 150
+        });
+      }
     }
     
     else if (service.slug === 'premium-full-production') {
-      if (selectedOptions.video) totalPrice += 300; // Extended video coverage
-      if (selectedOptions.aerials) totalPrice += 200; // Additional property coverage
+      if (selectedOptions.video) {
+        totalPrice += 300; // Extended video coverage
+        addons.push({
+          name: 'Extended Video Coverage',
+          price: 300
+        });
+      }
+      if (selectedOptions.aerials) {
+        totalPrice += 200; // Additional property coverage
+        addons.push({
+          name: 'Additional Property Coverage',
+          price: 200
+        });
+      }
     }
 
     // Rush service fee applies to all packages
-    if (selectedOptions.turnaround === "rush") totalPrice += 100;
+    if (selectedOptions.turnaround === "rush") {
+      totalPrice += 100;
+      addons.push({
+        name: 'Rush delivery - 24 hours',
+        price: 100
+      });
+    }
+
+    // Save selected addons to localStorage
+    localStorage.setItem(`selected_addons_${service.slug}`, JSON.stringify(addons));
 
     return totalPrice;
   };

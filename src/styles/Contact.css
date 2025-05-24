@@ -601,17 +601,55 @@ body.dark .custom-select-input {
   top: -1px;
 }
 
+.package-addons {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.package-addons li {
+  display: flex;
+  margin-bottom: 8px;
+  align-items: flex-start;
+}
+
+.addon-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-right: 5px;
+}
+
+.addon-text {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.remove-addon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 6px;
+  transition: transform 0.2s ease;
+}
+
+.remove-addon-btn:hover {
+  transform: scale(1.2);
+}
+
 .package-details {
   margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(75, 182, 239, 0.1);
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .package-price {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #4bb6ef;
+  font-size: 20px;
+  font-weight: bold;
   margin-bottom: 15px;
+  color: var(--primary-color);
 }
 
 .package-info {
@@ -621,7 +659,7 @@ body.dark .custom-select-input {
 }
 
 .package-info p {
-  margin: 0;
+  margin: 5px 0;
 }
 
 .package-info strong {
@@ -637,4 +675,15 @@ body.light .package-summary {
 
 body.light .package-price {
   color: #2d8bc7;
+}
+
+/* Contact Info Styling */
+.contact-info {
+  margin-bottom: 30px;
+}
+
+.contact-info h2 {
+  margin-bottom: 15px;
+  color: var(--primary-color);
+  font-size: 24px;
 }
