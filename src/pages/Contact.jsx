@@ -12,21 +12,34 @@ emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
 function Contact() {  
   const [showSuccess, setShowSuccess] = useState(false);
-  // Verify EmailJS initialization on component mount
+  const [selectedPackage, setSelectedPackage] = useState(null);
+
+  // Verify EmailJS initialization and get package details
   useEffect(() => {
     console.log('Checking EmailJS configuration...');
     if (!emailjs.init) {
       console.error('EmailJS not initialized properly');
     }
+
+    // Get package details from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceSlug = urlParams.get('service');
+    if (serviceSlug) {
+      import('../data/servicesData.js').then(({ services }) => {
+        const pkg = services.find(s => s.slug === serviceSlug);
+        if (pkg) {
+          setSelectedPackage(pkg);
+        }
+      });
+    }
   }, []);
   const form = useRef();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
+  const [isSubmitting, setIsSubmitting] = useState(false);  const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    service: '',
-    serviceLabel: '',
+    service: new URLSearchParams(window.location.search).get('service') || '',
+    customPrice: new URLSearchParams(window.location.search).get('customPrice') || '',
     message: ''
   });
   const [messagePlaceholder, setMessagePlaceholder] = useState('');
@@ -398,33 +411,30 @@ function Contact() {
             >
               {showSuccess ? (
                 <ContactSuccess />
-              ) : (
-                <div className="contact-content-inner">
+              ) : (                <div className="contact-content-inner">
                   <div className="contact-info">
-                    <h2>Reach Out</h2>
-                  <p>We'd love to hear about your project. Fill out the form and our team will get back to you within 24 hours.</p>
-                  
-                  <div className="contact-details">
-                    <div className="contact-item">
-                      <FaPhone />
-                      <p>(770) 733-0899</p>
-                    </div>
-                    <div className="contact-item">
-                      <FaEnvelope />
-                      <p>contact@upwarddroneservices.com</p>
-                    </div>
-                    <div className="contact-item">
-                      <FaMapMarkerAlt />
-                      <p>123 Drone Ave, Skyview, CA 90210</p>
-                    </div>
+                    {selectedPackage && (
+                      <>
+                        <h2>Selected Package: {selectedPackage.title}</h2>
+                        <div className="package-summary">
+                          <h3>Included Features:</h3>
+                          <ul className="package-features">
+                            {selectedPackage.features.map((feature, index) => (
+                              <li key={index}><span className="feature-check"></span>{feature}</li>
+                            ))}
+                          </ul>
+
+                          <div className="package-details">
+                            <p className="package-price">Total Price: ${formData.customPrice}</p>
+                            <div className="package-info">
+                              <p><strong>Coverage:</strong> {selectedPackage.info.coverage}</p>
+                              <p><strong>Turnaround:</strong> {selectedPackage.info.turnaround}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
-                  
-                  <div className="social-links">
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
-                  </div>
-                </div>
                 
                 <div className="contact-form-container">
                   <form className="contact-form" ref={form} onSubmit={handleSubmit} autoComplete="off">
