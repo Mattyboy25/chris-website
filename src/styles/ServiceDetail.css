@@ -313,19 +313,19 @@ body.dark .process-step h3 {
 body.dark .service-cta-card,
 body.dark .service-info-card,
 body.dark .related-services {
-  background: rgba(45, 45, 45, 0.8);
-  color: #f1f1f1;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(75, 75, 75, 0.3);
+  background: var(--grey-bg);
+  color: var(--text-color);
+  box-shadow: 0 5px 20px var(--shadow-color);
+  border: 1px solid var(--grey-border);
 }
 
 body.light .service-cta-card,
 body.light .service-info-card,
 body.light .related-services {
-  background: rgba(255, 255, 255, 0.8);
-  color: #333;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(200, 200, 200, 0.5);
+  background: var(--grey-bg);
+  color: var(--text-color);
+  box-shadow: 0 5px 20px var(--shadow-color);
+  border: 1px solid var(--grey-border);
 }
 
 

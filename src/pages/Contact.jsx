@@ -472,52 +472,56 @@ function Contact() {
                         onChange={handleChange} 
                       />
                     </div>
+                    
+                    {/* Only show service selection if not coming from service customization */}
+                    {!selectedPackage && (
                       <div className="form-group" ref={serviceDropdownRef}>
-                      <label htmlFor="service">Service Interested In</label>
-                      <input 
-                        type="hidden" 
-                        name="serviceLabel" 
-                        value={formData.serviceLabel} 
-                      />
-                      <div className="custom-select-container" style={{ position: 'relative' }}>
-                        <div
-                          className="custom-select-input"
-                          role="combobox"
-                          aria-expanded={serviceDropdownOpen}
-                          aria-haspopup="listbox"
-                          aria-controls="service-options"
-                          tabIndex={0}
-                          onClick={() => setServiceDropdownOpen(prev => !prev)}
-                          onKeyDown={handleKeyDown}
-                        >
-                          {serviceOptions.find(opt => opt.value === formData.service)?.label || 'Select a Service'}
-                        </div>
-                        {serviceDropdownOpen && (
-                          <div 
-                            className="custom-select-dropdown"
-                            role="listbox"
-                            id="service-options"
+                        <label htmlFor="service">Service Interested In</label>
+                        <input 
+                          type="hidden" 
+                          name="serviceLabel" 
+                          value={formData.serviceLabel} 
+                        />
+                        <div className="custom-select-container" style={{ position: 'relative' }}>
+                          <div
+                            className="custom-select-input"
+                            role="combobox"
+                            aria-expanded={serviceDropdownOpen}
+                            aria-haspopup="listbox"
+                            aria-controls="service-options"
+                            tabIndex={0}
+                            onClick={() => setServiceDropdownOpen(prev => !prev)}
+                            onKeyDown={handleKeyDown}
                           >
-                            {serviceOptions.map(opt => (
-                              <div
-                                key={opt.value}
-                                className={`custom-select-option ${formData.service === opt.value ? 'selected' : ''}`}
-                                role="option"
-                                aria-selected={formData.service === opt.value}
-                                tabIndex={0}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleServiceChange(opt.value);
-                                }}
-                                onKeyDown={(e) => handleOptionKeyDown(e, opt)}
-                              >
-                                {opt.label}
-                              </div>
-                            ))}
+                            {serviceOptions.find(opt => opt.value === formData.service)?.label || 'Select a Service'}
                           </div>
-                        )}
+                          {serviceDropdownOpen && (
+                            <div 
+                              className="custom-select-dropdown"
+                              role="listbox"
+                              id="service-options"
+                            >
+                              {serviceOptions.map(opt => (
+                                <div
+                                  key={opt.value}
+                                  className={`custom-select-option ${formData.service === opt.value ? 'selected' : ''}`}
+                                  role="option"
+                                  aria-selected={formData.service === opt.value}
+                                  tabIndex={0}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleServiceChange(opt.value);
+                                  }}
+                                  onKeyDown={(e) => handleOptionKeyDown(e, opt)}
+                                >
+                                  {opt.label}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
+                    )}
                     
                     <div className="form-group">
                       <label htmlFor="message">Message</label>
