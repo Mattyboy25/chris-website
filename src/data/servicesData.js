@@ -48,7 +48,7 @@ export const services = [
     info: {
       turnaround: "2-3 business days",
       coverage: "Up to 2 acres",
-      pricing: "Starting at $250",
+      pricing: "Starting at $300",
       availability: "7 days a week"
     },
     relatedServices: [1, 3]
