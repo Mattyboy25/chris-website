@@ -33,13 +33,11 @@ export const services = [
     slug: "standard-photo-video",
     title: "Standard Package",    shortDesc: "Comprehensive photo and video coverage for properties.",
     fullDesc: "Our standard package combines aerial and ground photography with video for a complete property showcase. Includes high-quality photos and a professionally edited video tour optimized for social media.",
-    iconName: "FaVideo",    videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",
-    features: [
+    iconName: "FaVideo",    videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",    features: [
       "15-20 High-quality aerial photos",
       "2-3 minute edited video tour",
       "Ground-level shots",
-      "Editing and color grading",
-      "Social media optimized formats"
+      "Editing and color grading"
     ],
     process: [
       { step: 1, title: "Consultation", desc: "Detailed planning of photo and video coverage" },
@@ -62,13 +60,12 @@ export const services = [
     title: "Premium Package",    shortDesc: "Full-service real estate marketing package.",
     fullDesc: "Our premium package delivers the ultimate property showcase with comprehensive aerial and ground coverage, cinematic video tours, 3D virtual tours, and twilight photography. Perfect for luxury properties and high-end real estate.",
     iconName: "FaHome",
-    videoSrc: "/videos/City.mp4",
-    features: [
+    videoSrc: "/videos/City.mp4",    features: [
       "25+ High-quality aerial shots",
       "Ground-level shots",
       "5 minute cinematic video tour",
       "Twilight/sunset shots",
-      "3D Matterport virtual tour"
+      "Social media optimized formats"
     ],
     process: [
       { step: 1, title: "Strategy", desc: "Comprehensive marketing plan development" },
