@@ -72,9 +72,8 @@ export const services = [
       { step: 4, title: "Twilight Shoot", desc: "Evening/sunset photography session" },
       { step: 5, title: "Post-Production", desc: "Advanced editing and content preparation" },
       { step: 6, title: "Delivery", desc: "Complete marketing package handoff" }
-    ],
-    info: {
-      turnaround: "3-5 business days",
+    ],    info: {
+      turnaround: "24 hours",
       coverage: "Up to 5 acres",
       pricing: "Starting at $500",
       availability: "7 days a week"
