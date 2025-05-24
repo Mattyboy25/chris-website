@@ -525,13 +525,12 @@ function Contact() {
                   <div className="contact-info">                    {selectedPackage && (
                       <>
                         <h2>Selected Package: {selectedPackage.title}</h2>
-                        <div className="package-summary">
-                          <h3>Included Features:</h3>
+                        <div className="package-summary">                          <h3>Included Features:</h3>
                           <ul className="package-features">
                             {selectedPackage.features.map((feature, index) => (
-                              <li key={index}><span className="feature-check">✅</span>{feature}</li>
+                              <li key={index}><span className="feature-bullet">●</span>{feature}</li>
                             ))}
-                          </ul>                          {selectedAddons && selectedAddons.length > 0 && (
+                          </ul>{selectedAddons && selectedAddons.length > 0 && (
                             <>
                               <h3>Add-Ons:</h3>
                               <ul className="package-addons">                                {selectedAddons.map((addon, index) => (

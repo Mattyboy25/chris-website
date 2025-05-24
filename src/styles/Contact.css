@@ -601,6 +601,14 @@ body.dark .custom-select-input {
   min-width: 20px;
 }
 
+.feature-bullet {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 16px;
+  color: #4bb6ef; /* Blue color matching your brand */
+  min-width: 20px;
+}
+
 .addon-item {
   display: flex;
   justify-content: space-between;
