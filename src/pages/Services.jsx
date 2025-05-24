@@ -100,15 +100,13 @@ function Services() {const videoRef = useRef(null);
                 <h3 className="service-title">{service.title}</h3>
                 <div className="service-price">{service.info.pricing}</div>
                 <p className="service-description">{service.shortDesc}</p>                <ul className="service-features">
-                  {service.features.slice(0, 5).map((feature, idx) => (
-                    <motion.li
+                  {service.features.slice(0, 5).map((feature, idx) => (                    <motion.li
                       key={idx}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.4 + idx * 0.1 }}
                     >
-                      <span className="feature-checkbox"></span>
                       {feature}
                     </motion.li>
                   ))}

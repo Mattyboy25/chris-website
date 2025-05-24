@@ -281,31 +281,16 @@ body.light .services-fallback-bg {
   transform: translateX(5px);
 }
 
-.service-features li:hover .feature-checkbox {
-  background: rgba(75, 182, 239, 0.2);
-  transform: scale(1.1);
-}
-
-.feature-checkbox {
-  width: 24px;
-  height: 24px;
-  border: 2px solid #4bb6ef;
-  border-radius: 6px;
-  display: inline-flex;
+.service-features li {
+  margin-bottom: 15px;
+  display: flex;
   align-items: center;
-  justify-content: center;
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 10px;
   transition: all 0.3s ease;
-  position: relative;
-  background: rgba(75, 182, 239, 0.1);
-  flex-shrink: 0;
-}
-
-.feature-checkbox::after {
-  content: '→';
-  color: #4bb6ef;
-  font-size: 16px;
-  opacity: 1;
-  transform: translateX(-1px);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 1rem;
 }
 
 body.light .service-features li {
