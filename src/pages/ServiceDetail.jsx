@@ -133,10 +133,10 @@ function ServiceDetail() {
                         onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
                         className="fancy-select"
                       >
-                        <option value={0}>Additional Photos</option>
-                        <option value={5}>+5 photos ($125)</option>
-                        <option value={10}>+10 photos ($250)</option>
-                        <option value={15}>+15 photos ($375)</option>
+                        <option value={0}>Additional Aerial Photos</option>
+                        <option value={5}>+5 photos ($75)</option>
+                        <option value={10}>+10 photos ($150)</option>
+                        <option value={15}>+15 photos ($225)</option>
                       </select>
                     </div>
                     <div className="option-group">
