@@ -119,15 +119,14 @@ function ServiceDetail() {
                     <option value={10}>+10 photos ($250)</option>
                     <option value={15}>+15 photos ($375)</option>
                   </select>
-                </div>
-
-                <div className="option-group">
+                </div>                <div className="option-group">
                   <label>
                     <input
                       type="checkbox"
                       checked={selectedOptions.video}
                       onChange={(e) => handleOptionChange('video', e.target.checked)}
                     />
+                    <span className="feature-check"></span>
                     Add Video Package (+$200)
                   </label>
                 </div>
@@ -139,6 +138,7 @@ function ServiceDetail() {
                       checked={selectedOptions.aerials}
                       onChange={(e) => handleOptionChange('aerials', e.target.checked)}
                     />
+                    <span className="feature-check"></span>
                     Additional Aerial Shots (+$150)
                   </label>
                 </div>
@@ -150,6 +150,7 @@ function ServiceDetail() {
                       checked={selectedOptions.groundShots}
                       onChange={(e) => handleOptionChange('groundShots', e.target.checked)}
                     />
+                    <span className="feature-check"></span>
                     Ground-Level Photography (+$100)
                   </label>
                 </div>
@@ -161,6 +162,7 @@ function ServiceDetail() {
                       checked={selectedOptions.twilight}
                       onChange={(e) => handleOptionChange('twilight', e.target.checked)}
                     />
+                    <span className="feature-check"></span>
                     Twilight/Sunset Photos (+$200)
                   </label>
                 </div>
@@ -215,8 +217,7 @@ function ServiceDetail() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.5 }}
                         transition={{ delay: index * 0.1 }}
-                      >
-                        <span className="feature-check"><FaCheck /></span>
+                      >                        <span className="feature-check"></span>
                         {feature}
                       </motion.li>
                     ))}

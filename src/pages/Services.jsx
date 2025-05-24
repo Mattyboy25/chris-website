@@ -99,8 +99,7 @@ function Services() {const videoRef = useRef(null);
                 </span>
                 <h3 className="service-title">{service.title}</h3>
                 <div className="service-price">{service.info.pricing}</div>
-                <p className="service-description">{service.shortDesc}</p>
-                <ul className="service-features">
+                <p className="service-description">{service.shortDesc}</p>                <ul className="service-features">
                   {service.features.slice(0, 5).map((feature, idx) => (
                     <motion.li
                       key={idx}
@@ -109,11 +108,11 @@ function Services() {const videoRef = useRef(null);
                       viewport={{ once: true }}
                       transition={{ delay: 0.4 + idx * 0.1 }}
                     >
-                      <span className="feature-icon"><FaCheck /></span>
+                      <span className="feature-checkbox"></span>
                       {feature}
                     </motion.li>
                   ))}
-                </ul>                <motion.button 
+                </ul><motion.button 
                   onClick={(e) => {
                     e.stopPropagation();
                     console.log("Button clicked for:", service.title);
