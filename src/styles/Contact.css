@@ -563,54 +563,42 @@ body.dark .custom-select-input {
 
 /* Package Summary Styles */
 .package-summary {
-  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
   padding: 20px;
-  background: rgba(75, 182, 239, 0.05);
-  border-radius: 12px;
-  border: 1px solid rgba(75, 182, 239, 0.1);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .package-summary h3 {
-  color: #4bb6ef;
+  margin-top: 0;
   margin-bottom: 15px;
-  font-size: 1.2rem;
+  font-size: 18px;
+  color: var(--primary-color);
 }
 
-.package-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 20px 0;
-}
-
-.package-features li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 0;
-  color: inherit;
-}
-
-.package-features .feature-check {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #4bb6ef;
-  margin-right: 4px;
-  position: relative;
-  top: -1px;
-}
-
-.package-addons {
+.package-features, .package-addons {
   list-style-type: none;
   padding: 0;
   margin: 0 0 20px 0;
 }
 
-.package-addons li {
+.package-features li, .package-addons li {
   display: flex;
   margin-bottom: 8px;
-  align-items: flex-start;
+  align-items: center;
+}
+
+.package-addons li {
+  padding: 5px 0;
+}
+
+.feature-check {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 16px;
+  color: #4caf50;
+  min-width: 20px;
 }
 
 .addon-item {
@@ -618,12 +606,11 @@ body.dark .custom-select-input {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-right: 5px;
+  padding-right: 0;
 }
 
 .addon-text {
   flex: 1;
-  margin-right: 10px;
 }
 
 .remove-addon-btn {
@@ -631,8 +618,10 @@ body.dark .custom-select-input {
   border: none;
   cursor: pointer;
   font-size: 16px;
-  padding: 2px 6px;
+  padding: 0;
+  margin-left: 10px;
   transition: transform 0.2s ease;
+  line-height: 1;
 }
 
 .remove-addon-btn:hover {
@@ -641,40 +630,38 @@ body.dark .custom-select-input {
 
 .package-details {
   margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .package-price {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin: 20px 0 15px;
   color: var(--primary-color);
-}
-
-.package-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  text-align: right;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .package-info p {
   margin: 5px 0;
 }
 
-.package-info strong {
-  color: #4bb6ef;
-  margin-right: 8px;
+/* For dark mode adjustments */
+body.dark .package-summary {
+  background: rgba(30, 30, 35, 0.2);
+}
+
+body.dark .package-details {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Light mode adjustments */
 body.light .package-summary {
-  background: rgba(75, 182, 239, 0.05);
-  border-color: rgba(75, 182, 239, 0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
 
-body.light .package-price {
-  color: #2d8bc7;
+body.light .package-details {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Contact Info Styling */

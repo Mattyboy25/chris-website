@@ -531,13 +531,10 @@ function Contact() {
                             {selectedPackage.features.map((feature, index) => (
                               <li key={index}><span className="feature-check">✅</span>{feature}</li>
                             ))}
-                          </ul>
-
-                          {selectedAddons && selectedAddons.length > 0 && (
+                          </ul>                          {selectedAddons && selectedAddons.length > 0 && (
                             <>
                               <h3>Add-Ons:</h3>
-                              <ul className="package-addons">
-                                {selectedAddons.map((addon, index) => (
+                              <ul className="package-addons">                                {selectedAddons.map((addon, index) => (
                                   <li key={index}>
                                     <div className="addon-item">
                                       <span className="addon-text">
@@ -556,10 +553,9 @@ function Contact() {
                                 ))}
                               </ul>
                             </>
-                          )}
-
+                          )}                          <p className="package-price">Total Price: ${totalPrice}</p>
+                          
                           <div className="package-details">
-                            <p className="package-price">Total Price: ${totalPrice}</p>
                             <div className="package-info">
                               <p><strong>Coverage:</strong> {selectedPackage.info.coverage}</p>
                               <p><strong>Turnaround:</strong> {selectedPackage.info.turnaround}</p>
