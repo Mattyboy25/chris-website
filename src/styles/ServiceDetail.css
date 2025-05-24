@@ -761,6 +761,10 @@ body.light .included-features {
   border-color: rgba(75, 182, 239, 0.2);
 }
 
+body.light .included-features .feature-check {
+  background: #4bb6ef;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .customization-section {

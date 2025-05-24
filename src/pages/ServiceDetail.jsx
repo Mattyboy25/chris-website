@@ -33,18 +33,31 @@ function ServiceDetail() {
       [option]: value
     }));
   };
-
   const calculatePrice = () => {
     let basePrice = parseInt(service.info.pricing.replace(/[^0-9]/g, ''));
     let totalPrice = basePrice;
 
-    if (selectedOptions.photos > 0) {
-      totalPrice += selectedOptions.photos * 25; // $25 per additional photo
+    if (service.slug === 'basic-drone-photography') {
+      if (selectedOptions.photos > 0) {
+        totalPrice += selectedOptions.photos * 25; // $25 per additional photo
+      }
+      if (selectedOptions.groundShots) totalPrice += 100;
     }
-    if (selectedOptions.video) totalPrice += 200;
-    if (selectedOptions.aerials) totalPrice += 150;
-    if (selectedOptions.groundShots) totalPrice += 100;
-    if (selectedOptions.twilight) totalPrice += 200;
+    
+    else if (service.slug === 'standard-photo-video') {
+      if (selectedOptions.photos > 0) {
+        totalPrice += selectedOptions.photos * 25; // $25 per additional photo
+      }
+      if (selectedOptions.twilight) totalPrice += 200;
+      if (selectedOptions.aerials) totalPrice += 150;
+    }
+    
+    else if (service.slug === 'premium-full-production') {
+      if (selectedOptions.video) totalPrice += 300; // Extended video coverage
+      if (selectedOptions.aerials) totalPrice += 200; // Additional property coverage
+    }
+
+    // Rush service fee applies to all packages
     if (selectedOptions.turnaround === "rush") totalPrice += 100;
 
     return totalPrice;
@@ -104,81 +117,117 @@ function ServiceDetail() {
               <p>{service.fullDesc}</p>
             </div>            {isCustomize ? (
               <div className="customization-section">
-                <div className="included-features">
-                  <h3>Included in Package:</h3>
+                <div className="included-features">                  <h3>Included in Package:</h3>
                   <ul>
-                    <li><span className="feature-check"></span>10 High-quality aerial photos</li>
-                    <li><span className="feature-check"></span>Color grading</li>
-                    
+                    {service.features.map((feature, index) => (
+                      <li key={index}><span className="feature-check"></span>{feature}</li>
+                    ))}
                   </ul>
-                </div>
+                </div>                <h3>Customize Your Package</h3>
+                {/* Basic Package Options */}
+                {service.slug === 'basic-drone-photography' && (
+                  <>
+                    <div className="option-group select-container">
+                      <select 
+                        value={selectedOptions.photos}
+                        onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
+                        className="fancy-select"
+                      >
+                        <option value={0}>Additional Photos</option>
+                        <option value={5}>+5 photos ($125)</option>
+                        <option value={10}>+10 photos ($250)</option>
+                        <option value={15}>+15 photos ($375)</option>
+                      </select>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.groundShots}
+                          onChange={(e) => handleOptionChange('groundShots', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Ground-Level Photography (+$100)
+                      </label>
+                    </div>
+                  </>
+                )}
 
-                <h3>Customize Your Package</h3>
-                <div className="option-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={selectedOptions.video}
-                      onChange={(e) => handleOptionChange('video', e.target.checked)}
-                    />
-                    <span className="feature-check"></span>
-                    Add Video Package (+$200)
-                  </label>
-                </div>
+                {/* Standard Package Options */}
+                {service.slug === 'standard-photo-video' && (
+                  <>
+                    <div className="option-group select-container">
+                      <select 
+                        value={selectedOptions.photos}
+                        onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
+                        className="fancy-select"
+                      >
+                        <option value={0}>Additional Photos</option>
+                        <option value={10}>+10 photos ($250)</option>
+                        <option value={15}>+15 photos ($375)</option>
+                        <option value={20}>+20 photos ($500)</option>
+                      </select>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.twilight}
+                          onChange={(e) => handleOptionChange('twilight', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Twilight/Sunset Photos (+$200)
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.aerials}
+                          onChange={(e) => handleOptionChange('aerials', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Additional Aerial Shots (+$150)
+                      </label>
+                    </div>
+                  </>
+                )}
 
-                <div className="option-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={selectedOptions.aerials}
-                      onChange={(e) => handleOptionChange('aerials', e.target.checked)}
-                    />
-                    <span className="feature-check"></span>
-                    Additional Aerial Shots (+$150)
-                  </label>
-                </div>
+                {/* Premium Package Options */}
+                {service.slug === 'premium-full-production' && (
+                  <>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.video}
+                          onChange={(e) => handleOptionChange('video', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Extended Video Coverage (+$300)
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.aerials}
+                          onChange={(e) => handleOptionChange('aerials', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Additional Property Coverage (+$200)
+                      </label>
+                    </div>
+                  </>
+                )}
 
-                <div className="option-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={selectedOptions.groundShots}
-                      onChange={(e) => handleOptionChange('groundShots', e.target.checked)}
-                    />
-                    <span className="feature-check"></span>
-                    Ground-Level Photography (+$100)
-                  </label>
-                </div>
-
-                <div className="option-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={selectedOptions.twilight}
-                      onChange={(e) => handleOptionChange('twilight', e.target.checked)}
-                    />
-                    <span className="feature-check"></span>                    Twilight/Sunset Photos (+$200)
-                  </label>
-                </div>
-                <div className="option-group select-container">
-                  <select 
-                    value={selectedOptions.photos}
-                    onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
-                    className="fancy-select"
-                  >
-                    <option value={0}>Additional Photos</option>
-                    <option value={5}>+5 photos ($125)</option>
-                    <option value={10}>+10 photos ($250)</option>
-                    <option value={15}>+15 photos ($375)</option>
-                  </select>
-                </div>
                 <div className="option-group select-container">
                   <div className="select-label">Turnaround Time</div>
                   <select
                     value={selectedOptions.turnaround}
                     onChange={(e) => handleOptionChange('turnaround', e.target.value)}
                     className="fancy-select"
-                  >                    <option value="standard">24 hours</option>
+                  ><option value="standard">24 hours</option>
                     <option value="rush">Priority Service (&lt; 24 hours) (+$100)</option>
                   </select>
                 </div>
