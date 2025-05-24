@@ -959,3 +959,15 @@ body.light .fancy-select option {
 body.light .fancy-select option:first-child {
   color: #4bb6ef;
 }
+
+/* Select Label Styles */
+.select-label {
+  color: #4bb6ef;
+  font-weight: 500;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+body.light .select-label {
+  color: #4bb6ef;
+}

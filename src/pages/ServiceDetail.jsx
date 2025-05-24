@@ -105,20 +105,8 @@ function ServiceDetail() {
             </div>
 
             {isCustomize ? (
-              <div className="customization-section">
-                <h3>Customize Your Package</h3>
-                  <div className="option-group select-container">
-                  <select 
-                    value={selectedOptions.photos}
-                    onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
-                    className="fancy-select"
-                  >
-                    <option value={0}>Additional Photos</option>
-                    <option value={5}>+5 photos ($125)</option>
-                    <option value={10}>+10 photos ($250)</option>
-                    <option value={15}>+15 photos ($375)</option>
-                  </select>
-                </div><div className="option-group">
+              <div className="customization-section">                <h3>Customize Your Package</h3>
+                <div className="option-group">
                   <label>
                     <input
                       type="checkbox"
@@ -161,18 +149,29 @@ function ServiceDetail() {
                       checked={selectedOptions.twilight}
                       onChange={(e) => handleOptionChange('twilight', e.target.checked)}
                     />
-                    <span className="feature-check"></span>
-                    Twilight/Sunset Photos (+$200)
+                    <span className="feature-check"></span>                    Twilight/Sunset Photos (+$200)
                   </label>
-                </div>                <div className="option-group select-container">
+                </div>
+                <div className="option-group select-container">
+                  <select 
+                    value={selectedOptions.photos}
+                    onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
+                    className="fancy-select"
+                  >
+                    <option value={0}>Additional Photos</option>
+                    <option value={5}>+5 photos ($125)</option>
+                    <option value={10}>+10 photos ($250)</option>
+                    <option value={15}>+15 photos ($375)</option>
+                  </select>
+                </div>
+                <div className="option-group select-container">
+                  <div className="select-label">Turnaround Time</div>
                   <select
                     value={selectedOptions.turnaround}
                     onChange={(e) => handleOptionChange('turnaround', e.target.value)}
                     className="fancy-select"
-                  >
-                    <option value="" disabled>Turnaround Time</option>
-                    <option value="standard">24 hours</option>
-                    <option value="rush">Priority Service (+$100)</option>
+                  >                    <option value="standard">24 hours</option>
+                    <option value="rush">Priority Service (&lt; 24 hours) (+$100)</option>
                   </select>
                 </div>
 
