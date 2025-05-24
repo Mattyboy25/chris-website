@@ -102,10 +102,18 @@ function ServiceDetail() {
             <div className="service-detail-intro">
               <h2>{service.title}</h2>
               <p>{service.fullDesc}</p>
-            </div>
+            </div>            {isCustomize ? (
+              <div className="customization-section">
+                <div className="included-features">
+                  <h3>Included in Package:</h3>
+                  <ul>
+                    <li><span className="feature-check"></span>10 High-quality aerial photos</li>
+                    <li><span className="feature-check"></span>Color grading</li>
+                    
+                  </ul>
+                </div>
 
-            {isCustomize ? (
-              <div className="customization-section">                <h3>Customize Your Package</h3>
+                <h3>Customize Your Package</h3>
                 <div className="option-group">
                   <label>
                     <input
