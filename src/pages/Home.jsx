@@ -65,27 +65,22 @@ function Home() {
     }
   }, [wordIndex, charIndex, isDeleting, words, isWaiting]);
 
-  const handleScrollArrowClick = () => {
-    window.scrollTo({
-      top: window.innerHeight - 80,
-      behavior: 'smooth',
-    });
+  useEffect(() => {
+  let lastScrollY = window.scrollY;
+
+  const handleScrollArrowVisibility = () => {
+    const currentScrollY = window.scrollY;
+    // Hide if scrolling down, show if scrolling up or near top
+    setShowScrollArrow(currentScrollY < 50 || currentScrollY < lastScrollY);
+    lastScrollY = currentScrollY;
   };
 
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY < 50 || currentScrollY < lastScrollY) {
-        setShowScrollArrow(true);
-      } else {
-        setShowScrollArrow(false);
-      }
-      lastScrollY = currentScrollY;
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  window.addEventListener('scroll', handleScrollArrowVisibility);
+  return () => {
+    window.removeEventListener('scroll', handleScrollArrowVisibility);
+  };
+}, []);
+
 
   useEffect(() => {
     // Faster typing/deletion speeds
@@ -223,18 +218,9 @@ function Home() {
               <a className="glass-btn-alt" href="/about" data-discover="true">ABOUT US</a>
             </div>
           </div>
-          <div className="scroll-arrow-container "
-            style={{ position: 'absolute', left: 0, right: 0, bottom: '2.5rem', display: 'flex', justifyContent: 'center', pointerEvents: 'auto', zIndex: 2 }}
-            onClick={handleScrollArrowClick}
-            aria-label="Scroll Down"
-            tabIndex={0}
-            role="button"
-            className={showScrollArrow ? 'scroll-arrow-container visible' : 'scroll-arrow-container hidden'}
-          >
+          <div className="scroll-arrow-container visible" style={{ position: 'absolute', left: 0, right: 0, bottom: '2.5rem', display: 'flex', justifyContent: 'center', pointerEvents: 'auto', zIndex: 2 }}>
             <div className="scroll-arrow">
-              <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                <path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path>
-              </svg>
+              <FaChevronDown />
             </div>
           </div>
         </div>
