@@ -4,15 +4,18 @@ import { FaCamera, FaVideo, FaHome } from 'react-icons/fa';
 // Centralized services data
 export const services = [
   {    id: 1,
-    slug: "real-estate",
-    title: "Real Estate",
+    slug: "basic-drone-photography",
+    title: "Basic Package",
     status: "active",
-    shortDesc: "Showcase properties with stunning aerial views that highlight the entire property and surrounding area.",
+    shortDesc: "Perfect for residential listings and small commercial properties, our basic package provides high-quality aerial photography.",
     fullDesc: "Perfect for residential listings and small commercial properties, our basic package delivers high-quality aerial photography with professional color correction and quick turnaround time.",
     iconName: "FaCamera",
     videoSrc: "/videos/Town.mp4",    features: [
       "10 High-quality aerial photos",
-      "Color grading"
+      "Professional color correction",
+      "Property boundary shots",
+      "Neighborhood overview",
+      "24-hour turnaround"
     ],
     process: [
       { step: 1, title: "Booking", desc: "Schedule your shoot at a convenient time" },
@@ -29,12 +32,12 @@ export const services = [
     relatedServices: [2, 3]
   },  {
     id: 2,
-    slug: "events-weddings",
-    title: "Events & Weddings",
-    status: "coming_soon",
-    shortDesc: "Capture your special moments from angles never before possible.",
+    slug: "standard-photo-video",
+    title: "Standard Package",
+    status: "active",
+    shortDesc: "Comprehensive photo and video package combining aerial and ground coverage for a complete property showcase.",
     fullDesc: "Our standard package combines aerial and ground photography with video for a complete property showcase. Includes high-quality photos and a professionally edited video tour optimized for social media.",
-    iconName: "FaVideo",    videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",    features: [
+    iconName: "FaVideo",videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",    features: [
       "15-20 High-quality aerial photos",
       "2-3 minute edited video tour",
       "Ground-level shots",
@@ -55,10 +58,10 @@ export const services = [
     relatedServices: [1, 3]
   },  {
     id: 3,
-    slug: "construction",
-    title: "Construction & Industrial",
-    status: "coming_soon",
-    shortDesc: "Document progress and showcase completed projects with professional aerial documentation.",
+    slug: "premium-full-production",
+    title: "Premium Package",
+    status: "active",
+    shortDesc: "Our most comprehensive package with premium features for luxury properties and high-end real estate.",
     fullDesc: "Our premium package delivers the ultimate property showcase with comprehensive aerial and ground coverage, cinematic video tours, 3D virtual tours, and twilight photography. Perfect for luxury properties and high-end real estate.",
     iconName: "FaHome",
     videoSrc: "/videos/City.mp4",    features: [
