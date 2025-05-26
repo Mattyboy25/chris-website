@@ -902,3 +902,47 @@ body.light .spec-item {
   transform: translateY(-2px) scale(1.04);
   color: #fff;
 }
+
+/* Modern, animated, larger scroll arrow */
+.scroll-arrow-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2.5rem;
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;
+  z-index: 2;
+  transition: opacity 0.4s cubic-bezier(.4,0,.2,1);
+}
+.scroll-arrow-container.visible {
+  opacity: 1;
+  animation: arrowBounce 1.5s infinite;
+}
+.scroll-arrow-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(18px);
+  }
+}
+
+.scroll-arrow svg {
+  font-size: 3.5rem;
+  color: #4bb6ef;
+  filter: drop-shadow(0 2px 12px rgba(75,182,239,0.25));
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  padding: 0.5rem;
+  transition: color 0.2s;
+}
+.scroll-arrow svg:hover {
+  color: #2d8bc7;
+  background: rgba(255,255,255,0.12); /* Keep background unchanged on hover */
+}
