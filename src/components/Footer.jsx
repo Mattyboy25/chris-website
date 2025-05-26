@@ -58,8 +58,7 @@ function Footer() {
                 Upward Drone Services
               </Link>
             </div>
-            <small className="website-rights">Upward Drone Services © {new Date().getFullYear()}</small>
-            <div className="social-icons">
+            <small className="website-rights">Upward Drone Services © {new Date().getFullYear()}</small>            <div className="social-icons">
               <Link
                 className="social-icon-link facebook"
                 to="/"
@@ -95,6 +94,11 @@ function Footer() {
             </div>
           </div>
         </section>
+        <div className="legal-links">
+          <Link to="/privacy-policy">Privacy Policy</Link>
+          <span className="separator">|</span>
+          <Link to="/terms-of-service">Terms of Service</Link>
+        </div>
       </div>
     </footer>
   );

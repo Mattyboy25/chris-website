@@ -8,6 +8,8 @@ import ServiceDetail from './pages/ServiceDetail';
 import Portfolio from './pages/Portfolio';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 import { ThemeProvider } from './components/ThemeContext';
 import AnimatedLayout from './components/AnimatedLayout';
 import './App.css';
@@ -25,10 +27,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/services/:slug" element={<ServiceDetail />} />
-            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />            <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
           </Routes>
         </AnimatedLayout>
         <Footer />

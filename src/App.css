@@ -346,6 +346,51 @@ main {
   margin: 40px auto 0 auto;
 }
 
+.legal-links {
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 20px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.legal-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  padding: 0 10px;
+}
+
+.legal-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.legal-links .separator {
+  margin: 0 5px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 20px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.legal-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  padding: 0 10px;
+}
+
+.legal-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.legal-links .separator {
+  margin: 0 5px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
 .social-icons {
   display: flex;
   justify-content: space-between;
