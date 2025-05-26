@@ -108,6 +108,9 @@ function ServiceDetail() {
 
     // Save selected addons to localStorage
     localStorage.setItem(`selected_addons_${service.slug}`, JSON.stringify(addons));
+    
+    // Log the calculation for debugging
+    console.log(`Calculated price: $${totalPrice} with addons:`, addons);
 
     return totalPrice;
   };
@@ -279,16 +282,18 @@ function ServiceDetail() {
                   ><option value="standard">24 hours</option>
                     <option value="rush">Priority Service (&lt; 24 hours) (+$100)</option>
                   </select>
-                </div>
-
-                <div className="price-summary">
+                </div>                <div className="price-summary">
                   <h3>Total Price: ${calculatePrice()}</h3>
                   <p>Base package: {service.info.pricing}</p>
                   <motion.button
                     className="book-now-btn"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => navigate(`/contact?service=${service.slug}&customPrice=${calculatePrice()}`)}
+                    onClick={() => {
+                      const finalPrice = calculatePrice();
+                      // Navigate to contact page with both service and price parameters
+                      navigate(`/contact?service=${service.slug}&customPrice=${finalPrice}`);
+                    }}
                   >
                     Book Custom Package
                   </motion.button>

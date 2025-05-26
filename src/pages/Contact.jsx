@@ -14,8 +14,7 @@ function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [selectedAddons, setSelectedAddons] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  // Verify EmailJS initialization and get package details
+  const [totalPrice, setTotalPrice] = useState(0);  // Verify EmailJS initialization and get package details
   useEffect(() => {
     console.log('Checking EmailJS configuration...');
     if (!emailjs.init) {
@@ -27,18 +26,8 @@ function Contact() {
     const serviceSlug = urlParams.get('service');
     const customPrice = urlParams.get('customPrice');
     
-    // Set initial total price from URL parameter
-    if (customPrice) {
-      const price = parseFloat(customPrice);
-      setTotalPrice(price);
-      
-      // Also set in formData
-      setFormData(prev => ({
-        ...prev,
-        customPrice: price.toString()
-      }));
-    }
-
+    console.log(`Loading package: ${serviceSlug} with price: ${customPrice}`);
+    
     // Load package data
     if (serviceSlug) {
       import('../data/servicesData.js').then(({ services }) => {
@@ -53,20 +42,56 @@ function Contact() {
               const parsedAddons = JSON.parse(storedAddons);
               setSelectedAddons(parsedAddons);
               
-              // If we don't have a customPrice, calculate one based on addons
-              if (!customPrice) {
+              // If we have a customPrice from URL, use that first
+              if (customPrice) {
+                const price = parseFloat(customPrice);
+                setTotalPrice(price);
+                
+                // Also set in formData
+                setFormData(prev => ({
+                  ...prev,
+                  customPrice: price.toString()
+                }));
+              } else {
+                // If no customPrice in URL, calculate from base price + addons
                 let basePrice = parseInt(pkg.info.pricing.replace(/[^0-9]/g, ''));
                 let addonTotal = parsedAddons.reduce((sum, addon) => sum + addon.price, 0);
                 const calculatedPrice = basePrice + addonTotal;
                 
                 setTotalPrice(calculatedPrice);
                 
-                // Also update formData
+                // Also update formData and URL
                 setFormData(prev => ({
                   ...prev,
                   customPrice: calculatedPrice.toString()
                 }));
+                
+                // Update URL to ensure price persistence on refresh
+                updateURLWithNewPrice(calculatedPrice, serviceSlug);
               }
+            } else if (customPrice) {
+              // If no addons in localStorage but we have a customPrice, use that
+              const price = parseFloat(customPrice);
+              setTotalPrice(price);
+              
+              // Update formData
+              setFormData(prev => ({
+                ...prev,
+                customPrice: price.toString()
+              }));
+            } else {
+              // Fallback to base package price if no addons or custom price
+              const basePrice = parseInt(pkg.info.pricing.replace(/[^0-9]/g, ''));
+              setTotalPrice(basePrice);
+              
+              // Update formData and URL
+              setFormData(prev => ({
+                ...prev,
+                customPrice: basePrice.toString()
+              }));
+              
+              // Update URL with base price for persistence
+              updateURLWithNewPrice(basePrice, serviceSlug);
             }
           } catch (error) {
             console.error('Error loading addons from localStorage:', error);
@@ -74,7 +99,21 @@ function Contact() {
         }
       });
     }
-  }, []);
+  }, []);// Function to update URL with new price without refreshing the page
+  const updateURLWithNewPrice = (price, packageSlug) => {
+    if (!packageSlug) return;
+    
+    // Update URL parameters
+    const url = new URL(window.location);
+    url.searchParams.set('customPrice', price.toString());
+    url.searchParams.set('service', packageSlug); // Ensure service parameter is always set
+    
+    // Update browser history without page refresh
+    window.history.replaceState({}, '', url.toString());
+    
+    // Log the price update to help with debugging
+    console.log(`Price updated to $${price} for package ${packageSlug}`);
+  };
   // Function to handle removing an addon
   const handleRemoveAddon = (addonIndex) => {
     const addonToRemove = selectedAddons[addonIndex];
@@ -83,16 +122,21 @@ function Contact() {
     const updatedAddons = selectedAddons.filter((_, index) => index !== addonIndex);
     setSelectedAddons(updatedAddons);
     
-    // Update localStorage
-    if (selectedPackage) {
-      localStorage.setItem(`selected_addons_${selectedPackage.slug}`, JSON.stringify(updatedAddons));
-    }
-    
     // Calculate new price
     const newPrice = totalPrice - addonToRemove.price;
     
     // Update total price
     setTotalPrice(newPrice);
+    
+    // Update localStorage with the updated addons list
+    if (selectedPackage) {
+      localStorage.setItem(`selected_addons_${selectedPackage.slug}`, JSON.stringify(updatedAddons));
+    }
+    
+    // Update URL with new price - this ensures price persists after page refresh
+    if (selectedPackage) {
+      updateURLWithNewPrice(newPrice, selectedPackage.slug);
+    }
     
     // Also update formData to reflect the new price
     setFormData(prev => ({
