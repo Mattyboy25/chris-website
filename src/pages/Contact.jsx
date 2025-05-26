@@ -158,10 +158,9 @@ function Contact() {
     service: new URLSearchParams(window.location.search).get('service') || '',
     customPrice: new URLSearchParams(window.location.search).get('customPrice') || '',
     message: '',
-    packageDetails: ''
-  });
+    packageDetails: ''  });
   const [agreementChecked, setAgreementChecked] = useState(false);
-  const [messagePlaceholder, setMessagePlaceholder] = useState('');
+  const [messagePlaceholder, setMessagePlaceholder] = useState('Let us know if there are any additional instructions that we should be aware of!');
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [loadRetries, setLoadRetries] = useState(0);
@@ -205,13 +204,13 @@ function Contact() {
       ...prev, 
       service: selectedService,
       serviceLabel: selectedOption?.label || '' 
-    }));
-    if (selectedService === 'custom') {
+    }));    if (selectedService === 'custom') {
       setMessagePlaceholder('Please describe your project requirements and any specific needs you have. Include details about location, timeline, and desired outcomes.');
     } else {
-      setMessagePlaceholder('');
+      setMessagePlaceholder('Let us know if there are any additional instructions that we should be aware of!');
     }
-    setServiceDropdownOpen(false);  };
+    setServiceDropdownOpen(false);
+  };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
