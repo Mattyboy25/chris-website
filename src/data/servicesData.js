@@ -10,12 +10,11 @@ export const services = [
     shortDesc: "Perfect for residential listings and small commercial properties, our basic package provides high-quality aerial photography.",
     fullDesc: "Perfect for residential listings and small commercial properties, our basic package delivers high-quality aerial photography with professional color correction and quick turnaround time.",
     iconName: "FaCamera",
-    videoSrc: "/videos/Town.mp4",    features: [
+    videoSrc: "/videos/Town.mp4",
+    features: [
       "10 High-quality aerial photos",
       "Professional color correction",
-      "Property boundary shots",
-      "Neighborhood overview",
-      "24-hour turnaround"
+      "Property boundary shots"
     ],
     process: [
       { step: 1, title: "Booking", desc: "Schedule your shoot at a convenient time" },

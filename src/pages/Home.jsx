@@ -218,10 +218,16 @@ function Home() {
               <a className="glass-btn-alt" href="/about" data-discover="true">ABOUT US</a>
             </div>
           </div>
-          <div className="scroll-arrow-container visible" style={{ position: 'absolute', left: 0, right: 0, bottom: '2.5rem', display: 'flex', justifyContent: 'center', pointerEvents: 'auto', zIndex: 2 }}>
-            <div className="scroll-arrow">
+          <div className={`scroll-arrow-container ${showScrollArrow ? 'visible' : 'hidden'}`} style={{ position: 'absolute', left: 0, right: 0, bottom: '2.5rem', display: 'flex', justifyContent: 'center', pointerEvents: 'auto', zIndex: 2 }}>
+            <button
+              className="scroll-arrow"
+              aria-label="Scroll Down"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              onClick={handleScrollClick}
+              tabIndex={0}
+            >
               <FaChevronDown />
-            </div>
+            </button>
           </div>
         </div>
           
