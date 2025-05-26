@@ -587,8 +587,7 @@ function Contact() {
               variants={fadeInUpVariants}
             >
               {showSuccess ? (
-                <ContactSuccess />
-              ) : (                <div className="contact-content-inner">
+                <ContactSuccess />              ) : (                <div className={`contact-content-inner ${!selectedPackage ? 'contact-direct' : ''}`}>
                   <div className="contact-info">                    {selectedPackage && (
                       <>
                         <h2>Selected Package: {selectedPackage.title}</h2>
@@ -634,7 +633,7 @@ function Contact() {
                     )}
                   </div>
                 
-                <div className="contact-form-container">
+                <div className={`contact-form-container ${!selectedPackage ? 'contact-form-centered' : ''}`}>
                   <form className="contact-form" ref={form} onSubmit={handleSubmit} autoComplete="off">
                     <div className="form-group">
                       <label htmlFor="name">Name</label>
