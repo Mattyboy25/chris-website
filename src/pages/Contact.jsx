@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaYoutube, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
@@ -146,8 +147,7 @@ function Contact() {
   };
   
   const form = useRef();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
+  const [isSubmitting, setIsSubmitting] = useState(false);  const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
@@ -156,6 +156,7 @@ function Contact() {
     message: '',
     packageDetails: ''
   });
+  const [agreementChecked, setAgreementChecked] = useState(false);
   const [messagePlaceholder, setMessagePlaceholder] = useState('');
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -207,9 +208,15 @@ function Contact() {
       setMessagePlaceholder('');
     }
     setServiceDropdownOpen(false);
-  };
-  const handleSubmit = async (e) => {
+  };  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Verify agreement checkbox is checked
+    if (!agreementChecked) {
+      alert("Please agree to the Privacy Policy and Terms of Service before submitting.");
+      return;
+    }
+    
     setIsSubmitting(true);
 
     console.log('Service ID:', import.meta.env.VITE_EMAILJS_SERVICE_ID);
@@ -231,8 +238,7 @@ function Contact() {
           packageDetailsText += `- ${addon.name} (+$${addon.price})\n`;
         });
       }
-      
-      packageDetailsText += `\nTotal Price: $${totalPrice}`;
+        packageDetailsText += `\nTotal Price: $${totalPrice}`;
       
       // Add package details to form data
       const hiddenPackageInput = document.createElement('input');
@@ -241,7 +247,13 @@ function Contact() {
       hiddenPackageInput.value = packageDetailsText;
       form.current.appendChild(hiddenPackageInput);
     }
-
+    
+    // Add a hidden field for terms agreement
+    const hiddenAgreementInput = document.createElement('input');
+    hiddenAgreementInput.type = 'hidden';
+    hiddenAgreementInput.name = 'termsAgreed';
+    hiddenAgreementInput.value = 'Yes, agreed to Terms and Privacy Policy';    form.current.appendChild(hiddenAgreementInput);
+    
     console.log('Form data:', formData);
     console.log('Package details:', packageDetailsText);
 
@@ -253,8 +265,7 @@ function Contact() {
       );
 
       console.log('Email sent successfully:', result.text);
-      setShowSuccess(true);
-      setFormData({
+      setShowSuccess(true);      setFormData({
         name: '',
         email: '',
         phone: '',
@@ -264,20 +275,27 @@ function Contact() {
         packageDetails: ''
       });
       
+      // Reset checkbox
+      setAgreementChecked(false);
+      
       // Clear the addons from localStorage after successful submission
       if (selectedPackage) {
         localStorage.removeItem(`selected_addons_${selectedPackage.slug}`);
       }
     } catch (error) {
       console.error('Error sending email:', error);
-      alert('There was an error sending your message. Please try again later.');
-    } finally {
+      alert('There was an error sending your message. Please try again later.');    } finally {
       setIsSubmitting(false);
       
-      // Remove the dynamically added package details input
+      // Remove the dynamically added hidden inputs
       const hiddenPackageInput = form.current.querySelector('input[name="packageDetails"]');
       if (hiddenPackageInput) {
         form.current.removeChild(hiddenPackageInput);
+      }
+      
+      const hiddenAgreementInput = form.current.querySelector('input[name="termsAgreed"]');
+      if (hiddenAgreementInput) {
+        form.current.removeChild(hiddenAgreementInput);
       }
     }
   };
@@ -709,9 +727,22 @@ function Contact() {
                         required
                       ></textarea>
                     </div>
-                    
-                    <div className="privacy-notice">
+                      <div className="privacy-notice">
                       <p>Your privacy matters to us. We will never sell or share your information with third parties.</p>
+                    </div>
+                    
+                    <div className="form-group agreement-checkbox">
+                      <label className="checkbox-container">
+                        <input
+                          type="checkbox"
+                          checked={agreementChecked}
+                          onChange={() => setAgreementChecked(!agreementChecked)}
+                          required
+                        />
+                        <span className="checkmark"></span>                        <span className="agreement-text">
+                          I agree to the <Link to="/privacy-policy" target="_blank" onClick={(e) => e.stopPropagation()}>Privacy Policy</Link> and <Link to="/terms-of-service" target="_blank" onClick={(e) => e.stopPropagation()}>Terms of Service</Link>
+                        </span>
+                      </label>
                     </div>
                     
                     <motion.button 
@@ -719,7 +750,7 @@ function Contact() {
                       className="submit-btn"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || !agreementChecked}
                     >
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </motion.button>
