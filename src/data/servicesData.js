@@ -18,9 +18,8 @@ export const services = [
       { step: 3, title: "Capture", desc: "Professional drone photography session" },
       { step: 4, title: "Editing", desc: "Image enhancement and color correction" },
       { step: 5, title: "Delivery", desc: "Digital delivery of final images" }
-    ],
-    info: {
-      turnaround: "24-48 hours",
+    ],    info: {
+      turnaround: "24 hours",
       coverage: "Up to 1 acre",
       pricing: "Starting at $150",
       availability: "7 days a week"
