@@ -175,10 +175,20 @@ function ServiceDetail() {
                       <li key={index}><span className="feature-check"></span>{feature}</li>
                     ))}
                   </ul>
-                </div>                <h3>Customize Your Package</h3>
-                {/* Basic Package Options */}
+                </div>                <h3>Customize Your Package</h3>                {/* Basic Package Options */}
                 {service.slug === 'basic-drone-photography' && (
                   <>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.groundShots}
+                          onChange={(e) => handleOptionChange('groundShots', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Ground-Level Photography (+$100)
+                      </label>
+                    </div>
                     <div className="option-group select-container">
                       <select 
                         value={selectedOptions.photos}
@@ -191,35 +201,20 @@ function ServiceDetail() {
                         <option value={15}>+15 photos ($225)</option>
                       </select>
                     </div>
-                    <div className="option-group">
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={selectedOptions.groundShots}
-                          onChange={(e) => handleOptionChange('groundShots', e.target.checked)}
-                        />
-                        <span className="feature-check"></span>
-                        Ground-Level Photography (+$100)
-                      </label>
-                    </div>
-                  </>
-                )}
-
-                {/* Standard Package Options */}
-                {service.slug === 'standard-photo-video' && (
-                  <>
                     <div className="option-group select-container">
-                      <select 
-                        value={selectedOptions.photos}
-                        onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
+                      <div className="select-label">Turnaround Time</div>
+                      <select
+                        value={selectedOptions.turnaround}
+                        onChange={(e) => handleOptionChange('turnaround', e.target.value)}
                         className="fancy-select"
-                      >
-                        <option value={0}>Additional Photos</option>
-                        <option value={10}>+10 photos ($250)</option>
-                        <option value={15}>+15 photos ($375)</option>
-                        <option value={20}>+20 photos ($500)</option>
+                      ><option value="standard">24 hours</option>
+                        <option value="rush">Priority Service (&lt; 24 hours) (+$100)</option>
                       </select>
                     </div>
+                  </>
+                )}{/* Standard Package Options */}
+                {service.slug === 'standard-photo-video' && (
+                  <>
                     <div className="option-group">
                       <label>
                         <input
@@ -242,6 +237,27 @@ function ServiceDetail() {
                         Additional Aerial Shots (+$150)
                       </label>
                     </div>
+                    <div className="option-group select-container">
+                      <select 
+                        value={selectedOptions.photos}
+                        onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
+                        className="fancy-select"
+                      >
+                        <option value={0}>No Additional Photos</option>
+                        <option value={10}>+10 photos ($250)</option>
+                        <option value={15}>+15 photos ($375)</option>                        <option value={20}>+20 photos ($500)</option>
+                      </select>
+                    </div>
+                    <div className="option-group select-container">
+                      <div className="select-label">Turnaround Time</div>
+                      <select
+                        value={selectedOptions.turnaround}
+                        onChange={(e) => handleOptionChange('turnaround', e.target.value)}
+                        className="fancy-select"
+                      ><option value="standard">24 hours</option>
+                        <option value="rush">Priority Service (&lt; 24 hours) (+$100)</option>
+                      </select>
+                    </div>
                   </>
                 )}
 
@@ -258,8 +274,7 @@ function ServiceDetail() {
                         <span className="feature-check"></span>
                         Extended Video Coverage (+$300)
                       </label>
-                    </div>
-                    <div className="option-group">
+                    </div>                    <div className="option-group">
                       <label>
                         <input
                           type="checkbox"
@@ -270,19 +285,20 @@ function ServiceDetail() {
                         Additional Property Coverage (+$200)
                       </label>
                     </div>
-                  </>
-                )}
 
-                <div className="option-group select-container">
-                  <div className="select-label">Turnaround Time</div>
-                  <select
-                    value={selectedOptions.turnaround}
-                    onChange={(e) => handleOptionChange('turnaround', e.target.value)}
-                    className="fancy-select"
-                  ><option value="standard">24 hours</option>
-                    <option value="rush">Priority Service (&lt; 24 hours) (+$100)</option>
-                  </select>
-                </div>                <div className="price-summary">
+                    <div className="option-group select-container">
+                      <div className="select-label">Turnaround Time</div>
+                      <select
+                        value={selectedOptions.turnaround}
+                        onChange={(e) => handleOptionChange('turnaround', e.target.value)}
+                        className="fancy-select"
+                      ><option value="standard">24 hours</option>
+                        <option value="rush">Priority Service (&lt; 24 hours) (+$100)</option>
+                      </select>
+                    </div>                  </>
+                )}
+                
+                <div className="price-summary">
                   <h3>Total Price: ${calculatePrice()}</h3>
                   <p>Base package: {service.info.pricing}</p>
                   <motion.button
