@@ -4,17 +4,19 @@ import { FaCamera, FaVideo, FaHome } from 'react-icons/fa';
 // Centralized services data
 export const services = [
   {    id: 1,
-    slug: "basic-drone-photography",
-    title: "Basic Package",
+    slug: "launch-package",
+    title: "Launch Package",
     status: "active",
-    shortDesc: "Perfect for residential listings and small commercial properties, our basic package provides high-quality aerial photography.",
-    fullDesc: "Perfect for residential listings and small commercial properties, our basic package delivers high-quality aerial photography with professional color correction and quick turnaround time.",
+    shortDesc: "Perfect for residential listings and small commercial properties, our Launch Package provides high-quality aerial photography.",
+    fullDesc: "Perfect for residential listings and small commercial properties, our Launch Package delivers high-quality aerial photography with professional color correction and quick turnaround time.",
     iconName: "FaCamera",
     videoSrc: "/videos/Town.mp4",
     features: [
       "10 High-quality aerial photos",
       "Professional color correction",
-      "Property boundary shots"
+      "Property boundary shots",
+      "24-hour delivery",
+      "Online gallery delivery"
     ],
     process: [
       { step: 1, title: "Booking", desc: "Schedule your shoot at a convenient time" },
@@ -25,22 +27,25 @@ export const services = [
     ],    info: {
       turnaround: "24 hours",
       coverage: "Up to 1 acre",
-      pricing: "Starting at $150",
+      pricing: "$199",
       availability: "7 days a week"
     },
     relatedServices: [2, 3]
   },  {
     id: 2,
-    slug: "standard-photo-video",
-    title: "Standard Package",
+    slug: "elevate-package",
+    title: "Elevate Package",
     status: "active",
     shortDesc: "Comprehensive photo and video package combining aerial and ground coverage for a complete property showcase.",
-    fullDesc: "Our standard package combines aerial and ground photography with video for a complete property showcase. Includes high-quality photos and a professionally edited video tour optimized for social media.",
-    iconName: "FaVideo",videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",    features: [
-      "15-20 High-quality aerial photos",
+    fullDesc: "Our Elevate Package combines aerial and ground photography with video for a complete property showcase. Includes high-quality photos and a professionally edited video tour optimized for social media.",
+    iconName: "FaVideo",
+    videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",
+    features: [
+      "20 High-quality aerial photos",
+      "10 Ground-level photos",
       "2-3 minute edited video tour",
-      "Ground-level shots",
-      "Editing and color grading"
+      "Social media edits",
+      "Property highlights feature"
     ],
     process: [
       { step: 1, title: "Consultation", desc: "Detailed planning of photo and video coverage" },
@@ -51,24 +56,25 @@ export const services = [
     ],    info: {
       turnaround: "24 hours",
       coverage: "Up to 2 acres",
-      pricing: "Starting at $300",
+      pricing: "$349",
       availability: "7 days a week"
     },
     relatedServices: [1, 3]
   },  {
     id: 3,
-    slug: "premium-full-production",
-    title: "Premium Package",
+    slug: "skyline-premium",
+    title: "Skyline Premium",
     status: "active",
     shortDesc: "Our most comprehensive package with premium features for luxury properties and high-end real estate.",
-    fullDesc: "Our premium package delivers the ultimate property showcase with comprehensive aerial and ground coverage, cinematic video tours, 3D virtual tours, and twilight photography. Perfect for luxury properties and high-end real estate.",
+    fullDesc: "Our Skyline Premium package delivers the ultimate property showcase with comprehensive aerial and ground coverage, cinematic video tours, twilight photography, and virtual tours. Perfect for luxury properties and high-end real estate.",
     iconName: "FaHome",
-    videoSrc: "/videos/City.mp4",    features: [
-      "25+ High-quality aerial shots",
-      "Ground-level shots",
+    videoSrc: "/videos/City.mp4",
+    features: [
+      "30+ High-quality aerial shots",
+      "15+ Ground-level photos",
       "5 minute cinematic video tour",
       "Twilight/sunset shots",
-      "Social media optimized formats"
+      "Virtual property tour"
     ],
     process: [
       { step: 1, title: "Strategy", desc: "Comprehensive marketing plan development" },
@@ -80,7 +86,7 @@ export const services = [
     ],    info: {
       turnaround: "24 hours",
       coverage: "Up to 5 acres",
-      pricing: "Starting at $500",
+      pricing: "$599",
       availability: "7 days a week"
     },
     relatedServices: [1, 2]

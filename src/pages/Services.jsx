@@ -82,8 +82,8 @@ function Services() {const videoRef = useRef(null);
             </motion.p>
           </div>
 
-          <div className="services-grid">
-            {services.map((service, index) => (              <motion.div
+          <div className="services-grid">            {services.map((service, index) => (
+              <motion.div
                 key={service.id}
                 className="service-card"
                 initial={{ opacity: 0, y: 30 }}
@@ -91,23 +91,28 @@ function Services() {const videoRef = useRef(null);
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
               >
+                {index === 1 && <div className="popular-tag">Most Popular</div>}
                 <span className="service-icon">
                   {service.iconName && iconMap[service.iconName] && React.createElement(iconMap[service.iconName])}
                 </span>
                 <h3 className="service-title">{service.title}</h3>
                 <div className="service-price">{service.info.pricing}</div>
-                <p className="service-description">{service.shortDesc}</p>                <ul className="service-features">
-                  {service.features.slice(0, 5).map((feature, idx) => (                    <motion.li
+                <p className="service-description">{service.shortDesc}</p>
+                <ul className="service-features">
+                  {service.features.map((feature, idx) => (
+                    <motion.li
                       key={idx}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.4 + idx * 0.1 }}
                     >
+                      <span className="feature-bullet"><FaCheck size={12} /></span>
                       {feature}
                     </motion.li>
                   ))}
-                </ul><motion.button 
+                </ul>
+                <motion.button 
                   onClick={(e) => {
                     e.stopPropagation();
                     console.log("Button clicked for:", service.title);
@@ -119,7 +124,8 @@ function Services() {const videoRef = useRef(null);
                 >
                   Get Started <FaArrowRight style={{ marginLeft: '8px' }} />
                 </motion.button>
-              </motion.div>            ))}
+              </motion.div>
+            ))}
           </div>          <motion.div
             className="service-card custom-quote-card"
             initial={{ opacity: 0, y: 30 }}
