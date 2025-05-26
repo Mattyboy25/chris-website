@@ -44,8 +44,7 @@ a {
   color: inherit;
 }
 
-main {
-}
+/* Removed empty main ruleset to fix CSS warning */
 
 /* Navbar Styles */
 .navbar {

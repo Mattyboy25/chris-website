@@ -11,11 +11,13 @@ import '../styles/Contact.css';
 // Initialize EmailJS with your public key
 emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
-function Contact() {  
+function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [selectedAddons, setSelectedAddons] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);  // Verify EmailJS initialization and get package details
+  const [totalPrice, setTotalPrice] = useState(0);
+  
+  // Verify EmailJS initialization and get package details
   useEffect(() => {
     console.log('Checking EmailJS configuration...');
     if (!emailjs.init) {
@@ -100,7 +102,9 @@ function Contact() {
         }
       });
     }
-  }, []);// Function to update URL with new price without refreshing the page
+  }, []);
+  
+  // Function to update URL with new price without refreshing the page
   const updateURLWithNewPrice = (price, packageSlug) => {
     if (!packageSlug) return;
     
@@ -145,9 +149,9 @@ function Contact() {
       customPrice: newPrice.toString()
     }));
   };
-  
-  const form = useRef();
-  const [isSubmitting, setIsSubmitting] = useState(false);  const [formData, setFormData] = useState({
+    const form = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
@@ -207,8 +211,9 @@ function Contact() {
     } else {
       setMessagePlaceholder('');
     }
-    setServiceDropdownOpen(false);
-  };  const handleSubmit = async (e) => {
+    setServiceDropdownOpen(false);  };
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Verify agreement checkbox is checked
@@ -238,7 +243,7 @@ function Contact() {
           packageDetailsText += `- ${addon.name} (+$${addon.price})\n`;
         });
       }
-        packageDetailsText += `\nTotal Price: $${totalPrice}`;
+      packageDetailsText += `\nTotal Price: $${totalPrice}`;
       
       // Add package details to form data
       const hiddenPackageInput = document.createElement('input');
@@ -252,20 +257,21 @@ function Contact() {
     const hiddenAgreementInput = document.createElement('input');
     hiddenAgreementInput.type = 'hidden';
     hiddenAgreementInput.name = 'termsAgreed';
-    hiddenAgreementInput.value = 'Yes, agreed to Terms and Privacy Policy';    form.current.appendChild(hiddenAgreementInput);
+    hiddenAgreementInput.value = 'Yes, agreed to Terms and Privacy Policy';
+    form.current.appendChild(hiddenAgreementInput);
     
     console.log('Form data:', formData);
     console.log('Package details:', packageDetailsText);
 
-    try {      const result = await emailjs.sendForm(
+    try {
+      const result = await emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         form.current,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
-
-      console.log('Email sent successfully:', result.text);
-      setShowSuccess(true);      setFormData({
+      );      console.log('Email sent successfully:', result.text);
+      setShowSuccess(true);
+      setFormData({
         name: '',
         email: '',
         phone: '',
@@ -284,7 +290,8 @@ function Contact() {
       }
     } catch (error) {
       console.error('Error sending email:', error);
-      alert('There was an error sending your message. Please try again later.');    } finally {
+      alert('There was an error sending your message. Please try again later.');
+    } finally {
       setIsSubmitting(false);
       
       // Remove the dynamically added hidden inputs
@@ -329,10 +336,9 @@ function Contact() {
         }
       }, 1000);
     } else {
-      console.error('Max retries reached or video element not available. Falling back to static background.');
-      setVideoError(true);
+      console.error('Max retries reached or video element not available. Falling back to static background.');      setVideoError(true);
     }
-  };  
+  };
 
   // Handle video loaded
   const handleVideoLoaded = () => {
