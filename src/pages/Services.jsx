@@ -71,14 +71,13 @@ function Services() {const videoRef = useRef(null);
               transition={{ duration: 0.8 }}
             >
               Choose Your Perfect Package
-            </motion.h2>
-            <motion.p
+            </motion.h2>            <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              From basic aerial shots to comprehensive property showcases, we have the perfect solution for your real estate marketing needs.
+              From stunning aerial photography to cinematic video tours, our professional drone services will elevate your property marketing to new heights.
             </motion.p>
           </div>
 

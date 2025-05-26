@@ -35,9 +35,7 @@ function ServiceDetail() {
   };  const calculatePrice = () => {
     let basePrice = parseInt(service.info.pricing.replace(/[^0-9]/g, ''));
     let totalPrice = basePrice;
-    const addons = [];
-
-    if (service.slug === 'basic-drone-photography') {
+    const addons = [];    if (service.slug === 'launch-package') {
       if (selectedOptions.photos > 0) {
         const price = selectedOptions.photos * 25; // $25 per additional photo
         totalPrice += price;
@@ -55,7 +53,7 @@ function ServiceDetail() {
       }
     }
     
-    else if (service.slug === 'standard-photo-video') {
+    else if (service.slug === 'elevate-package') {
       if (selectedOptions.photos > 0) {
         const price = selectedOptions.photos * 25; // $25 per additional photo
         totalPrice += price;
@@ -80,7 +78,7 @@ function ServiceDetail() {
       }
     }
     
-    else if (service.slug === 'premium-full-production') {
+    else if (service.slug === 'skyline-premium') {
       if (selectedOptions.video) {
         totalPrice += 300; // Extended video coverage
         addons.push({
@@ -175,8 +173,8 @@ function ServiceDetail() {
                       <li key={index}><span className="feature-check"></span>{feature}</li>
                     ))}
                   </ul>
-                </div>                <h3>Customize Your Package</h3>                {/* Basic Package Options */}
-                {service.slug === 'basic-drone-photography' && (
+                </div>                <h3>Customize Your Package</h3>                {/* Launch Package Options */}
+                {service.slug === 'launch-package' && (
                   <>
                     <div className="option-group">
                       <label>
@@ -212,8 +210,8 @@ function ServiceDetail() {
                       </select>
                     </div>
                   </>
-                )}{/* Standard Package Options */}
-                {service.slug === 'standard-photo-video' && (
+                )}{/* Elevate Package Options */}
+                {service.slug === 'elevate-package' && (
                   <>
                     <div className="option-group">
                       <label>
@@ -261,8 +259,8 @@ function ServiceDetail() {
                   </>
                 )}
 
-                {/* Premium Package Options */}
-                {service.slug === 'premium-full-production' && (
+                {/* Skyline Premium Options */}
+                {service.slug === 'skyline-premium' && (
                   <>
                     <div className="option-group">
                       <label>
