@@ -284,8 +284,10 @@ function Home() {
                     <h3>Real Estate</h3>
                     <p>Showcase properties with stunning aerial views that highlight the entire property and surrounding area.</p>
                   </div>
-                  
-                  <div className="feature-card">
+                    <div className="feature-card coming-soon">
+                    <div className="coming-soon-overlay">
+                      <span className="coming-soon-text">Coming Soon</span>
+                    </div>
                     <div className="feature-icon">
                       <i className="fas fa-camera"></i>
                     </div>
@@ -293,7 +295,10 @@ function Home() {
                     <p>Capture your special moments from angles never before possible.</p>
                   </div>
                   
-                  <div className="feature-card">
+                  <div className="feature-card coming-soon">
+                    <div className="coming-soon-overlay">
+                      <span className="coming-soon-text">Coming Soon</span>
+                    </div>
                     <div className="feature-icon">
                       <i className="fas fa-building"></i>
                     </div>

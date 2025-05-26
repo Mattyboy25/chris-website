@@ -22,8 +22,10 @@ function Services() {const videoRef = useRef(null);
     console.error("Video loading error:", error);
     setVideoError(true);
   };  const navigate = useNavigate();
-  
-  const handlePackageClick = (packageData) => {
+    const handlePackageClick = (packageData) => {
+    if (packageData.status === 'coming_soon') {
+      return;
+    }
     navigate(`/services/${packageData.slug}?customize=true`);
   };
 
@@ -84,16 +86,19 @@ function Services() {const videoRef = useRef(null);
           </div>
 
           <div className="services-grid">
-            {services.map((service, index) => (
-              <motion.div
+            {services.map((service, index) => (              <motion.div
                 key={service.id}
-                className="service-card"
+                className={`service-card ${service.status === 'coming_soon' ? 'coming-soon' : ''}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
               >
-                {service.id === 2 && <div className="popular-tag">Most Popular</div>}
+                {service.status === 'coming_soon' && (
+                  <div className="coming-soon-overlay">
+                    <span className="coming-soon-badge">Coming Soon</span>
+                  </div>
+                )}
                 <span className="service-icon">
                   {service.iconName && iconMap[service.iconName] && React.createElement(iconMap[service.iconName])}
                 </span>

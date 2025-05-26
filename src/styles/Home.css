@@ -362,6 +362,7 @@ body.dark .services-container h1 {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  position: relative;
 }
 
 body.light .service-card {
@@ -561,6 +562,7 @@ body.dark .section-description {
   padding: 30px;
   border-radius: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
 body.light .feature-card {
@@ -933,9 +935,6 @@ body.dark .glass-btn-alt:hover {
   opacity: 0.95;
 }
 
-
-
-
 /* Equipment Showcase Styles */
 .equipment-showcase {
   display: grid;
@@ -1213,4 +1212,33 @@ body.light .spec-item {
   100% {
     transform: translate(-10%, 10%) rotate(5deg);
   }
+}
+
+/* Coming Soon Overlay Styles */
+.feature-card {
+  position: relative;
+}
+
+.feature-card.coming-soon {
+  cursor: not-allowed;
+}
+
+.feature-card .coming-soon-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.feature-card .coming-soon-text {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
