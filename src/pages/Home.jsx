@@ -189,71 +189,40 @@ function Home() {
     <PageTransition>
       <div className="home-wrapper">        
         <div className="hero-container">
-          {!videoError ? (
-            <div className="video-container" ref={videoContainerRef}>              
-              <video 
-                ref={videoRef}
-                src="/videos/main-video.mp4"
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                className="hero-video visible"                
-                onError={handleVideoError}
-              />
-            </div>
-          ) : (
-            <div className="hero-fallback-bg"></div>
-          )}
-          <div className="hero-content">
+          <div className="video-container">
+            <video 
+              ref={videoRef}
+              src="/videos/main-video.mp4"
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="hero-video visible"                
+              onError={handleVideoError}
+            />
+          </div>
+          <div className="hero-content" style={{ position: 'relative', zIndex: 2 }}>
             <div className="hero-titles">
-              <motion.div 
-                className="dynamic-title"
-                variants={titleVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                <motion.h1 className="hero-title">
-                  <span className={`typing-text changing-word ${isGlowing ? 'glow' : ''}`}>
-                    {changingWord}
-                  </span>
-                  <span className="static-text">{staticText}</span>
-                </motion.h1>
-              </motion.div>
-              <motion.p 
-                initial="hidden"
-                animate="visible"
-                variants={subtitleVariants}
-                className="hero-subtitle"
-              >
+              <div className="dynamic-title" style={{ opacity: 1 }}>
+                <h1 className="hero-title">
+                  <span className="typing-text changing-word ">{changingWord || 'Sup'}</span>
+                  <span className="static-text">Drone Services</span>
+                </h1>
+              </div>
+              <p className="hero-subtitle" style={{ opacity: 1, transform: 'none' }}>
                 Elevating Your Perspective
-              </motion.p>
+              </p>
             </div>
-              <motion.div 
-              className="hero-btns"
-              initial="hidden"
-              animate="visible"
-              variants={buttonVariants}
-            >
-              <motion.div className="button-group">
-                <motion.div whileHover="hover">
-                  <Link to="/contact" className="btn-primary glass-btn">
-                    Book now
-                  </Link>
-                </motion.div>
-                <motion.div whileHover="hover">
-                  <Link to="/about" className="glass-btn-alt">
-                    ABOUT US
-                  </Link>
-                </motion.div>
-              </motion.div>
-            </motion.div>
+            <div className="hero-btns" style={{ opacity: 1, transform: 'none', marginTop: '2.5rem', display: 'flex', justifyContent: 'center', gap: '1.5rem' }}>
+              <a className="btn-primary glass-btn" href="/contact" data-discover="true">Book now</a>
+              <a className="glass-btn-alt" href="/about" data-discover="true">ABOUT US</a>
+            </div>
           </div>
-            <div className={`scroll-arrow-container ${showScrollArrow ? 'visible' : 'hidden'}`}  onClick={handleScrollClick}>
-          <div className="scroll-arrow">
-            <FaChevronDown />
+          <div className="scroll-arrow-container visible" style={{ position: 'absolute', left: 0, right: 0, bottom: '2.5rem', display: 'flex', justifyContent: 'center', pointerEvents: 'auto', zIndex: 2 }}>
+            <div className="scroll-arrow">
+              <FaChevronDown />
+            </div>
           </div>
-        </div>
         </div>
           
         {/* Content that overlaps the video */}
