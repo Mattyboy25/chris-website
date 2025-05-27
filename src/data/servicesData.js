@@ -26,7 +26,6 @@ export const services = [
       { step: 5, title: "Delivery", desc: "Digital delivery of final images" }
     ],    info: {
       turnaround: "24 hours",
-      coverage: "Up to 1 acre",
       pricing: "$175",
       availability: "7 days a week"
     },

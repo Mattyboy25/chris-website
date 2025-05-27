@@ -621,7 +621,7 @@ function Contact() {
                           )}                          <p className="package-price">Total Price: ${totalPrice}</p>
                             <div className="package-details">
                             <div className="package-info">
-                              <p><strong>Coverage:</strong> {selectedPackage.info.coverage}</p>
+
                               <p><strong>Turnaround:</strong> {selectedPackage.info.turnaround}</p>
                               <p className="edit-package-link">
                                 <a href={`/services/${selectedPackage.slug}?customize=true`}>Edit Package</a>
