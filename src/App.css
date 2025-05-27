@@ -16,8 +16,19 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Theme Styles - Only Dark Mode */
-body {
+/* Theme Styles */
+body.light {
+  background-color: #f8f9fa;
+  color: #444;
+  --page-bg-color: #f8f9fa;
+  --text-color: #444;
+  --text-color-light: #666;
+  --grey-bg: rgba(240, 240, 240, 0.85);
+  --grey-border: rgba(200, 200, 200, 0.5);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body.dark {
   background-color: #121212;
   color: #f1f1f1;
   --page-bg-color: #121212;

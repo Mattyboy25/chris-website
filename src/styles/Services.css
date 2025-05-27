@@ -384,7 +384,7 @@ body.light .service-features li:hover {
 
 .popular-tag {
   position: absolute;
-  top: 10px;
+  top: -12px;
   right: 20px;
   background: linear-gradient(135deg, #ff6b6b, #ff9e7d);
   color: #fff;
