@@ -44,13 +44,6 @@ function ServiceDetail() {
           price: price
         });
       }
-      if (selectedOptions.groundShots) {
-        totalPrice += 100;
-        addons.push({
-          name: 'Ground-Level Photography',
-          price: 100
-        });
-      }
       if (selectedOptions.groundPhotos > 0) {
         let price = 0;
         if (selectedOptions.groundPhotos === 10) price = 75;
@@ -185,20 +178,9 @@ function ServiceDetail() {
                       <li key={index}><span className="feature-check"></span>{feature}</li>
                     ))}
                   </ul>
-                </div>                <h3>Customize Your Package</h3>                {/* Launch Package Options */}
-                {service.slug === 'launch-package' && (
+                </div>                <h3>Customize Your Package</h3>                {/* Launch Package Options */}                {service.slug === 'launch-package' && (
                   <>
-                    <div className="option-group">
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={selectedOptions.groundShots}
-                          onChange={(e) => handleOptionChange('groundShots', e.target.checked)}
-                        />
-                        <span className="feature-check"></span>
-                        Ground-Level Photography (+$100)
-                      </label>
-                    </div>                    <div className="option-group select-container">
+                    <div className="option-group select-container">
                       <select 
                         value={selectedOptions.photos}
                         onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
