@@ -18,6 +18,8 @@ function ServiceDetail() {
     aerials: false,
     groundShots: false,
     groundPhotos: 0,
+    rawFootage: false,
+    brandedVideo: false,
     twilight: false,
     turnaround: "standard"
   });
@@ -54,6 +56,20 @@ function ServiceDetail() {
         addons.push({
           name: `+${selectedOptions.groundPhotos} additional ground photos`,
           price: price
+        });
+      }
+      if (selectedOptions.rawFootage) {
+        totalPrice += 75;
+        addons.push({
+          name: 'Raw Aerial Footage',
+          price: 75
+        });
+      }
+      if (selectedOptions.brandedVideo) {
+        totalPrice += 50;
+        addons.push({
+          name: 'Branded Video',
+          price: 50
         });
       }
     }
