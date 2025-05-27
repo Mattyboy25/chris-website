@@ -196,6 +196,28 @@ function ServiceDetail() {
                   </ul>
                 </div>                <h3>Customize Your Package</h3>                {/* Launch Package Options */}                {service.slug === 'launch-package' && (
                   <>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.rawFootage}
+                          onChange={(e) => handleOptionChange('rawFootage', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Raw Aerial Footage (+$75)
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.brandedVideo}
+                          onChange={(e) => handleOptionChange('brandedVideo', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Branded Video (+$50)
+                      </label>
+                    </div>
                     <div className="option-group select-container">
                       <select 
                         value={selectedOptions.photos}
