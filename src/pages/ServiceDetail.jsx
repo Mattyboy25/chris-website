@@ -295,22 +295,31 @@ function ServiceDetail() {
                       </select>
                     </div>                  </>
                 )}
-                
-                <div className="price-summary">
+                  <div className="price-summary">
                   <h3>Total Price: ${calculatePrice()}</h3>
                   <p>Base package: {service.info.pricing}</p>
-                  <motion.button
-                    className="book-now-btn"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      const finalPrice = calculatePrice();
-                      // Navigate to contact page with both service and price parameters
-                      navigate(`/contact?service=${service.slug}&customPrice=${finalPrice}`);
-                    }}
-                  >
-                    Book Custom Package
-                  </motion.button>
+                  <div className="button-container">
+                    <motion.button
+                      className="back-to-services-btn"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => navigate('/services')}
+                    >
+                      <FaArrowLeft /> Back to Services
+                    </motion.button>
+                    <motion.button
+                      className="book-now-btn"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        const finalPrice = calculatePrice();
+                        // Navigate to contact page with both service and price parameters
+                        navigate(`/contact?service=${service.slug}&customPrice=${finalPrice}`);
+                      }}
+                    >
+                      Book Custom Package
+                    </motion.button>
+                  </div>
                 </div>
               </div>
             ) : (
