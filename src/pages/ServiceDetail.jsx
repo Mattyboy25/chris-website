@@ -12,12 +12,12 @@ import '../styles/ServiceDetail.css';
 function ServiceDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState({
+  const [isModalOpen, setIsModalOpen] = useState(false);  const [selectedOptions, setSelectedOptions] = useState({
     photos: 0,
     video: false,
     aerials: false,
     groundShots: false,
+    groundPhotos: 0,
     twilight: false,
     turnaround: "standard"
   });
@@ -49,6 +49,18 @@ function ServiceDetail() {
         addons.push({
           name: 'Ground-Level Photography',
           price: 100
+        });
+      }
+      if (selectedOptions.groundPhotos > 0) {
+        let price = 0;
+        if (selectedOptions.groundPhotos === 10) price = 75;
+        if (selectedOptions.groundPhotos === 15) price = 150;
+        if (selectedOptions.groundPhotos === 20) price = 200;
+        
+        totalPrice += price;
+        addons.push({
+          name: `+${selectedOptions.groundPhotos} additional ground photos`,
+          price: price
         });
       }
     }
@@ -186,8 +198,7 @@ function ServiceDetail() {
                         <span className="feature-check"></span>
                         Ground-Level Photography (+$100)
                       </label>
-                    </div>
-                    <div className="option-group select-container">
+                    </div>                    <div className="option-group select-container">
                       <select 
                         value={selectedOptions.photos}
                         onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
@@ -197,6 +208,18 @@ function ServiceDetail() {
                         <option value={5}>+5 photos ($75)</option>
                         <option value={10}>+10 photos ($150)</option>
                         <option value={15}>+15 photos ($225)</option>
+                      </select>
+                    </div>
+                    <div className="option-group select-container">
+                      <select 
+                        value={selectedOptions.groundPhotos}
+                        onChange={(e) => handleOptionChange('groundPhotos', parseInt(e.target.value))}
+                        className="fancy-select"
+                      >
+                        <option value={0}>Additional Ground Photos</option>
+                        <option value={10}>+10 photos ($75)</option>
+                        <option value={15}>+15 photos ($150)</option>
+                        <option value={20}>+20 photos ($200)</option>
                       </select>
                     </div>
                     <div className="option-group select-container">
