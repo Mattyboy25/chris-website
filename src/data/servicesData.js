@@ -16,7 +16,7 @@ export const services = [
       "Professional color correction",
       "Property boundary shots",
       "24-hour delivery",
-      "Online gallery delivery"
+      "One flight location (30–45 mins)"
     ],
     process: [
       { step: 1, title: "Booking", desc: "Schedule your shoot at a convenient time" },
@@ -27,7 +27,7 @@ export const services = [
     ],    info: {
       turnaround: "24 hours",
       coverage: "Up to 1 acre",
-      pricing: "$199",
+      pricing: "$175",
       availability: "7 days a week"
     },
     relatedServices: [2, 3]
@@ -38,11 +38,11 @@ export const services = [
     status: "active",
     shortDesc: "Comprehensive photo and video package combining aerial and ground coverage for a complete property showcase.",
     fullDesc: "Our Elevate Package combines aerial and ground photography with video for a complete property showcase. Includes high-quality photos and a professionally edited video tour optimized for social media.",
-    iconName: "FaVideo",
-    videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",
+    iconName: "FaVideo",    videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",
     features: [
+      "Launch Package included plus:",
       "20 High-quality aerial photos",
-      "10 Ground-level photos",
+      "15 Ground-level photos",
       "2-3 minute edited video tour",
       "Social media edits",
       "Property highlights feature"
@@ -56,7 +56,7 @@ export const services = [
     ],    info: {
       turnaround: "24 hours",
       coverage: "Up to 2 acres",
-      pricing: "$349",
+      pricing: "$350",
       availability: "7 days a week"
     },
     relatedServices: [1, 3]
@@ -67,13 +67,13 @@ export const services = [
     status: "active",
     shortDesc: "Our most comprehensive package with premium features for luxury properties and high-end real estate.",
     fullDesc: "Our Skyline Premium package delivers the ultimate property showcase with comprehensive aerial and ground coverage, cinematic video tours, twilight photography, and virtual tours. Perfect for luxury properties and high-end real estate.",
-    iconName: "FaHome",
-    videoSrc: "/videos/City.mp4",
+    iconName: "FaHome",    videoSrc: "/videos/City.mp4",
     features: [
-      "30+ High-quality aerial shots",
-      "15+ Ground-level photos",
+      "Elevate Package included plus:",
+      "30 High-quality aerial shots",
+      "25 Ground-level photos",
       "5 minute cinematic video tour",
-      "Twilight/sunset shots",
+      "Social Media Optimized Clips",
       "Virtual property tour"
     ],
     process: [
@@ -82,11 +82,10 @@ export const services = [
       { step: 3, title: "Day Shoot", desc: "Main photo and video production" },
       { step: 4, title: "Twilight Shoot", desc: "Evening/sunset photography session" },
       { step: 5, title: "Post-Production", desc: "Advanced editing and content preparation" },
-      { step: 6, title: "Delivery", desc: "Complete marketing package handoff" }
-    ],    info: {
+      { step: 6, title: "Delivery", desc: "Complete marketing package handoff" }    ],    info: {
       turnaround: "24 hours",
       coverage: "Up to 5 acres",
-      pricing: "$599",
+      pricing: "$650",
       availability: "7 days a week"
     },
     relatedServices: [1, 2]
