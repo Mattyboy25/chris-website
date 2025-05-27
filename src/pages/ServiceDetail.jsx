@@ -45,12 +45,11 @@ function ServiceDetail() {
           name: `+${selectedOptions.photos} additional aerial photos`,
           price: price
         });
-      }
-      if (selectedOptions.groundPhotos > 0) {
+      }      if (selectedOptions.groundPhotos > 0) {
         let price = 0;
         if (selectedOptions.groundPhotos === 10) price = 75;
         if (selectedOptions.groundPhotos === 15) price = 150;
-        if (selectedOptions.groundPhotos === 20) price = 200;
+        if (selectedOptions.groundPhotos === 20) price = 225;
         
         totalPrice += price;
         addons.push({
@@ -73,13 +72,24 @@ function ServiceDetail() {
         });
       }
     }
-    
-    else if (service.slug === 'elevate-package') {
+      else if (service.slug === 'elevate-package') {
       if (selectedOptions.photos > 0) {
         const price = selectedOptions.photos * 25; // $25 per additional photo
         totalPrice += price;
         addons.push({
           name: `+${selectedOptions.photos} additional photos`,
+          price: price
+        });
+      }
+      if (selectedOptions.groundPhotos > 0) {
+        let price = 0;
+        if (selectedOptions.groundPhotos === 10) price = 75;
+        if (selectedOptions.groundPhotos === 15) price = 150;
+        if (selectedOptions.groundPhotos === 20) price = 225;
+        
+        totalPrice += price;
+        addons.push({
+          name: `+${selectedOptions.groundPhotos} additional ground photos`,
           price: price
         });
       }
@@ -98,8 +108,7 @@ function ServiceDetail() {
         });
       }
     }
-    
-    else if (service.slug === 'skyline-premium') {
+      else if (service.slug === 'skyline-premium') {
       if (selectedOptions.video) {
         totalPrice += 300; // Extended video coverage
         addons.push({
@@ -112,6 +121,18 @@ function ServiceDetail() {
         addons.push({
           name: 'Additional Property Coverage',
           price: 200
+        });
+      }
+      if (selectedOptions.groundPhotos > 0) {
+        let price = 0;
+        if (selectedOptions.groundPhotos === 10) price = 75;
+        if (selectedOptions.groundPhotos === 15) price = 150;
+        if (selectedOptions.groundPhotos === 20) price = 225;
+        
+        totalPrice += price;
+        addons.push({
+          name: `+${selectedOptions.groundPhotos} additional ground photos`,
+          price: price
         });
       }
     }
@@ -239,7 +260,7 @@ function ServiceDetail() {
                         <option value={0}>Additional Ground Photos</option>
                         <option value={10}>+10 photos ($75)</option>
                         <option value={15}>+15 photos ($150)</option>
-                        <option value={20}>+20 photos ($200)</option>
+                        <option value={20}>+20 photos ($225)</option>
                       </select>
                     </div>
                     <div className="option-group select-container">
@@ -277,16 +298,27 @@ function ServiceDetail() {
                         <span className="feature-check"></span>
                         Additional Aerial Shots (+$150)
                       </label>
-                    </div>
-                    <div className="option-group select-container">
+                    </div>                    <div className="option-group select-container">
                       <select 
                         value={selectedOptions.photos}
                         onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
                         className="fancy-select"
                       >
-                        <option value={0}>No Additional Photos</option>
-                        <option value={10}>+10 photos ($250)</option>
-                        <option value={15}>+15 photos ($375)</option>                        <option value={20}>+20 photos ($500)</option>
+                        <option value={0}>Additional Aerial Photos</option>
+                        <option value={10}>+10 photos ($150)</option>
+                        <option value={15}>+15 photos ($250)</option>                        <option value={20}>+20 photos ($300)</option>
+                      </select>
+                    </div>
+                    <div className="option-group select-container">
+                      <select 
+                        value={selectedOptions.groundPhotos}
+                        onChange={(e) => handleOptionChange('groundPhotos', parseInt(e.target.value))}
+                        className="fancy-select"
+                      >
+                        <option value={0}>Additional Ground Photos</option>
+                        <option value={10}>+10 photos ($75)</option>
+                        <option value={15}>+15 photos ($150)</option>
+                        <option value={20}>+20 photos ($225)</option>
                       </select>
                     </div>
                     <div className="option-group select-container">
@@ -325,6 +357,19 @@ function ServiceDetail() {
                         <span className="feature-check"></span>
                         Additional Property Coverage (+$200)
                       </label>
+                    </div>
+                    
+                    <div className="option-group select-container">
+                      <select 
+                        value={selectedOptions.groundPhotos}
+                        onChange={(e) => handleOptionChange('groundPhotos', parseInt(e.target.value))}
+                        className="fancy-select"
+                      >
+                        <option value={0}>Additional Ground Photos</option>
+                        <option value={10}>+10 photos ($75)</option>
+                        <option value={15}>+15 photos ($150)</option>
+                        <option value={20}>+20 photos ($225)</option>
+                      </select>
                     </div>
 
                     <div className="option-group select-container">
