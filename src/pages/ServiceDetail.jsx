@@ -71,8 +71,7 @@ function ServiceDetail() {
           price: 50
         });
       }
-    }
-      else if (service.slug === 'elevate-package') {
+    }    else if (service.slug === 'elevate-package') {
       if (selectedOptions.photos > 0) {
         const price = selectedOptions.photos * 25; // $25 per additional photo
         totalPrice += price;
@@ -93,18 +92,18 @@ function ServiceDetail() {
           price: price
         });
       }
-      if (selectedOptions.twilight) {
-        totalPrice += 200;
-        addons.push({
-          name: 'Twilight/Sunset Photos',
-          price: 200
-        });
-      }
-      if (selectedOptions.aerials) {
+      if (selectedOptions.rawFootage) {
         totalPrice += 150;
         addons.push({
-          name: 'Additional Aerial Shots',
+          name: 'Raw Footage',
           price: 150
+        });
+      }
+      if (selectedOptions.brandedVideo) {
+        totalPrice += 50;
+        addons.push({
+          name: 'Branded Video',
+          price: 50
         });
       }
     }
@@ -274,31 +273,30 @@ function ServiceDetail() {
                       </select>
                     </div>
                   </>
-                )}{/* Elevate Package Options */}
-                {service.slug === 'elevate-package' && (
+                )}{/* Elevate Package Options */}                {service.slug === 'elevate-package' && (
                   <>
                     <div className="option-group">
                       <label>
                         <input
                           type="checkbox"
-                          checked={selectedOptions.twilight}
-                          onChange={(e) => handleOptionChange('twilight', e.target.checked)}
+                          checked={selectedOptions.rawFootage}
+                          onChange={(e) => handleOptionChange('rawFootage', e.target.checked)}
                         />
                         <span className="feature-check"></span>
-                        Twilight/Sunset Photos (+$200)
+                        Raw Footage (+$150)
                       </label>
                     </div>
                     <div className="option-group">
                       <label>
                         <input
                           type="checkbox"
-                          checked={selectedOptions.aerials}
-                          onChange={(e) => handleOptionChange('aerials', e.target.checked)}
+                          checked={selectedOptions.brandedVideo}
+                          onChange={(e) => handleOptionChange('brandedVideo', e.target.checked)}
                         />
                         <span className="feature-check"></span>
-                        Additional Aerial Shots (+$150)
+                        Branded Video (+$50)
                       </label>
-                    </div>                    <div className="option-group select-container">
+                    </div><div className="option-group select-container">
                       <select 
                         value={selectedOptions.photos}
                         onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
