@@ -683,6 +683,42 @@ body.light .price-label {
   color: #4bb6ef;
 }
 
+/* Button Container */
+.button-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 2rem;
+}
+
+/* Back to Services Button */
+.back-to-services-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: #4bb6ef;
+  border: 2px solid #4bb6ef;
+  padding: 14px 24px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(75, 182, 239, 0.1);
+}
+
+.back-to-services-btn:hover {
+  background: rgba(75, 182, 239, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(75, 182, 239, 0.2);
+}
+
+body.light .back-to-services-btn {
+  color: #2d8bc7;
+  border-color: #2d8bc7;
+}
+
 /* Submit Button */
 .book-now-btn {
   background: linear-gradient(135deg, #4bb6ef, #2d8bc7);
@@ -694,8 +730,7 @@ body.light .price-label {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
-  margin-top: 2rem;
+  flex: 1;
   box-shadow: 0 4px 15px rgba(75, 182, 239, 0.3);
 }
 
@@ -810,9 +845,16 @@ body.light .included-features .feature-check {
     font-size: 24px;
   }
 
+  .button-container {
+    flex-direction: column-reverse;
+  }
+
+  .back-to-services-btn, 
   .book-now-btn {
+    width: 100%;
     padding: 12px 25px;
     font-size: 16px;
+    justify-content: center;
   }
 }
 
