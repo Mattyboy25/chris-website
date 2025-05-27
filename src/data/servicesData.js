@@ -27,7 +27,7 @@ export const services = [
     ],    info: {
       turnaround: "24 hours",
       coverage: "Up to 1 acre",
-      pricing: "$175",
+      pricing: "Starting at $175",
       availability: "7 days a week"
     },
     relatedServices: [2, 3]
@@ -56,7 +56,7 @@ export const services = [
     ],    info: {
       turnaround: "24 hours",
       coverage: "Up to 2 acres",
-      pricing: "$350",
+      pricing: "Starting at $350",
       availability: "7 days a week"
     },
     relatedServices: [1, 3]
@@ -85,7 +85,7 @@ export const services = [
       { step: 6, title: "Delivery", desc: "Complete marketing package handoff" }    ],    info: {
       turnaround: "24 hours",
       coverage: "Up to 5 acres",
-      pricing: "$650",
+      pricing: "Starting at $650",
       availability: "7 days a week"
     },
     relatedServices: [1, 2]

@@ -1,7 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from './ThemeContext';
-import ThemeToggle from './ThemeToggle';
 import '../App.css';
 
 function Navbar() {
@@ -91,13 +90,11 @@ function Navbar() {
             <Link to="/about" className="nav-links" onClick={toggleMenu}>
               About
             </Link>
-          </li>
-          <li className="nav-item" style={{"--item-index": 5}}>
+          </li>          <li className="nav-item" style={{"--item-index": 5}}>
             <Link to="/contact" className="nav-links" onClick={toggleMenu}>
               Contact
             </Link>          </li>
         </ul>
-        <ThemeToggle />
       </div>
     </nav>
   );
