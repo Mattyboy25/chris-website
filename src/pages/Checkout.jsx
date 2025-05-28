@@ -2,21 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowLeft, FaCheck, FaEdit } from 'react-icons/fa';
-import { Elements, useStripe, useElements } from '@stripe/react-stripe-js';
-import { stripePromise, createDepositPaymentIntent } from '../api/stripe';
-import { sendOrderConfirmation } from '../api/email';
-import StripeCardInput from '../components/StripeCardInput';
 import PageTransition from '../components/PageTransition';
 import '../styles/Checkout.css';
 import { services } from '../data/servicesData';
+import stripePromise, { createPaymentSession } from '../utils/stripe';
 
-function CheckoutForm() {
+function Checkout() {
   const location = useLocation();
-  const navigate = useNavigate();
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();  const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
@@ -28,13 +21,11 @@ function CheckoutForm() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [agreementChecked, setAgreementChecked] = useState(false);
-  const [paymentIntent, setPaymentIntent] = useState(null);
   
   // Get package details from location state
   const { serviceSlug, addons, totalPrice } = location.state || {};
   const service = services.find(s => s.slug === serviceSlug);
-  const basePrice = service ? parseInt(service.info.pricing.replace(/[^0-9]/g, '')) : 0;
-
+  
   // Redirect to services if there's no selected package
   useEffect(() => {
     if (!service) {
@@ -42,6 +33,8 @@ function CheckoutForm() {
     }
   }, [service, navigate]);
 
+  const basePrice = service ? parseInt(service.info.pricing.replace(/[^0-9]/g, '')) : 0;
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -49,8 +42,7 @@ function CheckoutForm() {
       [name]: value
     }));
   };
-
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!agreementChecked) {
@@ -58,15 +50,9 @@ function CheckoutForm() {
       return;
     }
     
-    if (!stripe || !elements) {
-      return;
-    }
-    
     setIsSubmitting(true);
     setSubmitError('');
-    
-    try {
-      // Prepare order details
+      try {
       const orderDetails = {
         package: service?.title,
         basePrice: basePrice,
@@ -74,51 +60,42 @@ function CheckoutForm() {
         totalPrice: totalPrice,
         customer: formData
       };
-
-      // Create payment intent for deposit if total is over $500
-      const requiresDeposit = totalPrice >= 500;
-      const paymentResponse = await createDepositPaymentIntent(
-        totalPrice,
-        { orderId: Math.random().toString(36).substr(2, 9) } // Replace with actual order ID
-      );
-
-      const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(
-        paymentResponse.clientSecret,
-        {
-          payment_method: {
-            card: elements.getElement('card'),
-            billing_details: {
-              name: formData.fullName,
-              email: formData.email,
-            },
-          },
-        }
-      );
-
-      if (stripeError) {
-        throw new Error(stripeError.message);
-      }
-
-      // Send confirmation email
-      await sendOrderConfirmation(orderDetails, requiresDeposit ? 'deposit' : 'full');
       
-      // Show success message
-      setSubmitSuccess(true);
+      console.log('Order details to submit:', orderDetails);
       
-      // Redirect to confirmation page after a delay
-      setTimeout(() => {
-        navigate('/contact-success', { 
-          state: { 
-            fromCheckout: true, 
-            name: formData.fullName,
-            isDeposit: requiresDeposit
-          } 
+      // Only show split payment UI for orders over $500
+      if (totalPrice >= 500) {
+        const depositAmount = Math.floor(totalPrice * 0.5); // 50% deposit
+        
+        // Create Stripe Checkout session for the deposit
+        const { sessionId } = await createPaymentSession(orderDetails);
+        
+        // Get Stripe instance
+        const stripe = await stripePromise;
+        
+        // Redirect to Stripe Checkout
+        const { error } = await stripe.redirectToCheckout({
+          sessionId
         });
-      }, 2000);
-      
+        
+        if (error) {
+          console.error('Error redirecting to checkout:', error);
+          setSubmitError('Payment initialization failed. Please try again.');
+          return;
+        }
+      } else {
+        // For orders under $500, proceed with regular checkout
+        // Show success message
+        setSubmitSuccess(true);
+        
+        // Redirect to confirmation page after a delay
+        setTimeout(() => {
+          navigate('/contact-success', { state: { fromCheckout: true, name: formData.fullName } });
+        }, 2000);
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
-      setSubmitError(error.message || 'There was a problem processing your payment. Please try again.');
+      setSubmitError('There was a problem submitting your request. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -191,29 +168,20 @@ function CheckoutForm() {
                 ))}
               </div>
             )}
-
-            <div className="summary-total">
+              <div className="summary-total">
               <span className="total-label">Total</span>
               <span className="total-price">${totalPrice}</span>
             </div>
-
+            
             {totalPrice >= 500 && (
-              <div className="deposit-info">
-                <h4>Payment Schedule</h4>
-                <div className="payment-breakdown">
-                  <div className="payment-item">
-                    <span>Initial Deposit (50%)</span>
-                    <span className="amount">${(totalPrice * 0.5).toFixed(2)}</span>
-                  </div>
-                  <div className="payment-item">
-                    <span>Final Payment (50%)</span>
-                    <span className="amount">${(totalPrice * 0.5).toFixed(2)}</span>
-                  </div>
-                  <p className="deposit-note">
-                    For orders over $500, we require a 50% deposit to begin work. 
-                    The remaining balance will be due upon completion of the project.
-                  </p>
-                </div>
+              <div className="payment-terms">
+                <h3>Payment Terms</h3>
+                <p>For orders over $500, we offer split payment:</p>
+                <ul>
+                  <li>50% deposit (${Math.floor(totalPrice * 0.5)}) required to book your service</li>
+                  <li>Remaining 50% (${Math.ceil(totalPrice * 0.5)}) due after project delivery</li>
+                </ul>
+                <p>You'll be directed to our secure payment page to complete the deposit payment after submitting your details.</p>
               </div>
             )}
           </div>
@@ -233,7 +201,7 @@ function CheckoutForm() {
                   placeholder="Your full name"
                 />
               </div>
-
+              
               <div className="form-group">
                 <label htmlFor="email">Email Address *</label>
                 <input 
@@ -246,8 +214,7 @@ function CheckoutForm() {
                   placeholder="Your email address"
                 />
               </div>
-
-              <div className="form-group">
+                <div className="form-group">
                 <label htmlFor="phone">Phone Number *</label>
                 <input 
                   type="tel" 
@@ -271,10 +238,7 @@ function CheckoutForm() {
                   required
                   placeholder="Enter the address of the property to be photographed/filmed"
                 />
-                <small className="field-note">
-                  This is the address where we will perform the drone photography/videography service, 
-                  not your personal address.
-                </small>
+                <small className="field-note">This is the address where we will perform the drone photography/videography service, not your personal address.</small>
               </div>
               
               <div className="form-group">
@@ -299,42 +263,35 @@ function CheckoutForm() {
                   placeholder="Any special requests or information about your property"
                   rows="4"
                 />
-              </div>
-
-              <div className="form-group">
-                <label>Payment Details *</label>
-                <StripeCardInput />
-              </div>
-
-              <div className="form-group agreement-group">
-                <label className="checkbox-container">
-                  <input
-                    type="checkbox"
-                    id="termsAgreement"
-                    name="termsAgreement"
-                    checked={agreementChecked}
-                    onChange={(e) => setAgreementChecked(e.target.checked)}
-                    required
-                  />
-                  <span className="checkmark"></span>
-                  <span className="agreement-text">
-                    I agree to the <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a> and <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-                  </span>
-                </label>
-              </div>
-              
-              <div className="privacy-notice">
-                <p>🔒 Your information is securely processed by Stripe. We will never store your card details.</p>
-              </div>
+              </div>                <div className="form-group agreement-group">
+                  <label className="checkbox-container">
+                    <input
+                      type="checkbox"
+                      id="termsAgreement"
+                      name="termsAgreement"
+                      checked={agreementChecked}
+                      onChange={(e) => setAgreementChecked(e.target.checked)}
+                      required
+                    />
+                    <span className="checkmark"></span>
+                    <span className="agreement-text">
+                      I agree to the <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a> and <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                    </span>
+                  </label>
+                </div>
+                
+                <div className="privacy-notice">
+                  <p>🔒 Your privacy is important to us. We will never share, sell, or use your information for any purpose other than communicating with you about your booking.</p>
+                </div>
 
               {submitError && <div className="error-message">{submitError}</div>}
               
               <button 
                 type="submit" 
                 className="submit-request-btn"
-                disabled={isSubmitting || !agreementChecked || !stripe}
+                disabled={isSubmitting || !agreementChecked}
               >
-                {isSubmitting ? 'Processing...' : submitSuccess ? 'Payment Successful!' : 'Submit Payment'}
+                {isSubmitting ? 'Submitting...' : submitSuccess ? 'Request Submitted!' : 'Submit Request'}
                 {submitSuccess && <FaCheck className="success-icon" />}
               </button>
             </form>
@@ -342,14 +299,6 @@ function CheckoutForm() {
         </div>
       </div>
     </PageTransition>
-  );
-}
-
-function Checkout() {
-  return (
-    <Elements stripe={stripePromise}>
-      <CheckoutForm />
-    </Elements>
   );
 }
 
