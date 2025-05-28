@@ -8,11 +8,11 @@ import { services } from '../data/servicesData';
 
 function Checkout() {
   const location = useLocation();
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();  const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
+    propertyAddress: '',
     serviceDate: '',
     notes: ''
   });
@@ -187,8 +187,7 @@ function Checkout() {
                   placeholder="Your email address"
                 />
               </div>
-              
-              <div className="form-group">
+                <div className="form-group">
                 <label htmlFor="phone">Phone Number *</label>
                 <input 
                   type="tel" 
@@ -199,6 +198,20 @@ function Checkout() {
                   required
                   placeholder="Your phone number"
                 />
+              </div>
+
+              <div className="form-group property-address-group">
+                <label htmlFor="propertyAddress">Property Address for Service *</label>
+                <input 
+                  type="text" 
+                  id="propertyAddress" 
+                  name="propertyAddress" 
+                  value={formData.propertyAddress}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="Enter the address of the property to be photographed/filmed"
+                />
+                <small className="field-note">This is the address where we will perform the drone photography/videography service, not your personal address.</small>
               </div>
               
               <div className="form-group">
@@ -223,27 +236,37 @@ function Checkout() {
                   placeholder="Any special requests or information about your property"
                   rows="4"
                 />
-              </div>
-                <div className="form-group agreement-group">
-                <label className="checkbox-container">
-                  <input
-                    type="checkbox"
-                    id="termsAgreement"
-                    name="termsAgreement"
-                    checked={agreementChecked}
-                    onChange={(e) => setAgreementChecked(e.target.checked)}
-                    required
-                  />
-                  <span className="checkmark"></span>
-                  <span className="agreement-text">
-                    I agree to the <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a> and <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-                  </span>
-                </label>
-              </div>
-              
-              <div className="privacy-notice">
-                <p>🔒 Your privacy is important to us. We will never share, sell, or use your information for any purpose other than communicating with you about your booking.</p>
-              </div>
+              </div>                <div className="terms-section">
+                  <h3>Terms of Service and Privacy</h3>
+                  
+                  <div className="form-group agreement-group">
+                    <label className="checkbox-container">
+                      <input
+                        type="checkbox"
+                        id="termsAgreement"
+                        name="termsAgreement"
+                        checked={agreementChecked}
+                        onChange={(e) => setAgreementChecked(e.target.checked)}
+                        required
+                      />
+                      <span className="checkmark"></span>
+                      <span className="agreement-text">
+                        I agree to the <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a> and <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                      </span>
+                    </label>
+                  </div>
+                  
+                  <div className="privacy-notice">
+                    <h4>Privacy & Data Protection</h4>
+                    <p>🔒 Your privacy is important to us. When you book our services:</p>
+                    <ul>
+                      <li>We only use your information to process your booking and communicate about the service</li>
+                      <li>Your personal data is stored securely and never shared with third parties</li>
+                      <li>We protect your data in accordance with privacy laws</li>
+                      <li>You can request access to or deletion of your data at any time</li>
+                    </ul>
+                  </div>
+                </div>
 
               {submitError && <div className="error-message">{submitError}</div>}
               

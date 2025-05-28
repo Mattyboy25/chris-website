@@ -234,6 +234,40 @@
   background: none;
 }
 
+.property-address-group {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.property-address-group .field-note {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  opacity: 0.75;
+  margin-top: 0.5rem;
+  display: block;
+  font-style: italic;
+}
+
+.terms-section {
+  background-color: var(--accent-bg-color, rgba(74, 144, 226, 0.05));
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.terms-section h3 {
+  margin: 0 0 1.25rem;
+  color: var(--text-color);
+  font-size: 1.25rem;
+}
+
+.terms-section h4 {
+  margin: 1.5rem 0 1rem;
+  color: var(--text-color);
+  font-size: 1.1rem;
+}
+
 /* Privacy notice and agreement checkbox */
 .privacy-notice {
   padding: 1rem;
@@ -249,6 +283,28 @@
   color: var(--text-color);
   line-height: 1.6;
   opacity: 0.9;
+}
+
+.privacy-notice ul {
+  margin: 1rem 0 0;
+  padding-left: 1.5rem;
+  list-style-type: none;
+}
+
+.privacy-notice ul li {
+  position: relative;
+  padding-left: 0.5rem;
+  margin: 0.75rem 0;
+  line-height: 1.4;
+  color: var(--text-color);
+  opacity: 0.9;
+}
+
+.privacy-notice ul li:before {
+  content: "•";
+  position: absolute;
+  left: -1rem;
+  color: var(--primary-color);
 }
 
 .checkbox-container {
