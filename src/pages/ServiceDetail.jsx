@@ -174,12 +174,18 @@ function ServiceDetail() {
           name: `+${selectedOptions.groundPhotos} additional ground photos`,
           price: price
         });
-      }
-      if (selectedOptions.droneVideo) {
+      }      if (selectedOptions.droneVideo) {
         totalPrice += 150;
         addons.push({
           name: 'Drone Video (30 seconds)',
           price: 150
+        });
+      }
+      if (selectedOptions.backgroundMusic === 'basic') {
+        totalPrice += 25;
+        addons.push({
+          name: 'Background Music (1 royalty-free track)',
+          price: 25
         });
       }
       if (selectedOptions.backgroundMusic === 'premium') {
@@ -461,6 +467,17 @@ function ServiceDetail() {
                         />
                         <span className="feature-check"></span>
                         Drone Video (30 seconds) (+$150)
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.backgroundMusic === 'basic'}
+                          onChange={(e) => handleOptionChange('backgroundMusic', e.target.checked ? 'basic' : 'none')}
+                        />
+                        <span className="feature-check"></span>
+                        Background Music (+$25) - 1 royalty-free track, no custom edits
                       </label>
                     </div>
                     <div className="option-group">
