@@ -23,7 +23,9 @@ function ServiceDetail() {
     twilight: false,
     droneVideo: false,
     backgroundMusic: "none", // none, basic, premium
-    turnaround: "standard"
+    turnaround: "standard",
+    voiceover: false,
+    virtualTour: false
   });
   
   const service = services.find(s => s.slug === slug);
@@ -185,12 +187,32 @@ function ServiceDetail() {
           name: 'Background Music (1 royalty-free track)',
           price: 25
         });
-      }
-      if (selectedOptions.backgroundMusic === 'premium') {
+      }      if (selectedOptions.backgroundMusic === 'premium') {
         totalPrice += 50;
         addons.push({
           name: 'Background Music (synced to beat with transitions)',
           price: 50
+        });
+      }
+      if (selectedOptions.rawFootage) {
+        totalPrice += 300;
+        addons.push({
+          name: 'Raw Footage',
+          price: 300
+        });
+      }
+      if (selectedOptions.voiceover) {
+        totalPrice += 200;
+        addons.push({
+          name: 'Voiceover',
+          price: 200
+        });
+      }
+      if (selectedOptions.virtualTour) {
+        totalPrice += 200;
+        addons.push({
+          name: '360° Virtual Tour',
+          price: 200
         });
       }
     }
@@ -512,6 +534,40 @@ function ServiceDetail() {
                         <option value={15}>+15 photos ($150)</option>
                         <option value={20}>+20 photos ($225)</option>
                       </select>
+                    </div>                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.rawFootage}
+                          onChange={(e) => handleOptionChange('rawFootage', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Raw Footage (+$300)
+                      </label>
+                    </div>
+
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.voiceover}
+                          onChange={(e) => handleOptionChange('voiceover', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Voiceover (+$200)
+                      </label>
+                    </div>
+
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.virtualTour}
+                          onChange={(e) => handleOptionChange('virtualTour', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        360° Virtual Tour (+$200)
+                      </label>
                     </div>
 
                     <div className="option-group select-container">
@@ -524,7 +580,7 @@ function ServiceDetail() {
                         <option value="rush">Priority Service (&lt; 24 hours) (+$100)</option>
                       </select>
                     </div>                  </>
-                )}                  <div className="price-summary">
+                )}<div className="price-summary">
                   <h3>Total Price: ${calculatePrice()}</h3>
                   <p>Base package: {service.info.pricing}</p>
                   <div className="button-container">
