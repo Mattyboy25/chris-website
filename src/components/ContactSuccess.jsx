@@ -1,87 +1,69 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useLocation, Link } from 'react-router-dom';
+import { FaCheckCircle } from 'react-icons/fa';
+import PageTransition from './PageTransition';
 import '../styles/ContactSuccess.css';
 
 const ContactSuccess = () => {
   const location = useLocation();
-  const { fromCheckout, name } = location.state || {};
-  const customerName = name || '';
+  const { fromCheckout, name, isDeposit } = location.state || {};
 
   return (
-    <div className="contact-success-container">
-      <motion.h2
-        className="success-title"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {fromCheckout 
-          ? `Thank You for Your Order, ${customerName}!` 
-          : 'Thank You for Reaching Out!'}
-      </motion.h2>
-
-      <motion.div
-        className="checkmark-wrapper"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
-          delay: 0.2
-        }}
-      >
-        <svg className="checkmark" viewBox="0 0 52 52">
-          <motion.circle
-            className="checkmark-circle"
-            cx="26"
-            cy="26"
-            r="25"
-            fill="none"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          />
-          <motion.path
-            className="checkmark-check"
-            fill="none"
-            d="M14.1 27.2l7.1 7.2 16.7-16.8"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-          />
-        </svg>
-      </motion.div>
-
-      <motion.p
-        className="success-message"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 1.2 }}
-      >
-        {fromCheckout 
-          ? `Your booking request has been received. We'll be in touch within 24 hours to confirm your appointment.` 
-          : 'Our team has received your email and will get back to you within 24 hours.'}
-      </motion.p>
-      
-      {fromCheckout && (
-        <motion.div
-          className="next-steps"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+    <PageTransition>
+      <div className="success-container">
+        <motion.div 
+          className="success-icon"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
         >
-          <h3>What happens next?</h3>
-          <ol>
-            <li>We'll review your booking request</li>
-            <li>Confirm your preferred service date and time</li>
-            <li>Send you a confirmation email with all details</li>
-          </ol>
-          <Link to="/" className="home-button">Return to Home</Link>
+          <FaCheckCircle />
         </motion.div>
-      )}
-    </div>
+        
+        <motion.h1 
+          className="success-title"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          {fromCheckout ? 'Thank You for Your Order!' : 'Message Sent Successfully!'}
+        </motion.h1>
+        
+        <motion.p 
+          className="success-message"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          {fromCheckout 
+            ? isDeposit
+              ? `Thank you ${name}! Your deposit payment has been received. We'll be in touch within 24 hours to confirm your appointment.`
+              : `Thank you ${name}! Your payment has been processed successfully. We'll be in touch within 24 hours to confirm your appointment.`
+            : 'Our team has received your email and will get back to you within 24 hours.'}
+        </motion.p>
+        
+        {fromCheckout && (
+          <motion.div
+            className="next-steps"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+          >
+            <h3>What happens next?</h3>
+            <ol>
+              <li>We'll review your booking details</li>
+              <li>Confirm your preferred service date and time</li>
+              <li>Send you a confirmation email with full details</li>
+              {isDeposit && (
+                <li>The remaining balance will be due upon completion of the project</li>
+              )}
+            </ol>
+            <Link to="/" className="home-button">Return to Home</Link>
+          </motion.div>
+        )}
+      </div>
+    </PageTransition>
   );
 };
 

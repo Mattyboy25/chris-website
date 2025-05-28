@@ -167,35 +167,42 @@
 }
 
 .submit-request-btn {
-  margin-top: 1.5rem;
+  width: 100%;
   padding: 1rem;
   background-color: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 .submit-request-btn:hover {
   background-color: var(--primary-hover-color);
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .submit-request-btn:disabled {
-  background-color: #999;
+  background-color: var(--border-color);
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .error-message {
-  color: #e74c3c;
-  margin-top: 0.5rem;
+  color: #fa755a;
+  background-color: rgba(250, 117, 90, 0.1);
+  border-left: 3px solid #fa755a;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
 }
 
 .success-icon {
@@ -369,6 +376,51 @@
   text-decoration: underline;
 }
 
+/* Add payment-specific styles */
+.stripe-card-container {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--input-bg-color);
+  transition: border-color 0.2s;
+}
+
+.stripe-card-container:hover {
+  border-color: var(--primary-color);
+}
+
+/* Update deposit info styles */
+.deposit-info {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: var(--accent-bg-color, rgba(74, 144, 226, 0.05));
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.payment-breakdown {
+  margin-top: 1rem;
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: var(--text-color);
+}
+
+.payment-item .amount {
+  font-weight: 500;
+}
+
+.deposit-note {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  font-style: italic;
+}
+
 /* CSS variables will be picked up from your theme */
 :root {
   --card-bg-color: #ffffff;
@@ -389,4 +441,20 @@
     --text-color: #f0f0f0;
     --hover-bg-color: #3a3a3a;
   }
+}
+
+/* Add loading indicator styles */
+.loading-indicator {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  margin-left: 0.5rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
