@@ -2,7 +2,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  padding-top: 120px; /* Increased top padding to account for fixed navbar */
   min-height: 80vh;
+  position: relative; /* Added for proper positioning context */
 }
 
 .checkout-title {
@@ -28,6 +30,32 @@
   border-radius: 8px;
   background-color: var(--card-bg-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.edit-package-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--secondary-color, #f0f0f0);
+  color: var(--text-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.edit-package-btn:hover {
+  background-color: var(--secondary-hover-color, #e0e0e0);
+  transform: translateY(-2px);
 }
 
 .checkout-form-container {
@@ -59,6 +87,38 @@
 
 .addon-item {
   padding: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addon-item .item-name {
+  flex: 1;
+}
+
+.addon-item .item-price {
+  margin: 0 1rem;
+}
+
+.remove-addon-btn {
+  background: transparent;
+  color: var(--danger-color, #e74c3c);
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  transition: background-color 0.2s;
+  padding: 0;
+  font-size: 14px;
+}
+
+.remove-addon-btn:hover {
+  background-color: rgba(231, 76, 60, 0.1);
 }
 
 .summary-total {

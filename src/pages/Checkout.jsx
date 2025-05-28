@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaArrowLeft, FaCheck } from 'react-icons/fa';
+import { FaArrowLeft, FaCheck, FaEdit } from 'react-icons/fa';
 import PageTransition from '../components/PageTransition';
 import '../styles/Checkout.css';
 import { services } from '../data/servicesData';
@@ -101,7 +101,17 @@ function Checkout() {
         
         <div className="checkout-content">
           <div className="order-summary">
-            <h2>Order Summary</h2>
+            <div className="summary-header">
+              <h2>Order Summary</h2>
+              <motion.button 
+                className="edit-package-btn"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate(`/services/${serviceSlug}?customize=true`)}
+              >
+                <FaEdit /> Edit Package
+              </motion.button>
+            </div>
             <div className="summary-item package-summary">
               <span className="item-name">{service.title}</span>
               <span className="item-price">${basePrice}</span>
@@ -114,6 +124,24 @@ function Checkout() {
                   <div key={index} className="summary-item addon-item">
                     <span className="item-name">{addon.name}</span>
                     <span className="item-price">${addon.price}</span>
+                    <button 
+                      className="remove-addon-btn"
+                      onClick={() => {
+                        const updatedAddons = addons.filter((_, i) => i !== index);
+                        const newTotalPrice = totalPrice - addon.price;
+                        navigate('/checkout', { 
+                          state: { 
+                            serviceSlug,
+                            addons: updatedAddons,
+                            totalPrice: newTotalPrice 
+                          },
+                          replace: true
+                        });
+                      }}
+                      aria-label={`Remove ${addon.name}`}
+                    >
+                      ✕
+                    </button>
                   </div>
                 ))}
               </div>
