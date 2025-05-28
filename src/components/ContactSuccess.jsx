@@ -1,8 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLocation, Link } from 'react-router-dom';
 import '../styles/ContactSuccess.css';
 
 const ContactSuccess = () => {
+  const location = useLocation();
+  const { fromCheckout, name } = location.state || {};
+  const customerName = name || '';
+
   return (
     <div className="contact-success-container">
       <motion.h2
@@ -11,7 +16,9 @@ const ContactSuccess = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        Thank You for Reaching Out!
+        {fromCheckout 
+          ? `Thank You for Your Order, ${customerName}!` 
+          : 'Thank You for Reaching Out!'}
       </motion.h2>
 
       <motion.div
@@ -53,8 +60,27 @@ const ContactSuccess = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 1.2 }}
       >
-        Our team has received your email and will get back to you within 24 hours.
+        {fromCheckout 
+          ? `Your booking request has been received. We'll be in touch within 24 hours to confirm your appointment.` 
+          : 'Our team has received your email and will get back to you within 24 hours.'}
       </motion.p>
+      
+      {fromCheckout && (
+        <motion.div
+          className="next-steps"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          <h3>What happens next?</h3>
+          <ol>
+            <li>We'll review your booking request</li>
+            <li>Confirm your preferred service date and time</li>
+            <li>Send you a confirmation email with all details</li>
+          </ol>
+          <Link to="/" className="home-button">Return to Home</Link>
+        </motion.div>
+      )}
     </div>
   );
 };

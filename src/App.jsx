@@ -5,9 +5,11 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
+import Checkout from './pages/Checkout';
 import Portfolio from './pages/Portfolio';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import ContactSuccess from './components/ContactSuccess';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import { ThemeProvider } from './components/ThemeContext';
@@ -27,7 +29,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/services/:slug" element={<ServiceDetail />} />            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/contact-success" element={<ContactSuccess />} />
+            <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />

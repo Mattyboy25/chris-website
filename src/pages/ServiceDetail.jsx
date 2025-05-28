@@ -536,8 +536,7 @@ function ServiceDetail() {
                         <option value="rush">Priority Service (&lt; 24 hours) (+$100)</option>
                       </select>
                     </div>                  </>
-                )}
-                  <div className="price-summary">
+                )}                  <div className="price-summary">
                   <h3>Total Price: ${calculatePrice()}</h3>
                   <p>Base package: {service.info.pricing}</p>
                   <div className="button-container">
@@ -555,11 +554,20 @@ function ServiceDetail() {
                       whileTap={{ scale: 0.95 }}
                       onClick={() => {
                         const finalPrice = calculatePrice();
-                        // Navigate to contact page with both service and price parameters
-                        navigate(`/contact?service=${service.slug}&customPrice=${finalPrice}`);
+                        // Get addons from localStorage
+                        const addons = JSON.parse(localStorage.getItem(`selected_addons_${service.slug}`)) || [];
+                        
+                        // Navigate to checkout page with package and price information
+                        navigate('/checkout', { 
+                          state: { 
+                            serviceSlug: service.slug,
+                            addons: addons, 
+                            totalPrice: finalPrice 
+                          } 
+                        });
                       }}
                     >
-                      Book Custom Package
+                      Proceed to Checkout
                     </motion.button>
                   </div>
                 </div>
