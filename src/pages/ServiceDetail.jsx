@@ -149,18 +149,16 @@ function ServiceDetail() {
         });
       }
     }    else if (service.slug === 'skyline-premium') {
-      if (selectedOptions.video) {
-        totalPrice += 300; // Extended video coverage
+      if (selectedOptions.photos > 0) {
+        let price = 0;
+        if (selectedOptions.photos === 5) price = 75;
+        if (selectedOptions.photos === 10) price = 150;
+        if (selectedOptions.photos === 15) price = 225;
+        
+        totalPrice += price;
         addons.push({
-          name: 'Extended Video Coverage',
-          price: 300
-        });
-      }
-      if (selectedOptions.aerials) {
-        totalPrice += 200; // Additional property coverage
-        addons.push({
-          name: 'Additional Property Coverage',
-          price: 200
+          name: `+${selectedOptions.photos} additional aerial photos`,
+          price: price
         });
       }
       if (selectedOptions.groundPhotos > 0) {
@@ -490,27 +488,17 @@ function ServiceDetail() {
                         <span className="feature-check"></span>
                         Background Music (+$50) - Synced to beat with transitions
                       </label>
-                    </div>
-                    <div className="option-group">
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={selectedOptions.video}
-                          onChange={(e) => handleOptionChange('video', e.target.checked)}
-                        />
-                        <span className="feature-check"></span>
-                        Extended Video Coverage (+$300)
-                      </label>
-                    </div>                    <div className="option-group">
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={selectedOptions.aerials}
-                          onChange={(e) => handleOptionChange('aerials', e.target.checked)}
-                        />
-                        <span className="feature-check"></span>
-                        Additional Property Coverage (+$200)
-                      </label>
+                    </div>                    <div className="option-group select-container">
+                      <select 
+                        value={selectedOptions.photos}
+                        onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
+                        className="fancy-select"
+                      >
+                        <option value={0}>Additional Aerial Photos</option>
+                        <option value={5}>+5 photos ($75)</option>
+                        <option value={10}>+10 photos ($150)</option>
+                        <option value={15}>+15 photos ($225)</option>
+                      </select>
                     </div>
                     
                     <div className="option-group select-container">

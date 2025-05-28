@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaArrowLeft, FaCheck, FaTimes, FaEdit } from 'react-icons/fa';
+import { FaArrowLeft, FaCheck } from 'react-icons/fa';
 import PageTransition from '../components/PageTransition';
 import '../styles/Checkout.css';
 import { services } from '../data/servicesData';
 
 function Checkout() {
   const location = useLocation();
-  const navigate = useNavigate();  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
-    propertyAddress: '',
     serviceDate: '',
     notes: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
-  const [agreementChecked, setAgreementChecked] = useState(false);
   
   // Get package details from location state
   const { serviceSlug, addons, totalPrice } = location.state || {};
@@ -41,42 +40,9 @@ function Checkout() {
       [name]: value
     }));
   };
-    const handleRemoveAddon = (addonIndex) => {
-    const updatedAddons = addons.filter((_, index) => index !== addonIndex);
-    
-    // Calculate new price
-    const removedAddon = addons[addonIndex];
-    const newTotalPrice = totalPrice - removedAddon.price;
-    
-    // Update localStorage with the updated addons
-    if (service) {
-      localStorage.setItem(`selected_addons_${service.slug}`, JSON.stringify(updatedAddons));
-    }
-    
-    // Update location state with new values
-    navigate('/checkout', { 
-      state: { 
-        serviceSlug,
-        addons: updatedAddons, 
-        totalPrice: newTotalPrice 
-      },
-      replace: true
-    });
-  };
-  
-  const handleEditPackage = () => {
-    navigate(`/services/${serviceSlug}?customize=true`);
-  };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Check if terms are agreed to
-    if (!agreementChecked) {
-      setSubmitError('Please agree to the Privacy Policy and Terms of Service before submitting.');
-      return;
-    }
-    
     setIsSubmitting(true);
     setSubmitError('');
     
@@ -99,11 +65,6 @@ function Checkout() {
       
       // Show success message
       setSubmitSuccess(true);
-      
-      // Clear addons from localStorage after successful submission
-      if (service) {
-        localStorage.removeItem(`selected_addons_${service.slug}`);
-      }
       
       // Redirect to confirmation page after a delay
       setTimeout(() => {
@@ -138,18 +99,9 @@ function Checkout() {
         
         <h1 className="checkout-title">Complete Your Booking</h1>
         
-        <div className="checkout-content">          <div className="order-summary">
-            <div className="summary-header">
-              <h2>Order Summary</h2>
-              <motion.button
-                className="edit-package-btn"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleEditPackage}
-              >
-                <FaEdit /> Edit Package
-              </motion.button>
-            </div>
+        <div className="checkout-content">
+          <div className="order-summary">
+            <h2>Order Summary</h2>
             <div className="summary-item package-summary">
               <span className="item-name">{service.title}</span>
               <span className="item-price">${basePrice}</span>
@@ -160,17 +112,8 @@ function Checkout() {
                 <h3>Add-ons</h3>
                 {addons.map((addon, index) => (
                   <div key={index} className="summary-item addon-item">
-                    <div className="addon-info">
-                      <span className="item-name">{addon.name}</span>
-                      <span className="item-price">${addon.price}</span>
-                    </div>
-                    <button 
-                      className="remove-addon-btn" 
-                      onClick={() => handleRemoveAddon(index)}
-                      title="Remove add-on"
-                    >
-                      <FaTimes />
-                    </button>
+                    <span className="item-name">{addon.name}</span>
+                    <span className="item-price">${addon.price}</span>
                   </div>
                 ))}
               </div>
@@ -210,7 +153,8 @@ function Checkout() {
                   placeholder="Your email address"
                 />
               </div>
-                <div className="form-group">
+              
+              <div className="form-group">
                 <label htmlFor="phone">Phone Number *</label>
                 <input 
                   type="tel" 
@@ -220,19 +164,6 @@ function Checkout() {
                   onChange={handleInputChange}
                   required
                   placeholder="Your phone number"
-                />
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="propertyAddress">Property Address * <span className="address-note">(Address of the property to be photographed)</span></label>
-                <input 
-                  type="text" 
-                  id="propertyAddress" 
-                  name="propertyAddress" 
-                  value={formData.propertyAddress}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Full address of the property location"
                 />
               </div>
               
@@ -247,7 +178,8 @@ function Checkout() {
                   required
                 />
               </div>
-                <div className="form-group">
+              
+              <div className="form-group">
                 <label htmlFor="notes">Additional Notes</label>
                 <textarea 
                   id="notes" 
@@ -259,31 +191,12 @@ function Checkout() {
                 />
               </div>
               
-              <div className="privacy-notice">
-                <p>Your privacy matters to us. We will never sell or share your information with third parties.</p>
-              </div>
-              
-              <div className="form-group agreement-checkbox">
-                <label className="checkbox-container">
-                  <input
-                    type="checkbox"
-                    checked={agreementChecked}
-                    onChange={() => setAgreementChecked(!agreementChecked)}
-                    required
-                  />
-                  <span className="checkmark"></span>
-                  <span className="agreement-text">
-                    I agree to the <Link to="/privacy-policy" target="_blank" onClick={(e) => e.stopPropagation()}>Privacy Policy</Link> and <Link to="/terms-of-service" target="_blank" onClick={(e) => e.stopPropagation()}>Terms of Service</Link>
-                  </span>
-                </label>
-              </div>
-              
               {submitError && <div className="error-message">{submitError}</div>}
               
               <button 
                 type="submit" 
                 className="submit-request-btn"
-                disabled={isSubmitting || !agreementChecked}
+                disabled={isSubmitting}
               >
                 {isSubmitting ? 'Submitting...' : submitSuccess ? 'Request Submitted!' : 'Submit Request'}
                 {submitSuccess && <FaCheck className="success-icon" />}
