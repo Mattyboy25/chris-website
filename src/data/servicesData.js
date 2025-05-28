@@ -13,7 +13,7 @@ export const services = [
     videoSrc: "/videos/Town.mp4",
     features: [
       "10 High-quality aerial photos",
-      "Color correction",
+      "Basic Color correction",
       "Property boundary shots",
       "24-hour delivery",
       "One flight location (30–45 mins)"
