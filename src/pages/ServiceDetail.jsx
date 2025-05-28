@@ -21,6 +21,8 @@ function ServiceDetail() {
     rawFootage: false,
     brandedVideo: false,
     twilight: false,
+    droneVideo: false,
+    backgroundMusic: "none", // none, basic, premium
     turnaround: "standard"
   });
   
@@ -55,6 +57,27 @@ function ServiceDetail() {
         addons.push({
           name: `+${selectedOptions.groundPhotos} additional ground photos`,
           price: price
+        });
+      }
+      if (selectedOptions.droneVideo) {
+        totalPrice += 50;
+        addons.push({
+          name: 'Drone Video (30 seconds)',
+          price: 50
+        });
+      }
+      if (selectedOptions.backgroundMusic === 'basic') {
+        totalPrice += 25;
+        addons.push({
+          name: 'Background Music (1 royalty-free track)',
+          price: 25
+        });
+      }
+      if (selectedOptions.backgroundMusic === 'premium') {
+        totalPrice += 50;
+        addons.push({
+          name: 'Background Music (synced to beat with transitions)',
+          price: 50
         });
       }
       if (selectedOptions.rawFootage) {
@@ -92,6 +115,20 @@ function ServiceDetail() {
           price: price
         });
       }
+      if (selectedOptions.droneVideo) {
+        totalPrice += 100;
+        addons.push({
+          name: 'Drone Video (30 seconds)',
+          price: 100
+        });
+      }
+      if (selectedOptions.backgroundMusic === 'premium') {
+        totalPrice += 50;
+        addons.push({
+          name: 'Background Music (synced to beat with transitions)',
+          price: 50
+        });
+      }
       if (selectedOptions.rawFootage) {
         totalPrice += 150;
         addons.push({
@@ -106,8 +143,7 @@ function ServiceDetail() {
           price: 50
         });
       }
-    }
-      else if (service.slug === 'skyline-premium') {
+    }    else if (service.slug === 'skyline-premium') {
       if (selectedOptions.video) {
         totalPrice += 300; // Extended video coverage
         addons.push({
@@ -132,6 +168,20 @@ function ServiceDetail() {
         addons.push({
           name: `+${selectedOptions.groundPhotos} additional ground photos`,
           price: price
+        });
+      }
+      if (selectedOptions.droneVideo) {
+        totalPrice += 150;
+        addons.push({
+          name: 'Drone Video (30 seconds)',
+          price: 150
+        });
+      }
+      if (selectedOptions.backgroundMusic === 'premium') {
+        totalPrice += 50;
+        addons.push({
+          name: 'Background Music (synced to beat with transitions)',
+          price: 50
         });
       }
     }
@@ -220,6 +270,53 @@ function ServiceDetail() {
                       <label>
                         <input
                           type="checkbox"
+                          checked={selectedOptions.droneVideo}
+                          onChange={(e) => handleOptionChange('droneVideo', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Drone Video (30 seconds) (+$50)
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="radio"
+                          name="backgroundMusic"
+                          checked={selectedOptions.backgroundMusic === 'basic'}
+                          onChange={() => handleOptionChange('backgroundMusic', 'basic')}
+                        />
+                        <span className="feature-check"></span>
+                        Background Music (+$25) - 1 royalty-free track, no custom edits
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="radio"
+                          name="backgroundMusic"
+                          checked={selectedOptions.backgroundMusic === 'premium'}
+                          onChange={() => handleOptionChange('backgroundMusic', 'premium')}
+                        />
+                        <span className="feature-check"></span>
+                        Background Music (+$50) - Synced to beat with transitions
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="radio"
+                          name="backgroundMusic"
+                          checked={selectedOptions.backgroundMusic === 'none'}
+                          onChange={() => handleOptionChange('backgroundMusic', 'none')}
+                        />
+                        <span className="feature-check"></span>
+                        No Background Music
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
                           checked={selectedOptions.rawFootage}
                           onChange={(e) => handleOptionChange('rawFootage', e.target.checked)}
                         />
@@ -279,6 +376,41 @@ function ServiceDetail() {
                       <label>
                         <input
                           type="checkbox"
+                          checked={selectedOptions.droneVideo}
+                          onChange={(e) => handleOptionChange('droneVideo', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Drone Video (30 seconds) (+$100)
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="radio"
+                          name="backgroundMusic"
+                          checked={selectedOptions.backgroundMusic === 'premium'}
+                          onChange={() => handleOptionChange('backgroundMusic', 'premium')}
+                        />
+                        <span className="feature-check"></span>
+                        Background Music (+$50) - Synced to beat with transitions
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="radio"
+                          name="backgroundMusic"
+                          checked={selectedOptions.backgroundMusic === 'none'}
+                          onChange={() => handleOptionChange('backgroundMusic', 'none')}
+                        />
+                        <span className="feature-check"></span>
+                        No Background Music
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
                           checked={selectedOptions.rawFootage}
                           onChange={(e) => handleOptionChange('rawFootage', e.target.checked)}
                         />
@@ -332,9 +464,43 @@ function ServiceDetail() {
                   </>
                 )}
 
-                {/* Skyline Premium Options */}
-                {service.slug === 'skyline-premium' && (
+                {/* Skyline Premium Options */}                {service.slug === 'skyline-premium' && (
                   <>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.droneVideo}
+                          onChange={(e) => handleOptionChange('droneVideo', e.target.checked)}
+                        />
+                        <span className="feature-check"></span>
+                        Drone Video (30 seconds) (+$150)
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="radio"
+                          name="backgroundMusic"
+                          checked={selectedOptions.backgroundMusic === 'premium'}
+                          onChange={() => handleOptionChange('backgroundMusic', 'premium')}
+                        />
+                        <span className="feature-check"></span>
+                        Background Music (+$50) - Synced to beat with transitions
+                      </label>
+                    </div>
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="radio"
+                          name="backgroundMusic"
+                          checked={selectedOptions.backgroundMusic === 'none'}
+                          onChange={() => handleOptionChange('backgroundMusic', 'none')}
+                        />
+                        <span className="feature-check"></span>
+                        No Background Music
+                      </label>
+                    </div>
                     <div className="option-group">
                       <label>
                         <input

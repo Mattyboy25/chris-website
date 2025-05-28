@@ -10,9 +10,10 @@ export const services = [
     shortDesc: "Perfect for residential listings and small commercial properties, our Launch Package provides high-quality aerial photography.",
     fullDesc: "Perfect for residential listings and small commercial properties, our Launch Package delivers high-quality aerial photography with professional color correction and quick turnaround time.",
     iconName: "FaCamera",
-    videoSrc: "/videos/Town.mp4",
-    features: [
+    videoSrc: "/videos/Town.mp4",    features: [
       "10 High-quality aerial photos",
+      "30-second drone video clip",
+      "Delivered in 1080p or 4K (based on client's setup)",
       "Basic Color correction",
       "Property boundary shots",
       "24-hour delivery",
@@ -37,11 +38,12 @@ export const services = [
     status: "active",
     shortDesc: "Comprehensive photo and video package combining aerial and ground coverage for a complete property showcase.",
     fullDesc: "Our Elevate Package combines aerial and ground photography with video for a complete property showcase. Includes high-quality photos and a professionally edited video tour optimized for social media.",
-    iconName: "FaVideo",    videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",
-    features: [
+    iconName: "FaVideo",    videoSrc: "/videos/Real%20Estate%20Summergrove.mp4",    features: [
       "Launch Package included plus:",
       "20 High-quality aerial photos",
       "15 Ground-level photos",
+      "60-second drone video clip",
+      "Delivered in 1080p or 4K (based on client's setup)",
       "2-3 minute edited video tour",
       "Social media edits",
       "Property highlights feature"
@@ -66,11 +68,13 @@ export const services = [
     status: "active",
     shortDesc: "Our most comprehensive package with premium features for luxury properties and high-end real estate.",
     fullDesc: "Our Skyline Premium package delivers the ultimate property showcase with comprehensive aerial and ground coverage, cinematic video tours, twilight photography, and virtual tours. Perfect for luxury properties and high-end real estate.",
-    iconName: "FaHome",    videoSrc: "/videos/City.mp4",
-    features: [
+    iconName: "FaHome",    videoSrc: "/videos/City.mp4",    features: [
       "Elevate Package included plus:",
       "30 High-quality aerial shots",
       "25 Ground-level photos",
+      "90-second drone video clip",
+      "Delivered in 1080p or 4K (based on client's setup)",
+      "Includes background music added to both drone and ground videos",
       "5 minute cinematic video tour",
       "Social Media Optimized Clips",
       "Virtual property tour"
