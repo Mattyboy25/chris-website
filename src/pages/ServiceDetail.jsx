@@ -65,8 +65,7 @@ function ServiceDetail() {
           name: 'Drone Video (30 seconds)',
           price: 50
         });
-      }
-      if (selectedOptions.backgroundMusic === 'basic') {
+      }      if (selectedOptions.backgroundMusic === 'basic') {
         totalPrice += 25;
         addons.push({
           name: 'Background Music (1 royalty-free track)',
@@ -114,12 +113,18 @@ function ServiceDetail() {
           name: `+${selectedOptions.groundPhotos} additional ground photos`,
           price: price
         });
-      }
-      if (selectedOptions.droneVideo) {
+      }      if (selectedOptions.droneVideo) {
         totalPrice += 100;
         addons.push({
           name: 'Drone Video (30 seconds)',
           price: 100
+        });
+      }
+      if (selectedOptions.backgroundMusic === 'basic') {
+        totalPrice += 25;
+        addons.push({
+          name: 'Background Music (1 royalty-free track)',
+          price: 25
         });
       }
       if (selectedOptions.backgroundMusic === 'premium') {
@@ -276,14 +281,12 @@ function ServiceDetail() {
                         <span className="feature-check"></span>
                         Drone Video (30 seconds) (+$50)
                       </label>
-                    </div>
-                    <div className="option-group">
+                    </div>                    <div className="option-group">
                       <label>
                         <input
-                          type="radio"
-                          name="backgroundMusic"
+                          type="checkbox"
                           checked={selectedOptions.backgroundMusic === 'basic'}
-                          onChange={() => handleOptionChange('backgroundMusic', 'basic')}
+                          onChange={(e) => handleOptionChange('backgroundMusic', e.target.checked ? 'basic' : 'none')}
                         />
                         <span className="feature-check"></span>
                         Background Music (+$25) - 1 royalty-free track, no custom edits
@@ -292,25 +295,12 @@ function ServiceDetail() {
                     <div className="option-group">
                       <label>
                         <input
-                          type="radio"
-                          name="backgroundMusic"
+                          type="checkbox"
                           checked={selectedOptions.backgroundMusic === 'premium'}
-                          onChange={() => handleOptionChange('backgroundMusic', 'premium')}
+                          onChange={(e) => handleOptionChange('backgroundMusic', e.target.checked ? 'premium' : 'none')}
                         />
                         <span className="feature-check"></span>
                         Background Music (+$50) - Synced to beat with transitions
-                      </label>
-                    </div>
-                    <div className="option-group">
-                      <label>
-                        <input
-                          type="radio"
-                          name="backgroundMusic"
-                          checked={selectedOptions.backgroundMusic === 'none'}
-                          onChange={() => handleOptionChange('backgroundMusic', 'none')}
-                        />
-                        <span className="feature-check"></span>
-                        No Background Music
                       </label>
                     </div>
                     <div className="option-group">
@@ -371,8 +361,7 @@ function ServiceDetail() {
                     </div>
                   </>
                 )}{/* Elevate Package Options */}                {service.slug === 'elevate-package' && (
-                  <>
-                    <div className="option-group">
+                  <>                    <div className="option-group">
                       <label>
                         <input
                           type="checkbox"
@@ -386,25 +375,23 @@ function ServiceDetail() {
                     <div className="option-group">
                       <label>
                         <input
-                          type="radio"
-                          name="backgroundMusic"
-                          checked={selectedOptions.backgroundMusic === 'premium'}
-                          onChange={() => handleOptionChange('backgroundMusic', 'premium')}
+                          type="checkbox"
+                          checked={selectedOptions.backgroundMusic === 'basic'}
+                          onChange={(e) => handleOptionChange('backgroundMusic', e.target.checked ? 'basic' : 'none')}
                         />
                         <span className="feature-check"></span>
-                        Background Music (+$50) - Synced to beat with transitions
+                        Background Music (+$25) - 1 royalty-free track, no custom edits
                       </label>
                     </div>
                     <div className="option-group">
                       <label>
                         <input
-                          type="radio"
-                          name="backgroundMusic"
-                          checked={selectedOptions.backgroundMusic === 'none'}
-                          onChange={() => handleOptionChange('backgroundMusic', 'none')}
+                          type="checkbox"
+                          checked={selectedOptions.backgroundMusic === 'premium'}
+                          onChange={(e) => handleOptionChange('backgroundMusic', e.target.checked ? 'premium' : 'none')}
                         />
                         <span className="feature-check"></span>
-                        No Background Music
+                        Background Music (+$50) - Synced to beat with transitions
                       </label>
                     </div>
                     <div className="option-group">
@@ -465,8 +452,7 @@ function ServiceDetail() {
                 )}
 
                 {/* Skyline Premium Options */}                {service.slug === 'skyline-premium' && (
-                  <>
-                    <div className="option-group">
+                  <>                    <div className="option-group">
                       <label>
                         <input
                           type="checkbox"
@@ -480,25 +466,12 @@ function ServiceDetail() {
                     <div className="option-group">
                       <label>
                         <input
-                          type="radio"
-                          name="backgroundMusic"
+                          type="checkbox"
                           checked={selectedOptions.backgroundMusic === 'premium'}
-                          onChange={() => handleOptionChange('backgroundMusic', 'premium')}
+                          onChange={(e) => handleOptionChange('backgroundMusic', e.target.checked ? 'premium' : 'none')}
                         />
                         <span className="feature-check"></span>
                         Background Music (+$50) - Synced to beat with transitions
-                      </label>
-                    </div>
-                    <div className="option-group">
-                      <label>
-                        <input
-                          type="radio"
-                          name="backgroundMusic"
-                          checked={selectedOptions.backgroundMusic === 'none'}
-                          onChange={() => handleOptionChange('backgroundMusic', 'none')}
-                        />
-                        <span className="feature-check"></span>
-                        No Background Music
                       </label>
                     </div>
                     <div className="option-group">
