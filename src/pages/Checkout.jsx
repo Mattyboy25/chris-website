@@ -19,6 +19,7 @@ function Checkout() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [agreementChecked, setAgreementChecked] = useState(false);
   
   // Get package details from location state
   const { serviceSlug, addons, totalPrice } = location.state || {};
@@ -40,9 +41,14 @@ function Checkout() {
       [name]: value
     }));
   };
-  
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!agreementChecked) {
+      setSubmitError('Please agree to the Terms of Service and Privacy Policy before submitting.');
+      return;
+    }
+    
     setIsSubmitting(true);
     setSubmitError('');
     
@@ -218,13 +224,33 @@ function Checkout() {
                   rows="4"
                 />
               </div>
+                <div className="form-group agreement-group">
+                <label className="checkbox-container">
+                  <input
+                    type="checkbox"
+                    id="termsAgreement"
+                    name="termsAgreement"
+                    checked={agreementChecked}
+                    onChange={(e) => setAgreementChecked(e.target.checked)}
+                    required
+                  />
+                  <span className="checkmark"></span>
+                  <span className="agreement-text">
+                    I agree to the <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a> and <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                  </span>
+                </label>
+              </div>
               
+              <div className="privacy-notice">
+                <p>🔒 Your privacy is important to us. We will never share, sell, or use your information for any purpose other than communicating with you about your booking.</p>
+              </div>
+
               {submitError && <div className="error-message">{submitError}</div>}
               
               <button 
                 type="submit" 
                 className="submit-request-btn"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !agreementChecked}
               >
                 {isSubmitting ? 'Submitting...' : submitSuccess ? 'Request Submitted!' : 'Submit Request'}
                 {submitSuccess && <FaCheck className="success-icon" />}
