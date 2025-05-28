@@ -489,52 +489,8 @@ function ServiceDetail() {
                         Drone Video (30 seconds) (+$150)
                       </label>
                     </div>
+
                     <div className="option-group">
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={selectedOptions.backgroundMusic === 'basic'}
-                          onChange={(e) => handleOptionChange('backgroundMusic', e.target.checked ? 'basic' : 'none')}
-                        />
-                        <span className="feature-check"></span>
-                        Background Music (+$25) - 1 royalty-free track, no custom edits
-                      </label>
-                    </div>
-                    <div className="option-group">
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={selectedOptions.backgroundMusic === 'premium'}
-                          onChange={(e) => handleOptionChange('backgroundMusic', e.target.checked ? 'premium' : 'none')}
-                        />
-                        <span className="feature-check"></span>
-                        Background Music (+$50) - Synced to beat with transitions
-                      </label>
-                    </div>                    <div className="option-group select-container">
-                      <select 
-                        value={selectedOptions.photos}
-                        onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
-                        className="fancy-select"
-                      >
-                        <option value={0}>Additional Aerial Photos</option>
-                        <option value={5}>+5 photos ($75)</option>
-                        <option value={10}>+10 photos ($150)</option>
-                        <option value={15}>+15 photos ($225)</option>
-                      </select>
-                    </div>
-                    
-                    <div className="option-group select-container">
-                      <select 
-                        value={selectedOptions.groundPhotos}
-                        onChange={(e) => handleOptionChange('groundPhotos', parseInt(e.target.value))}
-                        className="fancy-select"
-                      >
-                        <option value={0}>Additional Ground Photos</option>
-                        <option value={10}>+10 photos ($75)</option>
-                        <option value={15}>+15 photos ($150)</option>
-                        <option value={20}>+20 photos ($225)</option>
-                      </select>
-                    </div>                    <div className="option-group">
                       <label>
                         <input
                           type="checkbox"
@@ -570,7 +526,55 @@ function ServiceDetail() {
                       </label>
                     </div>
 
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.backgroundMusic === 'basic'}
+                          onChange={(e) => handleOptionChange('backgroundMusic', e.target.checked ? 'basic' : 'none')}
+                        />
+                        <span className="feature-check"></span>
+                        Background Music (+$25) - 1 royalty-free track, no custom edits
+                      </label>
+                    </div>
+
+                    <div className="option-group">
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={selectedOptions.backgroundMusic === 'premium'}
+                          onChange={(e) => handleOptionChange('backgroundMusic', e.target.checked ? 'premium' : 'none')}
+                        />
+                        <span className="feature-check"></span>
+                        Background Music (+$50) - Synced to beat with transitions
+                      </label>
+                    </div>
+
                     <div className="option-group select-container">
+                      <select 
+                        value={selectedOptions.photos}
+                        onChange={(e) => handleOptionChange('photos', parseInt(e.target.value))}
+                        className="fancy-select"
+                      >
+                        <option value={0}>Additional Aerial Photos</option>
+                        <option value={5}>+5 photos ($75)</option>
+                        <option value={10}>+10 photos ($150)</option>
+                        <option value={15}>+15 photos ($225)</option>
+                      </select>
+                    </div>
+                    
+                    <div className="option-group select-container">
+                      <select 
+                        value={selectedOptions.groundPhotos}
+                        onChange={(e) => handleOptionChange('groundPhotos', parseInt(e.target.value))}
+                        className="fancy-select"
+                      >
+                        <option value={0}>Additional Ground Photos</option>
+                        <option value={10}>+10 photos ($75)</option>
+                        <option value={15}>+15 photos ($150)</option>
+                        <option value={20}>+20 photos ($225)</option>
+                      </select>
+                    </div>                    <div className="option-group select-container">
                       <div className="select-label">Turnaround Time</div>
                       <select
                         value={selectedOptions.turnaround}
