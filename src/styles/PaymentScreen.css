@@ -4,52 +4,88 @@
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: #f5f5f5;
+  background: var(--page-bg-color);
+  position: relative;
 }
 
 .back-btn {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: none;
-  border: none;
+  background: rgba(75, 182, 239, 0.1);
+  border: 1px solid rgba(75, 182, 239, 0.3);
   color: var(--text-color);
   font-size: 1rem;
   cursor: pointer;
-  padding: 8px 16px;
+  padding: 12px 20px;
   margin-bottom: 40px;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
+  border-radius: 32px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.back-btn:hover {
+  background: rgba(75, 182, 239, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(75, 182, 239, 0.25);
+  border-color: #4bb6ef;
 }
 
 .payment-container {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: var(--grey-bg);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px var(--shadow-color);
+  border: 1px solid var(--grey-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   width: 100%;
   max-width: 600px;
+  transition: all 0.3s ease;
+}
+
+.payment-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px var(--shadow-color);
 }
 
 .payment-container h1 {
   margin-bottom: 40px;
   text-align: center;
   color: var(--text-color);
+  font-size: 2.2rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #4bb6ef, #2d8bc7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(75, 182, 239, 0.3);
 }
 
 .payment-container h2 {
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 2rem;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  font-weight: 500;
 }
 
 .order-summary {
   margin-bottom: 2rem;
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: rgba(75, 182, 239, 0.1);
+  border: 1px solid rgba(75, 182, 239, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.order-summary:hover {
+  background: rgba(75, 182, 239, 0.15);
+  transform: translateY(-2px);
 }
 
 .order-summary h2 {
@@ -58,14 +94,16 @@
 }
 
 .order-summary h3 {
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .order-summary p {
   margin: 0.5rem 0;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.8;
   font-size: 1.1rem;
 }
 
@@ -128,16 +166,19 @@
 }
 
 .payment-option {
-  background: var(--card-bg-color);
+  background: var(--grey-bg);
   border: 1px solid var(--grey-border);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 24px;
   transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .payment-option:hover {
   border-color: #4bb6ef;
-  box-shadow: 0 4px 12px rgba(75, 182, 239, 0.1);
+  box-shadow: 0 8px 25px rgba(75, 182, 239, 0.15);
+  transform: translateY(-3px);
 }
 
 .payment-option-header {
@@ -192,12 +233,12 @@
 }
 
 .pay-button {
-  background: #4bb6ef;
+  background: linear-gradient(135deg, #4bb6ef, #2d8bc7);
   color: white;
   border: none;
-  padding: 16px;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 16px 24px;
+  border-radius: 32px;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -205,12 +246,14 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(75, 182, 239, 0.3);
 }
 
 .pay-button:hover:not(:disabled) {
-  background: #3399cc;
+  background: linear-gradient(135deg, #2d8bc7, #4bb6ef);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(75, 182, 239, 0.2);
+  box-shadow: 0 8px 25px rgba(75, 182, 239, 0.4);
 }
 
 .pay-button:disabled {
