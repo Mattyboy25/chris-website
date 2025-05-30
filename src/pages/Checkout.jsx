@@ -5,7 +5,6 @@ import { FaArrowLeft, FaCheck, FaEdit } from 'react-icons/fa';
 import PageTransition from '../components/PageTransition';
 import '../styles/Checkout.css';
 import { services } from '../data/servicesData';
-import stripePromise, { createPaymentSession } from '../utils/stripe';
 
 function Checkout() {
   const location = useLocation();
@@ -35,6 +34,7 @@ function Checkout() {
 
   const basePrice = service ? parseInt(service.info.pricing.replace(/[^0-9]/g, '')) : 0;
   
+  // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -42,60 +42,36 @@ function Checkout() {
       [name]: value
     }));
   };
-    const handleSubmit = async (e) => {
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!agreementChecked) {
       setSubmitError('Please agree to the Terms of Service and Privacy Policy before submitting.');
       return;
     }
-    
+
     setIsSubmitting(true);
     setSubmitError('');
-      try {
-      const orderDetails = {
-        package: service?.title,
-        basePrice: basePrice,
-        addons: addons || [],
-        totalPrice: totalPrice,
-        customer: formData
-      };
-      
-      console.log('Order details to submit:', orderDetails);
-      
-      // Only show split payment UI for orders over $500
-      if (totalPrice >= 500) {
-        const depositAmount = Math.floor(totalPrice * 0.5); // 50% deposit
-        
-        // Create Stripe Checkout session for the deposit
-        const { sessionId } = await createPaymentSession(orderDetails);
-        
-        // Get Stripe instance
-        const stripe = await stripePromise;
-        
-        // Redirect to Stripe Checkout
-        const { error } = await stripe.redirectToCheckout({
-          sessionId
-        });
-        
-        if (error) {
-          console.error('Error redirecting to checkout:', error);
-          setSubmitError('Payment initialization failed. Please try again.');
-          return;
+
+    try {
+      // Navigate to payment screen with all form data and service details
+      navigate('/payment', {
+        state: {
+          formData,
+          serviceDetails: {
+            service,
+            addons,
+            totalPrice,
+            basePrice
+          }
         }
-      } else {
-        // For orders under $500, proceed with regular checkout
-        // Show success message
-        setSubmitSuccess(true);
-        
-        // Redirect to confirmation page after a delay
-        setTimeout(() => {
-          navigate('/contact-success', { state: { fromCheckout: true, name: formData.fullName } });
-        }, 2000);
-      }
+      });
+      return;
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitError('There was a problem submitting your request. Please try again.');
+      console.error('Error navigating to payment screen:', error);
+      setSubmitError('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -290,8 +266,7 @@ function Checkout() {
                 type="submit" 
                 className="submit-request-btn"
                 disabled={isSubmitting || !agreementChecked}
-              >
-                {isSubmitting ? 'Submitting...' : submitSuccess ? 'Request Submitted!' : 'Submit Request'}
+              >                {isSubmitting ? 'Processing...' : 'Proceed to Checkout'}
                 {submitSuccess && <FaCheck className="success-icon" />}
               </button>
             </form>

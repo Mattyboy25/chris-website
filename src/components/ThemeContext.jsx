@@ -3,23 +3,16 @@ import React, { createContext, useState, useEffect } from 'react';
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  // Check if user has a preference stored in localStorage
-  const getInitialTheme = () => {
+  // Initialize theme from localStorage or system preference
+  const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       return savedTheme;
     }
-    
-    // Check if user has system preference for dark mode
-    const prefersDark = window.matchMedia && 
-      window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    return prefersDark ? 'dark' : 'light';
-  };
-
-  const [theme, setTheme] = useState(getInitialTheme);
-
-  // Toggle between light and dark modes
+    // Check if system prefers dark mode
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+  
   const toggleTheme = () => {
     setTheme(prevTheme => {
       const newTheme = prevTheme === 'light' ? 'dark' : 'light';
@@ -31,8 +24,20 @@ export const ThemeProvider = ({ children }) => {
   // Update theme class on body element when theme changes
   useEffect(() => {
     document.body.className = theme;
-    localStorage.setItem('theme', theme);
   }, [theme]);
+
+  // Listen for system theme changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e) => {
+      if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

@@ -16,16 +16,43 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Theme Styles - Only Dark Mode */
+/* Theme Styles - Light and Dark Mode */
+:root {
+  /* Light mode variables */
+  --page-bg-color-light: #ffffff;
+  --text-color-light: #333;
+  --grey-bg-light: rgba(255, 255, 255, 0.85);
+  --grey-border-light: rgba(200, 200, 200, 0.5);
+  --shadow-color-light: rgba(0, 0, 0, 0.1);
+
+  /* Dark mode variables */
+  --page-bg-color-dark: #121212;
+  --text-color-dark: #f1f1f1;
+  --grey-bg-dark: rgba(45, 45, 45, 0.85);
+  --grey-border-dark: rgba(75, 75, 90, 0.5);
+  --shadow-color-dark: rgba(0, 0, 0, 0.25);
+}
+
+/* Apply light mode by default */
 body {
-  background-color: #121212;
-  color: #f1f1f1;
-  --page-bg-color: #121212;
-  --text-color: #f1f1f1;
-  --text-color-light: #ccc;
-  --grey-bg: rgba(45, 45, 45, 0.85);
-  --grey-border: rgba(75, 75, 90, 0.5);
-  --shadow-color: rgba(0, 0, 0, 0.25);
+  background-color: var(--page-bg-color-light);
+  color: var(--text-color-light);
+  --page-bg-color: var(--page-bg-color-light);
+  --text-color: var(--text-color-light);
+  --grey-bg: var(--grey-bg-light);
+  --grey-border: var(--grey-border-light);
+  --shadow-color: var(--shadow-color-light);
+}
+
+/* Apply dark mode styles when dark class is present */
+body.dark {
+  background-color: var(--page-bg-color-dark);
+  color: var(--text-color-dark);
+  --page-bg-color: var(--page-bg-color-dark);
+  --text-color: var(--text-color-dark);
+  --grey-bg: var(--grey-bg-dark);
+  --grey-border: var(--grey-border-dark);
+  --shadow-color: var(--shadow-color-dark);
 }
 
 a {
