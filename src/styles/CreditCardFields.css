@@ -1,0 +1,60 @@
+.credit-card-fields {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-color, #333);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: var(--input-bg-color, white);
+  color: var(--text-color, #333);
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #4bb6ef;
+  box-shadow: 0 0 0 2px rgba(75, 182, 239, 0.2);
+}
+
+.card-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .input-group input {
+    --input-bg-color: #333;
+    --text-color: #ffffff;
+  }
+  
+  .input-group label {
+    --text-color: #ffffff;
+  }
+}
+
+/* Add responsiveness */
+@media (max-width: 480px) {
+  .card-details {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
