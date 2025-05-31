@@ -155,16 +155,28 @@
 
 .addons-list {
   margin: 20px 0;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  border: 1px solid rgba(75, 182, 239, 0.2);
+  padding: 18px;
+  background: rgba(75, 182, 239, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(75, 182, 239, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.addons-list:hover {
+  background: rgba(75, 182, 239, 0.12);
+  border-color: rgba(75, 182, 239, 0.35);
+  transform: translateY(-1px);
 }
 
 .addons-list h4 {
-  margin-bottom: 12px;
-  color: var(--text-color);
-  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #4bb6ef;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .addons-list ul {
@@ -176,14 +188,34 @@
 .addons-list li {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  align-items: center;
+  margin-bottom: 10px;
   color: var(--text-color);
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(75, 182, 239, 0.1);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(75, 182, 239, 0.15);
+  transition: all 0.2s ease;
+}
+
+.addons-list li:hover {
+  background: rgba(75, 182, 239, 0.05);
+  padding-left: 8px;
+  border-radius: 6px;
 }
 
 .addons-list li:last-child {
   border-bottom: none;
+  margin-bottom: 0;
+}
+
+.addons-list li span:first-child {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.addons-list li span:last-child {
+  font-weight: 600;
+  color: #4bb6ef;
+  font-size: 1.05rem;
 }
 
 .summary-total {
@@ -204,22 +236,40 @@
 
 .customer-info {
   margin-top: 20px;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  border: 1px solid rgba(75, 182, 239, 0.2);
+  padding: 18px;
+  background: rgba(75, 182, 239, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(75, 182, 239, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.customer-info:hover {
+  background: rgba(75, 182, 239, 0.12);
+  border-color: rgba(75, 182, 239, 0.35);
+  transform: translateY(-1px);
 }
 
 .customer-info h4 {
-  margin-bottom: 12px;
-  color: var(--text-color);
-  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #4bb6ef;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .customer-info p {
-  margin: 6px 0;
-  font-size: 0.95rem;
+  margin: 8px 0;
+  font-size: 1rem;
   opacity: 0.9;
+  color: var(--text-color);
+}
+
+.customer-info p strong {
+  color: #4bb6ef;
+  font-weight: 600;
 }
 
 .service-details {
@@ -242,26 +292,7 @@
   color: var(--primary-color);
 }
 
-.addons-list {
-  margin-top: 20px;
-}
 
-.addons-list h4 {
-  margin-bottom: 12px;
-  color: var(--text-color);
-}
-
-.addons-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.addons-list li {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  color: var(--text-color-light);
-}
 
 .payment-methods {
   margin-top: 40px;
@@ -578,15 +609,23 @@
   .price {
     font-size: 1.2rem;
   }
-
   .addons-list {
     margin: 15px 0;
-    padding: 12px;
+    padding: 15px;
+  }
+
+  .addons-list h4 {
+    font-size: 1.05rem;
+    margin-bottom: 12px;
   }
 
   .addons-list li {
-    padding: 6px 0;
-    font-size: 0.9rem;
+    padding: 10px 0;
+    font-size: 0.95rem;
+  }
+
+  .addons-list li span:last-child {
+    font-size: 1rem;
   }
 
   .summary-total {
