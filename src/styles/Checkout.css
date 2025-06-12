@@ -580,3 +580,31 @@
   filter: invert(1);
   opacity: 0.7;
 }
+
+.payment-container {
+  max-width: 800px;
+  margin: 120px auto 40px; /* Increased top margin to account for navbar */
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.payment-title {
+  font-size: 2rem;
+  color: #4bb6ef;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .payment-container {
+    margin-top: 100px; /* Slightly less top margin on mobile */
+    padding: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
