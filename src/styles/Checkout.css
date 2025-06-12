@@ -247,9 +247,14 @@
   cursor: not-allowed;
 }
 
+/* Error message styling */
 .error-message {
-  color: #e74c3c;
-  margin-top: 0.5rem;
+  color: #ff4444;
+  font-size: 0.875rem;
+  margin-top: 5px;
+  display: block;
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 .success-icon {
@@ -507,4 +512,28 @@
   .form-row {
     grid-template-columns: 1fr;
   }
+}
+
+/* Date input specific styles */
+.form-group input[type="date"] {
+  font-family: inherit;
+  color-scheme: dark;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.form-group input[type="date"]:invalid,
+.form-group input[type="date"].error {
+  border-color: #ff4444;
+}
+
+/* Updated form group input focus state for date */
+.form-group input[type="date"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }

@@ -8,7 +8,8 @@ import { services } from '../data/servicesData';
 
 function Checkout() {
   const location = useLocation();
-  const navigate = useNavigate();  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
@@ -22,11 +23,19 @@ function Checkout() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [dateError, setDateError] = useState('');
   const [agreementChecked, setAgreementChecked] = useState(false);
   
   // Get package details from location state
   const { serviceSlug, addons, totalPrice } = location.state || {};
   const service = services.find(s => s.slug === serviceSlug);
+  
+  // Helper function to get tomorrow's date for min attribute
+  const getMinDate = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0];
+  };
   
   // Redirect to services if there's no selected package
   useEffect(() => {
@@ -37,9 +46,37 @@ function Checkout() {
 
   const basePrice = service ? parseInt(service.info.pricing.replace(/[^0-9]/g, '')) : 0;
   
+  const validateDate = (selectedDate) => {
+    // Get today's date and reset time to midnight for accurate comparison
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Get tomorrow's date
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    
+    // Convert selected date string to Date object
+    const chosenDate = new Date(selectedDate + 'T00:00:00');
+    
+    // Compare using timestamps for accurate date comparison
+    if (chosenDate.getTime() <= today.getTime()) {
+      setDateError('Please select tomorrow or a future date');
+      return false;
+    }
+    
+    setDateError('');
+    return true;
+  };
+
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    
+    if (name === 'serviceDate') {
+      validateDate(value);
+    }
+
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -52,6 +89,11 @@ function Checkout() {
     
     if (!agreementChecked) {
       setSubmitError('Please agree to the Terms of Service and Privacy Policy before submitting.');
+      return;
+    }
+
+    // Validate the service date
+    if (!validateDate(formData.serviceDate)) {
       return;
     }
 
@@ -323,7 +365,9 @@ function Checkout() {
                   value={formData.serviceDate}
                   onChange={handleInputChange}
                   required
+                  min={getMinDate()} // Set minimum date to tomorrow
                 />
+                {dateError && <div className="error-message">{dateError}</div>}
               </div>
               
               <div className="form-group">
