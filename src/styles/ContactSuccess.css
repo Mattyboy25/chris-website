@@ -1,52 +1,48 @@
 .contact-success-container {
   max-width: 800px;
-  margin: 120px auto 60px; /* Added top margin to clear navbar */
+  margin: 120px auto 60px;
   padding: 40px 20px;
   text-align: center;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .success-title {
-  color: #4bb6ef;
+  color: #4CAF50;
   font-size: 2.5rem;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  width: 100%;
   font-weight: 700;
   text-align: center;
-  background: linear-gradient(135deg, #4bb6ef, #2d8bc7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+}
+
+.customer-name {
+  color: #2196F3;
 }
 
 .checkmark-wrapper {
-  width: 600px; /* Increased wrapper size */
-  height: 600px;
-  margin: 20px auto;
-  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .checkmark {
   width: 100%;
   height: 100%;
   display: block;
-  stroke-width: 6; /* Increased stroke width for visibility */
-  stroke: #4bb6ef;
-  stroke-miterlimit: 10;
-  transform-origin: center;
-  transform: scale(5); /* Increased scale factor */
 }
 
 .checkmark-circle {
+  stroke: #4CAF50;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
-  stroke-width: 6;
-  stroke-miterlimit: 10;
   fill: none;
   animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 }
@@ -55,102 +51,66 @@
   transform-origin: 50% 50%;
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
-  stroke-width: 6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke: #4bb6ef;
-  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+  stroke-width: 3;
+  stroke: #4CAF50;
+  fill: none;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+}
+
+.confirmation-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 30px;
+  margin: 20px 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
 }
 
 .success-message {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #666;
-  max-width: 600px;
+  margin-bottom: 30px;
   line-height: 1.6;
-  margin-top: 2rem;
-  text-align: center;
 }
 
 .next-steps {
-  margin-top: 3rem;
-  padding: 2rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  width: 100%;
+  text-align: left;
+  margin: 30px 0;
 }
 
 .next-steps h3 {
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
-  color: #333;
+  color: #2196F3;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
 }
 
 .next-steps ol {
-  padding-left: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding-left: 20px;
 }
 
 .next-steps li {
-  font-size: 1.1rem;
-  line-height: 1.8;
   color: #666;
+  margin-bottom: 15px;
+  line-height: 1.4;
 }
 
 .home-button {
   display: inline-block;
-  background: #4CAF50;
+  padding: 12px 30px;
+  background: #2196F3;
   color: white;
-  padding: 0.8rem 1.5rem;
-  border-radius: 4px;
   text-decoration: none;
+  border-radius: 25px;
   font-weight: 600;
   transition: all 0.3s ease;
-  margin-top: 1rem;
+  margin-top: 20px;
 }
 
 .home-button:hover {
-  background: #45a049;
+  background: #1976D2;
   transform: translateY(-2px);
-}
-
-/* Dark mode styles */
-.dark .success-title {
-  background: linear-gradient(135deg, #6FCF97, #4CAF50);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.dark .checkmark-circle,
-.dark .checkmark-check {
-  stroke: #6FCF97;
-}
-
-.dark .success-message {
-  color: #ccc;
-}
-
-.dark .next-steps {
-  background-color: #2a2a2a;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-}
-
-.dark .next-steps h3 {
-  color: #f0f0f0;
-}
-
-.dark .next-steps li {
-  color: #ccc;
-}
-
-.dark .home-button {
-  background: #6FCF97;
-}
-
-.dark .home-button:hover {
-  background: #4CAF50;
+  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
 }
 
 @keyframes stroke {
@@ -166,17 +126,24 @@
     padding: 20px;
   }
 
-  .checkmark-wrapper {
-    width: 400px;
-    height: 400px;
-  }
-
-  .checkmark {
-    transform: scale(4);
-    stroke-width: 5;
-  }
-  
   .success-title {
     font-size: 2rem;
+  }
+
+  .checkmark-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+  .confirmation-box {
+    padding: 20px;
+  }
+
+  .success-message {
+    font-size: 1.1rem;
+  }
+
+  .next-steps h3 {
+    font-size: 1.3rem;
   }
 }

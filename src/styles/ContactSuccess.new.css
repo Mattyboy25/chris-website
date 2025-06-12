@@ -1,0 +1,107 @@
+.contact-success-container {
+  max-width: 800px;
+  margin: 120px auto 60px;
+  padding: 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.success-title {
+  color: #4bb6ef;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  width: 100%;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4bb6ef, #2d8bc7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.checkmark-wrapper {
+  width: 600px;
+  height: 600px;
+  margin: 0 auto 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.checkmark {
+  width: 100%;
+  height: 100%;
+  display: block;
+  stroke-width: 6;
+  stroke: #4bb6ef;
+  stroke-miterlimit: 10;
+  transform-origin: center;
+  transform: scale(5);
+  position: relative;
+  z-index: 3;
+}
+
+.checkmark-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.success-message {
+  font-size: 1.4rem;
+  color: var(--text-color);
+  max-width: 600px;
+  line-height: 1.6;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.next-steps {
+  width: 100%;
+  margin: 40px auto;
+  padding: 30px;
+  background: var(--grey-bg);
+  border-radius: 12px;
+  box-shadow: 0 15px 40px var(--shadow-color);
+  border: 1px solid var(--grey-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .contact-success-container {
+    margin: 100px auto 40px;
+    padding: 20px;
+  }
+
+  .checkmark-wrapper {
+    width: 400px;
+    height: 400px;
+  }
+  
+  .checkmark {
+    transform: scale(4);
+  }
+
+  .success-title {
+    font-size: 2rem;
+  }
+}
