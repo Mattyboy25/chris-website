@@ -364,8 +364,9 @@ function Checkout() {
                   name="serviceDate" 
                   value={formData.serviceDate}
                   onChange={handleInputChange}
+                  className={dateError ? 'error' : ''}
+                  min={getMinDate()}
                   required
-                  min={getMinDate()} // Set minimum date to tomorrow
                 />
                 {dateError && <div className="error-message">{dateError}</div>}
               </div>
