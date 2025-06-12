@@ -12,7 +12,10 @@ function Checkout() {
     fullName: '',
     email: '',
     phone: '',
-    propertyAddress: '',
+    streetAddress: '',
+    city: '',
+    state: '',
+    zipCode: '',
     serviceDate: '',
     notes: ''
   });
@@ -201,20 +204,114 @@ function Checkout() {
                   required
                   placeholder="Your phone number"
                 />
-              </div>
+              </div>              <div className="address-fields">
+                <h3>Property Address for Service *</h3>
+                <div className="form-group">
+                  <label htmlFor="streetAddress">Street Address *</label>
+                  <input
+                    type="text"
+                    id="streetAddress"
+                    name="streetAddress"
+                    value={formData.streetAddress}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="123 Main Street"
+                  />
+                </div>
 
-              <div className="form-group property-address-group">
-                <label htmlFor="propertyAddress">Property Address for Service *</label>
-                <input 
-                  type="text" 
-                  id="propertyAddress" 
-                  name="propertyAddress" 
-                  value={formData.propertyAddress}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Enter the address of the property to be photographed/filmed"
-                />
-                <small className="field-note">This is the address where we will perform the drone photography/videography service, not your personal address.</small>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="city">City *</label>
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="City"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="state">State *</label>
+                    <select
+                      id="state"
+                      name="state"
+                      value={formData.state}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">Select State</option>
+                      <option value="AL">Alabama</option>
+                      <option value="AK">Alaska</option>
+                      <option value="AZ">Arizona</option>
+                      <option value="AR">Arkansas</option>
+                      <option value="CA">California</option>
+                      <option value="CO">Colorado</option>
+                      <option value="CT">Connecticut</option>
+                      <option value="DE">Delaware</option>
+                      <option value="FL">Florida</option>
+                      <option value="GA">Georgia</option>
+                      <option value="HI">Hawaii</option>
+                      <option value="ID">Idaho</option>
+                      <option value="IL">Illinois</option>
+                      <option value="IN">Indiana</option>
+                      <option value="IA">Iowa</option>
+                      <option value="KS">Kansas</option>
+                      <option value="KY">Kentucky</option>
+                      <option value="LA">Louisiana</option>
+                      <option value="ME">Maine</option>
+                      <option value="MD">Maryland</option>
+                      <option value="MA">Massachusetts</option>
+                      <option value="MI">Michigan</option>
+                      <option value="MN">Minnesota</option>
+                      <option value="MS">Mississippi</option>
+                      <option value="MO">Missouri</option>
+                      <option value="MT">Montana</option>
+                      <option value="NE">Nebraska</option>
+                      <option value="NV">Nevada</option>
+                      <option value="NH">New Hampshire</option>
+                      <option value="NJ">New Jersey</option>
+                      <option value="NM">New Mexico</option>
+                      <option value="NY">New York</option>
+                      <option value="NC">North Carolina</option>
+                      <option value="ND">North Dakota</option>
+                      <option value="OH">Ohio</option>
+                      <option value="OK">Oklahoma</option>
+                      <option value="OR">Oregon</option>
+                      <option value="PA">Pennsylvania</option>
+                      <option value="RI">Rhode Island</option>
+                      <option value="SC">South Carolina</option>
+                      <option value="SD">South Dakota</option>
+                      <option value="TN">Tennessee</option>
+                      <option value="TX">Texas</option>
+                      <option value="UT">Utah</option>
+                      <option value="VT">Vermont</option>
+                      <option value="VA">Virginia</option>
+                      <option value="WA">Washington</option>
+                      <option value="WV">West Virginia</option>
+                      <option value="WI">Wisconsin</option>
+                      <option value="WY">Wyoming</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="zipCode">ZIP Code *</label>
+                    <input
+                      type="text"
+                      id="zipCode"
+                      name="zipCode"
+                      value={formData.zipCode}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="12345"
+                      maxLength="5"
+                      pattern="[0-9]{5}"
+                    />
+                  </div>
+                </div>
+                <small className="field-note">This is the address where we will perform the drone photography/videography service.</small>
               </div>
               
               <div className="form-group">
