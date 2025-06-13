@@ -5,11 +5,8 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaYoutube
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 import ContactSuccess from '../components/ContactSuccess';
-import emailjs from '@emailjs/browser';
+import { sendOrderConfirmation } from '../utils/orderUtils';
 import '../styles/Contact.css';
-
-// Initialize EmailJS with your public key
-emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
 function Contact() {
   const navigate = useNavigate();
@@ -261,22 +258,34 @@ function Contact() {
     form.current.appendChild(hiddenAgreementInput);
     
     console.log('Form data:', formData);
-    console.log('Package details:', packageDetailsText);
+    console.log('Package details:', packageDetailsText);    try {
+      // Prepare services list for the email
+      let services = [];
+      if (selectedPackage) {
+        services.push(selectedPackage.title);
+        selectedAddons.forEach(addon => services.push(addon.name));
+      } else if (formData.service) {
+        services.push(formData.service);
+      }
 
-    try {
-      const result = await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        form.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY      );      
-      console.log('Email sent successfully:', result.text);
-      
-      // Get the customer's name from the form
-      const customerName = form.current.querySelector('input[name="name"]').value;
-      
-      // Navigate to success page with the name in URL parameters
-      navigate(`/contact-success?name=${encodeURIComponent(customerName)}`);
-      
+      // Send order confirmation
+      const result = await sendOrderConfirmation({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        services: services,
+        message: `${formData.message}\n\n${packageDetailsText}`
+      });
+
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to send order confirmation');
+      }
+
+      console.log('Order confirmation sent successfully:', result);
+
+      // Navigate to success page with name and order number
+      navigate(`/contact-success?name=${encodeURIComponent(formData.name)}&orderNumber=${encodeURIComponent(result.orderNumber)}`);
+
       // Reset form data
       setFormData({
         name: '',
@@ -287,10 +296,10 @@ function Contact() {
         message: '',
         packageDetails: ''
       });
-      
+
       // Reset checkbox
       setAgreementChecked(false);
-      
+
       // Clear the addons from localStorage after successful submission
       if (selectedPackage) {
         localStorage.removeItem(`selected_addons_${selectedPackage.slug}`);

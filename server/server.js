@@ -3,11 +3,75 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// Create transporter for emails
+const transporter = nodemailer.createTransport({
+  host: process.env.EMAIL_HOST,
+  port: Number(process.env.EMAIL_PORT),
+  secure: process.env.EMAIL_SECURE === 'true',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
+// Verify email connection
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('SMTP connection error:', error);
+  } else {
+    console.log('Server is ready to send emails');
+  }
+});
+
+// Email order confirmation endpoint
+app.post('/api/send-order', async (req, res) => {
+  try {
+    const { name, email, phone, services, message } = req.body;
+    const orderNumber = crypto.randomBytes(4).toString('hex').toUpperCase();
+
+    const emailContent = `
+      <h2>New Booking Request</h2>
+      <p><strong>Order Number:</strong> ${orderNumber}</p>
+      <h3>Customer Details:</h3>
+      <ul>
+        <li><strong>Name:</strong> ${name}</li>
+        <li><strong>Email:</strong> ${email}</li>
+        <li><strong>Phone:</strong> ${phone}</li>
+        <li><strong>Services:</strong> ${services}</li>
+        <li><strong>Message:</strong> ${message || 'No message provided'}</li>
+      </ul>
+    `;
+
+    await transporter.sendMail({
+      from: `"Upward Drone Services" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_TO,
+      subject: `New Booking Request - Order #${orderNumber}`,
+      html: emailContent,
+      replyTo: email
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Order confirmation sent successfully',
+      orderNumber
+    });
+
+  } catch (error) {
+    console.error('Email error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to send order confirmation'
+    });
+  }
+});
 
 // Create a payment session endpoint
 app.post('/api/create-payment-session', async (req, res) => {

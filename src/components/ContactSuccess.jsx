@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import generateOrderNumber from '../utils/orderUtils';
 import '../styles/ContactSuccess.css';
 
-const ContactSuccess = () => {
-  const [orderNumber, setOrderNumber] = useState('');
-  const location = useLocation();
+const ContactSuccess = () => {  const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const customerName = searchParams.get('name') || '';
+  const customerName = searchParams.get('name');
+  const orderNumber = searchParams.get('orderNumber');
+  
+  console.log('URL Parameters:', location.search);
+  console.log('Customer Name from URL:', customerName);
+  console.log('Order Number:', orderNumber);
 
-  useEffect(() => {
-    // Generate order number when component mounts
-    setOrderNumber(generateOrderNumber());
-  }, []);
-
-  return (
-    <div className="success-container">
+  return (    <div className="success-container">
       <h1 className="success-heading">
         Thank You for Your Order{customerName ? `, ${customerName}` : ''}!
       </h1>
       
-      <div className="order-number">
-        Order #: {orderNumber}
-      </div>
-
       <div className="checkmark-container">
         <svg 
           className="success-checkmark" 
@@ -43,14 +35,17 @@ const ContactSuccess = () => {
             d="M14.1 27.2l7.1 7.2 16.7-16.8"
           />
         </svg>
-      </div>
-
-      <div className="confirmation-box">
-        <p className="confirmation-message">
+      </div>      <div className="confirmation-box">        <p className="confirmation-message">
           Your booking request has been received. We'll be in touch within 24 hours to confirm your appointment.
-          <br /><br />
-          Your order confirmation number: <strong>{orderNumber}</strong>
         </p>
+
+        {orderNumber && (
+          <div className="order-number">
+            <p>Your Order Number</p>
+            <h2>{orderNumber}</h2>
+            <p className="order-note">Please save this number for your records.</p>
+          </div>
+        )}
         
         <div className="next-steps">
           <h3>What happens next?</h3>

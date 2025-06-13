@@ -14,19 +14,6 @@
   animation: fadeIn 0.5s ease-out;
 }
 
-.order-number {
-  font-size: 1.2rem;
-  color: #4bb6ef;
-  margin: 20px 0;
-  padding: 12px 24px;
-  background: rgba(75, 182, 239, 0.1);
-  border: 1px solid rgba(75, 182, 239, 0.2);
-  border-radius: 8px;
-  display: inline-block;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
 .customer-name {
   color: #4bb6ef;
   font-weight: 600;
@@ -74,14 +61,15 @@
 }
 
 .confirmation-box {
-  background: rgba(31, 31, 31, 0.95);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(75, 182, 239, 0.3);
   border-radius: 12px;
   padding: 30px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   margin-bottom: 120px;
-  color: #fff;
+  position: relative;
+  z-index: 11;
 }
 
 .success-message {
@@ -95,16 +83,6 @@
   color: #fff;
   font-size: 1.2rem;
   margin-bottom: 30px;
-  line-height: 1.6;
-}
-
-.confirmation-message strong {
-  color: #4bb6ef;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  background: rgba(75, 182, 239, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
 }
 
 .next-steps {
@@ -159,6 +137,38 @@
 .return-home-btn:hover {
   background: #3a91c1;
   transform: translateY(-2px);
+}
+
+.order-number {
+  background: rgba(76, 175, 80, 0.1);
+  border: 2px solid rgba(76, 175, 80, 0.3);
+  border-radius: 12px;
+  padding: 30px;
+  margin: 30px auto;
+  max-width: 400px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.order-number p {
+  color: #4CAF50;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.order-number h2 {
+  color: #4CAF50;
+  font-size: 2.5rem;
+  font-family: monospace;
+  margin: 15px 0;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.order-number .order-note {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: 15px;
 }
 
 @keyframes stroke {
@@ -222,5 +232,22 @@
 
   .next-steps h3 {
     font-size: 1.3rem;
+  }
+
+  .order-number {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  .order-number h2 {
+    font-size: 2rem;
+  }
+
+  .order-number p {
+    font-size: 1rem;
+  }
+
+  .order-number .order-note {
+    font-size: 0.8rem;
   }
 }
