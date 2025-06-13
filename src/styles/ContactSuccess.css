@@ -1,70 +1,68 @@
-.contact-success-container {
+.success-container {
   max-width: 800px;
   margin: 120px auto 60px;
-  padding: 40px 20px;
+  padding: 20px;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.success-title {
+.success-heading {
   color: #4CAF50;
   font-size: 2.5rem;
   margin-bottom: 40px;
-  width: 100%;
-  font-weight: 700;
-  text-align: center;
 }
 
 .customer-name {
-  color: #2196F3;
+  color: #4bb6ef;
 }
 
-.checkmark-wrapper {
-  width: 120px;
-  height: 120px;
+.checkmark-container {
+  width: 600px;
+  height: 600px;
   margin: 0 auto 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
 
-.checkmark {
+.success-checkmark {
   width: 100%;
   height: 100%;
   display: block;
-}
-
-.checkmark-circle {
   stroke: #4CAF50;
   stroke-width: 3;
   stroke-miterlimit: 10;
-  stroke-dasharray: 166;
-  stroke-dashoffset: 166;
-  fill: none;
-  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  transform-origin: center;
+  transform: scale(1);
 }
 
-.checkmark-check {
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  stroke: #4CAF50;
+}
+
+.checkmark-path {
   transform-origin: 50% 50%;
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
   stroke-width: 3;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+  animation-fill-mode: forwards;
   stroke: #4CAF50;
-  fill: none;
-  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
 }
 
 .confirmation-box {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(75, 182, 239, 0.3);
+  border-radius: 12px;
   padding: 30px;
-  margin: 20px 0;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  margin-bottom: 40px;
 }
 
 .success-message {
@@ -74,25 +72,30 @@
   line-height: 1.6;
 }
 
+.confirmation-message {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
 .next-steps {
   text-align: left;
   margin: 30px 0;
 }
 
 .next-steps h3 {
-  color: #2196F3;
+  color: #4bb6ef;
   margin-bottom: 20px;
-  font-size: 1.5rem;
 }
 
 .next-steps ol {
   padding-left: 20px;
+  list-style-type: decimal;
 }
 
 .next-steps li {
-  color: #666;
+  color: #fff;
   margin-bottom: 15px;
-  line-height: 1.4;
 }
 
 .home-button {
@@ -107,10 +110,26 @@
   margin-top: 20px;
 }
 
+.return-home-btn {
+  display: inline-block;
+  background: #4bb6ef;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
 .home-button:hover {
   background: #1976D2;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+}
+
+.return-home-btn:hover {
+  background: #3a91c1;
+  transform: translateY(-2px);
 }
 
 @keyframes stroke {
@@ -121,8 +140,17 @@
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-  .contact-success-container {
+  .success-container {
     margin: 100px auto 40px;
+    padding: 15px;
+  }
+
+  .checkmark-container {
+    width: 400px;
+    height: 400px;
+  }
+
+  .confirmation-box {
     padding: 20px;
   }
 
