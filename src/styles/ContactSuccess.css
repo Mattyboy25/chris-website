@@ -16,8 +16,8 @@
 }
 
 .checkmark-container {
-  width: 400px;  /* Reduced from 600px */
-  height: 400px; /* Reduced from 600px */
+  width: 300px;  /* Reduced from 400px */
+  height: 300px; /* Reduced from 400px */
   margin: 0 auto 40px;
   display: flex;
   align-items: center;
@@ -29,7 +29,7 @@
   height: 100%;
   display: block;
   stroke: #4CAF50;
-  stroke-width: 4; /* Slightly increased for better visibility at smaller size */
+  stroke-width: 4;
   stroke-miterlimit: 10;
   transform-origin: center;
   transform: scale(1);
@@ -144,10 +144,9 @@
     margin: 100px auto 40px;
     padding: 15px;
   }
-
   .checkmark-container {
-    width: 300px;  /* Reduced from 400px */
-    height: 300px; /* Reduced from 400px */
+    width: 250px;  /* Reduced from 300px */
+    height: 250px; /* Reduced from 300px */
   }
 
   .confirmation-box {
