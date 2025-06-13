@@ -1,8 +1,10 @@
 .success-container {
   max-width: 800px;
-  margin: 120px auto 60px;
+  margin: 120px auto 240px;
   padding: 20px;
   text-align: center;
+  position: relative;
+  z-index: 10;
 }
 
 .success-heading {
@@ -62,7 +64,9 @@
   padding: 30px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  margin-bottom: 40px;
+  margin-bottom: 120px;
+  position: relative;
+  z-index: 11;
 }
 
 .success-message {
@@ -138,18 +142,28 @@
   }
 }
 
+/* Update footer position */
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  z-index: 5;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .success-container {
-    margin: 100px auto 40px;
+    margin: 100px auto 200px;
     padding: 15px;
   }
+
   .checkmark-container {
     width: 250px;  /* Reduced from 300px */
     height: 250px; /* Reduced from 300px */
   }
 
   .confirmation-box {
+    margin-bottom: 100px;
     padding: 20px;
   }
 
