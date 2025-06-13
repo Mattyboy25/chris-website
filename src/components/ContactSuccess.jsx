@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import generateOrderNumber from '../utils/orderUtils';
 import '../styles/ContactSuccess.css';
 
 const ContactSuccess = () => {
+  const [orderNumber, setOrderNumber] = useState('');
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const customerName = searchParams.get('name');
-  
-  console.log('URL Parameters:', location.search);
-  console.log('Customer Name from URL:', customerName);
+  const customerName = searchParams.get('name') || '';
 
-  return (    <div className="success-container">
+  useEffect(() => {
+    // Generate order number when component mounts
+    setOrderNumber(generateOrderNumber());
+  }, []);
+
+  return (
+    <div className="success-container">
       <h1 className="success-heading">
         Thank You for Your Order{customerName ? `, ${customerName}` : ''}!
       </h1>
       
+      <div className="order-number">
+        Order #: {orderNumber}
+      </div>
+
       <div className="checkmark-container">
         <svg 
           className="success-checkmark" 
@@ -34,9 +43,13 @@ const ContactSuccess = () => {
             d="M14.1 27.2l7.1 7.2 16.7-16.8"
           />
         </svg>
-      </div>      <div className="confirmation-box">
+      </div>
+
+      <div className="confirmation-box">
         <p className="confirmation-message">
           Your booking request has been received. We'll be in touch within 24 hours to confirm your appointment.
+          <br /><br />
+          Your order confirmation number: <strong>{orderNumber}</strong>
         </p>
         
         <div className="next-steps">
