@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaYoutube, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
@@ -12,6 +12,7 @@ import '../styles/Contact.css';
 emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
 function Contact() {
+  const navigate = useNavigate();
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [selectedAddons, setSelectedAddons] = useState([]);
@@ -24,7 +25,7 @@ function Contact() {
       console.error('EmailJS not initialized properly');
     }
 
-    // Get package details from URL
+    // Get package data from URL
     const urlParams = new URLSearchParams(window.location.search);
     const serviceSlug = urlParams.get('service');
     const customPrice = urlParams.get('customPrice');
@@ -267,9 +268,16 @@ function Contact() {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         form.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );      console.log('Email sent successfully:', result.text);
-      setShowSuccess(true);
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY      );      
+      console.log('Email sent successfully:', result.text);
+      
+      // Get the customer's name from the form
+      const customerName = form.current.querySelector('input[name="name"]').value;
+      
+      // Navigate to success page with the name in URL parameters
+      navigate(`/contact-success?name=${encodeURIComponent(customerName)}`);
+      
+      // Reset form data
       setFormData({
         name: '',
         email: '',

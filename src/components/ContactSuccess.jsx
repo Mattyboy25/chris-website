@@ -4,11 +4,15 @@ import '../styles/ContactSuccess.css';
 
 const ContactSuccess = () => {
   const location = useLocation();
-  const customerName = location.state?.customerInfo?.name || 'Valued Customer';
+  const searchParams = new URLSearchParams(location.search);
+  const customerName = searchParams.get('name');
+  
+  console.log('URL Parameters:', location.search);
+  console.log('Customer Name from URL:', customerName);
 
   return (    <div className="success-container">
       <h1 className="success-heading">
-        Thank You for Your Order, <span className="customer-name">{customerName}</span>!
+        Thank You for Your Order{customerName ? `, ${customerName}` : ''}!
       </h1>
       
       <div className="checkmark-container">
