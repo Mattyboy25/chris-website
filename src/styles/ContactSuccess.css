@@ -16,8 +16,8 @@
 }
 
 .checkmark-container {
-  width: 600px;
-  height: 600px;
+  width: 400px;  /* Reduced from 600px */
+  height: 400px; /* Reduced from 600px */
   margin: 0 auto 40px;
   display: flex;
   align-items: center;
@@ -29,7 +29,7 @@
   height: 100%;
   display: block;
   stroke: #4CAF50;
-  stroke-width: 3;
+  stroke-width: 4; /* Slightly increased for better visibility at smaller size */
   stroke-miterlimit: 10;
   transform-origin: center;
   transform: scale(1);
@@ -146,8 +146,8 @@
   }
 
   .checkmark-container {
-    width: 400px;
-    height: 400px;
+    width: 300px;  /* Reduced from 400px */
+    height: 300px; /* Reduced from 400px */
   }
 
   .confirmation-box {
