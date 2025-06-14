@@ -209,8 +209,7 @@ function Contact() {
     }
     setServiceDropdownOpen(false);
   };
-  
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Verify agreement checkbox is checked
@@ -220,9 +219,7 @@ function Contact() {
     }
     
     setIsSubmitting(true);
-
-    console.log('Service ID:', import.meta.env.VITE_EMAILJS_SERVICE_ID);
-    console.log('Template ID:', import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
+    console.log('Form Data:', formData); // Debug log
     
     // Prepare package details for form submission
     let packageDetailsText = '';
@@ -241,25 +238,12 @@ function Contact() {
         });
       }
       packageDetailsText += `\nTotal Price: $${totalPrice}`;
-      
-      // Add package details to form data
-      const hiddenPackageInput = document.createElement('input');
-      hiddenPackageInput.type = 'hidden';
-      hiddenPackageInput.name = 'packageDetails';
-      hiddenPackageInput.value = packageDetailsText;
-      form.current.appendChild(hiddenPackageInput);
     }
     
-    // Add a hidden field for terms agreement
-    const hiddenAgreementInput = document.createElement('input');
-    hiddenAgreementInput.type = 'hidden';
-    hiddenAgreementInput.name = 'termsAgreed';
-    hiddenAgreementInput.value = 'Yes, agreed to Terms and Privacy Policy';
-    form.current.appendChild(hiddenAgreementInput);
-    
-    console.log('Form data:', formData);
-    console.log('Package details:', packageDetailsText);    try {
-      // Prepare services list for the email
+    console.log('Package details:', packageDetailsText); // Debug log
+
+    try {
+      // Prepare services list
       let services = [];
       if (selectedPackage) {
         services.push(selectedPackage.title);
@@ -268,23 +252,38 @@ function Contact() {
         services.push(formData.service);
       }
 
-      // Send order confirmation
-      const result = await sendOrderConfirmation({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        services: services,
-        message: `${formData.message}\n\n${packageDetailsText}`
+      console.log('Sending booking data...'); // Debug log
+      const response = await fetch('http://localhost:3001/api/submit-booking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address || '',
+          services: services,
+          message: formData.message,
+          packageDetails: packageDetailsText
+        })
       });
 
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to send order confirmation');
+      console.log('Server Response:', response); // Debug log
+      const data = await response.json();
+      console.log('Response Data:', data); // Debug log
+
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to send booking');
       }
 
-      console.log('Order confirmation sent successfully:', result);
-
-      // Navigate to success page with name and order number
-      navigate(`/contact-success?name=${encodeURIComponent(formData.name)}&orderNumber=${encodeURIComponent(result.orderNumber)}`);
+      // Navigate to success page
+      navigate('/contact-success', {
+        state: { 
+          customerInfo: { name: formData.name },
+          orderNumber: data.orderNumber
+        }
+      });
 
       // Reset form data
       setFormData({
@@ -296,30 +295,19 @@ function Contact() {
         message: '',
         packageDetails: ''
       });
-
+      
       // Reset checkbox
       setAgreementChecked(false);
-
-      // Clear the addons from localStorage after successful submission
+      
+      // Clear the addons from localStorage
       if (selectedPackage) {
         localStorage.removeItem(`selected_addons_${selectedPackage.slug}`);
       }
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Submission error:', error);
       alert('There was an error sending your message. Please try again later.');
     } finally {
       setIsSubmitting(false);
-      
-      // Remove the dynamically added hidden inputs
-      const hiddenPackageInput = form.current.querySelector('input[name="packageDetails"]');
-      if (hiddenPackageInput) {
-        form.current.removeChild(hiddenPackageInput);
-      }
-      
-      const hiddenAgreementInput = form.current.querySelector('input[name="termsAgreed"]');
-      if (hiddenAgreementInput) {
-        form.current.removeChild(hiddenAgreementInput);
-      }
     }
   };
 

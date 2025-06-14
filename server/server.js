@@ -12,6 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Create transporter for emails
+console.log('Initializing email configuration...'); // Debug log
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: Number(process.env.EMAIL_PORT),
@@ -23,6 +24,15 @@ const transporter = nodemailer.createTransport({
 });
 
 // Verify email connection
+console.log('Verifying email configuration...'); // Debug log
+console.log('Email Config:', {
+  host: process.env.EMAIL_HOST,
+  port: process.env.EMAIL_PORT,
+  secure: process.env.EMAIL_SECURE === 'true',
+  user: process.env.EMAIL_USER,
+  to: process.env.EMAIL_TO
+}); // Debug log
+
 transporter.verify((error, success) => {
   if (error) {
     console.error('SMTP connection error:', error);
@@ -31,47 +41,7 @@ transporter.verify((error, success) => {
   }
 });
 
-// Email order confirmation endpoint
-app.post('/api/send-order', async (req, res) => {
-  try {
-    const { name, email, phone, services, message } = req.body;
-    const orderNumber = crypto.randomBytes(4).toString('hex').toUpperCase();
 
-    const emailContent = `
-      <h2>New Booking Request</h2>
-      <p><strong>Order Number:</strong> ${orderNumber}</p>
-      <h3>Customer Details:</h3>
-      <ul>
-        <li><strong>Name:</strong> ${name}</li>
-        <li><strong>Email:</strong> ${email}</li>
-        <li><strong>Phone:</strong> ${phone}</li>
-        <li><strong>Services:</strong> ${services}</li>
-        <li><strong>Message:</strong> ${message || 'No message provided'}</li>
-      </ul>
-    `;
-
-    await transporter.sendMail({
-      from: `"Upward Drone Services" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_TO,
-      subject: `New Booking Request - Order #${orderNumber}`,
-      html: emailContent,
-      replyTo: email
-    });
-
-    res.status(200).json({
-      success: true,
-      message: 'Order confirmation sent successfully',
-      orderNumber
-    });
-
-  } catch (error) {
-    console.error('Email error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to send order confirmation'
-    });
-  }
-});
 
 // Create a payment session endpoint
 app.post('/api/create-payment-session', async (req, res) => {
@@ -198,6 +168,93 @@ app.post('/api/webhook', bodyParser.raw({ type: 'application/json' }), async (re
   }
 
   res.json({ received: true });
+});
+
+// Booking submission endpoint
+app.post('/api/submit-booking', async (req, res) => {
+  try {
+    console.log('Received booking request:', req.body); // Debug log
+
+    const { 
+      name, 
+      email, 
+      phone, 
+      address,
+      services,
+      message,
+      packageDetails,
+      paymentIntent,
+      totalPrice
+    } = req.body;
+    
+    console.log('Generating email content...'); // Debug log
+
+    // Generate a unique order number
+    const orderNumber = `ORD-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
+
+    const mailOptions = {
+      from: '"Upward Drone Services" <${process.env.EMAIL_USER}>',
+      to: process.env.EMAIL_TO,
+      subject: `📸 New Booking - ${name} (Order #${orderNumber})`,
+      html: `
+        <h2>New Booking Details</h2>
+        
+        <h3>Order Information:</h3>
+        <ul>
+          <li><strong>Order Number:</strong> ${orderNumber}</li>
+          <li><strong>Total Price:</strong> $${totalPrice}</li>
+          <li><strong>Payment Status:</strong> ${paymentIntent ? 'Payment Initiated' : 'No Payment Required'}</li>
+          ${paymentIntent ? `<li><strong>Payment ID:</strong> ${paymentIntent.id}</li>` : ''}
+        </ul>
+
+        <h3>Client Information:</h3>
+        <ul>
+          <li><strong>Name:</strong> ${name}</li>
+          <li><strong>Email:</strong> ${email}</li>
+          <li><strong>Phone:</strong> ${phone}</li>
+          <li><strong>Address:</strong> ${address}</li>
+        </ul>
+
+        <h3>Service Details:</h3>
+        <ul>
+          <li><strong>Selected Services:</strong> ${Array.isArray(services) ? services.join(', ') : services}</li>
+        </ul>
+
+        ${packageDetails ? `
+        <h3>Package Details:</h3>
+        <pre>${packageDetails}</pre>
+        ` : ''}
+
+        ${message ? `
+        <h3>Additional Notes:</h3>
+        <p>${message}</p>
+        ` : ''}
+      `,
+      replyTo: email
+    };    console.log('SMTP Config:', {
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      secure: process.env.EMAIL_SECURE === 'true',
+      user: process.env.EMAIL_USER,
+      to: process.env.EMAIL_TO
+    }); // Debug log
+
+    console.log('Attempting to send email...'); // Debug log
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully!'); // Debug log
+
+    res.status(200).json({ 
+      success: true,
+      message: 'Booking submitted successfully',
+      orderNumber
+    });
+
+  } catch (error) {    console.error('Email error:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Error processing booking'
+    });
+  }
 });
 
 const PORT = process.env.PORT || 3001;
